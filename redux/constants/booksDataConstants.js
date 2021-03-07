@@ -1,0 +1,7 @@
+const booksDataConstants = {
+  SET_ALL_ACTIVE_BOOKS: "SET_ALL_ACTIVE_BOOKS",
+  SET_EXISTING_CUSTOMERS: "SET_EXISTING_CUSTOMERS",
+  RESET_BOOKS_DATA_STATE: "RESET_BOOKS_DATA_STATE"
+}
+
+export default booksDataConstants

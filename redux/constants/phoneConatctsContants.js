@@ -1,0 +1,8 @@
+const phoneContactsConstants = {
+  SET_CONTACTS: 'SET_CONTACTS',
+  SET_INDEXING_ARRAY: 'SET_INDEXING_ARRAY',
+  SET_IS_READY: 'SET_IS_READY',
+  RESET_PHONE_CONTACTS_STATE: 'RESET_PERSONALS_STATE'
+}
+
+export default phoneContactsConstants
