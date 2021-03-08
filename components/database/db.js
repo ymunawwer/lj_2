@@ -3,7 +3,7 @@ import * as SQLite from 'expo-sqlite';
 import storeObject from "../../store/store";
 
 
-const db = SQLite.openDatabase("ljdbtest64.db");
+const db = SQLite.openDatabase("ljdbtest65.db");
 
 
 class database {
@@ -245,7 +245,7 @@ class database {
                     [],
                     (tx, results) => {
                         resolve(results)
-                        // console.log('setrecord : Results', results);
+                        // conssole.log('setrecord : Results', results);
                     }, (t, error) => {
                         reject(error)
                         // console.log('setrecord : error : ', error)
