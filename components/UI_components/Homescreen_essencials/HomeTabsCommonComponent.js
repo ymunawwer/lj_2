@@ -109,7 +109,7 @@ function HomeTabsCommonComponents(props) {
 
     // modal data
 
-    const [mRecord, setRecord] = useState(null)
+    const [mRecord, setRecord] = useState([])
     const [mGot, setGot] = useState(null)
     const [mGave, setGave] = useState(null)
     const [mNet, setNet] = useState(null)
