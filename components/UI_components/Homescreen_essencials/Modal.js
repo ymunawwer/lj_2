@@ -28,7 +28,7 @@ class MyModal extends React.Component {
   constructor(props){
     super(props)
     this.state={
-      mRecord:null,
+      mRecord:[],
       mGot:null,
       mGave:null,
       mNet:null,
