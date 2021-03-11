@@ -31,7 +31,7 @@ function ContactScreen(props) {
   const [contactFetchStatus, setContactFetchStatus] = useState(false)
   const [filteredContacts, setFilteredContacts] = useState([])
   const [permStatus, setPermStatus] = useState(false)
-  const [originalContacts, setOriginalContacts] = useState(null)
+  const [originalContacts, setOriginalContacts] = useState([])
   const [countFilteredItems, setCountFilteredItems] = useState(-1)
   const [manualCustomerName, setManualCustomerName] = useState("")
 

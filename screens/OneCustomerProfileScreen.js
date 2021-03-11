@@ -18,6 +18,7 @@ function OneCustomerProfileScreen(props) {
     
     const [activeSwitch, setActiveSwitch] = useState(true)
     const [smsSwitch, setSmsSwitch] = useState(true)
+    const [records, setRecords] = useState(true)
 
     const [isEdit,setIsEdit] = useState('false')
 
@@ -119,7 +120,8 @@ function OneCustomerProfileScreen(props) {
             try {
                 const records = await dbObject.getDetailsOfUser(route.params.phoneNumber, props.personals.currentBookId)
                 console.log('useEffect-',records['_array'].length)
-                if(records['_array'].length>0){
+                if(records['_array'].length>0 && isEdit==='false'){
+                  
 
                     setName(records['_array'][0]['name'])
                     setLimitGave(records['_array'][0]['limitGave']?records['_array'][0]['limitGave']:0)
@@ -361,7 +363,7 @@ function OneCustomerProfileScreen(props) {
           label={"Address:"}
           placeholder={"Address:"}
           value={address}
-          onChangeText = {value=>setName(value)}
+          onChangeText = {value=>setAddress(value)}
 
           
         />

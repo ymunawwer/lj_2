@@ -26,7 +26,7 @@ function OneCustomerScreen(props) {
     const {route, navigation} = props
     
 
-    const [mRecords, setRecords] = useState(null)
+    const [mRecords, setRecords] = useState([])
     const [mNet, setNet] = useState(null)
     const [mIsPos, setIsPos] = useState(null)
     const [inputBoxVisibility, setInputBoxVisibility] = useState(false)
