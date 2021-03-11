@@ -48,9 +48,11 @@ export default function BusinessCard() {
 
 
     async function getTemplates(PersonalData) {
+
+        console.log("Data", PersonalData['_array'])
        
       
-            PersonalData.forEach(function(item) {
+            PersonalData['_array'].forEach(function(item) {
                 fetchTemplate(templateObjects[0].templateRequire)
                     .then(function(str) {
                         const str1 = str.replace("${BUSINESS_NAME}", item.BUSINESS_NAME)
@@ -80,23 +82,17 @@ export default function BusinessCard() {
 
 
     const handleDownload = async (templateId, shouldReturn) => {
-
         try {
             const fileName = templateId + Date.now() + '.png'
-
             const data = await captureRef(viewShotRef.current, {result:"base64"})
-
             await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + "BusinessCards/", {intermediates:true})
             const privateUri = await writeFileAsBase64(data, FileSystem.documentDirectory + "BusinessCards/" + fileName)
             const mediaLibraryUri = await saveCardInMediaLibrary(privateUri, true)
-
             //TODO: save these two uris in database
             console.log(mediaLibraryUri)
-
             if(shouldReturn === true) {
                 return privateUri
             }
-
         }
         catch(e) {
             alert('something went wrong')
@@ -111,7 +107,6 @@ export default function BusinessCard() {
             const mediaUri = await handleDownload(templateId, true)
             console.log(mediaUri)
             await shareMedia(mediaUri, 'image/png', 'Share this Business Card...', 'image/png')
-
         }
         catch(e) {
             console.log(e)

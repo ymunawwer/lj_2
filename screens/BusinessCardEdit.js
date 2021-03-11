@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {View, Text, TextInput, StyleSheet, Picker, TouchableOpacity, ScrollView} from 'react-native';
+import {View, Text, TextInput, StyleSheet, Picker, TouchableOpacity, ScrollView, Alert} from 'react-native';
 import {Entypo} from '@expo/vector-icons';
 import {MaterialIcons} from '@expo/vector-icons';
 import {styles} from '../styles/globalStyle';
@@ -11,7 +11,7 @@ export default function BusinessCardEdit({navigation}) {
     const [USER_NAME,setUserName] = useState(null)
     const [PH_NO,setPhNo] = useState(null)
     const [GST_NO,setGst] = useState(null)
-    const [BUSINESS_TYPE,setBusinessType] = useState('')
+    const [BUSINESS_TYPE,setBusinessType] = useState('Owner')
     const [ADDRESS,setAddress] = useState(null)
     const [EMAIL,setEmail] = useState(null)
     const [DESIGNATION,setDesignation] = useState(null)
@@ -19,9 +19,14 @@ export default function BusinessCardEdit({navigation}) {
     
 
     async function save(){
-        console.log(BUSINESS_NAME , USER_NAME , parseInt(PH_NO) , GST_NO,BUSINESS_TYPE , ADDRESS , EMAIL,DESIGNATION )
-       let data = await dbObject.setVisitingCard(BUSINESS_NAME , USER_NAME , parseInt(PH_NO) , GST_NO,BUSINESS_TYPE , ADDRESS , EMAIL,DESIGNATION );
 
+        console.log(BUSINESS_NAME , USER_NAME , parseInt(PH_NO) , GST_NO,BUSINESS_TYPE , ADDRESS , EMAIL,DESIGNATION )
+        if(!BUSINESS_TYPE || !USER_NAME || !PH_NO || !GST_NO || !BUSINESS_TYPE || !ADDRESS || !EMAIL || !DESIGNATION){
+            Alert.alert("All field mandatory")
+        }else{
+           let data = await dbObject.setVisitingCard(BUSINESS_NAME , USER_NAME , parseInt(PH_NO) , GST_NO,BUSINESS_TYPE , ADDRESS , EMAIL,DESIGNATION );
+           navigation.goBack()
+       }
     }
     return (
         <View style={{backgroundColor: 'white'}}>
@@ -35,7 +40,7 @@ export default function BusinessCardEdit({navigation}) {
                     <Picker
                         style={[{height: 30}]}
                         placeholder={BUSINESS_TYPE}
-                        value={BUSINESS_TYPE}
+                        selectedValue={BUSINESS_TYPE}
                         onValueChange={(itemValue, itemIndex) => setBusinessType(itemValue)}
                     >
                         <Picker.Item label="Owner" value="owner"/>
@@ -45,7 +50,7 @@ export default function BusinessCardEdit({navigation}) {
                     </Picker>
                 </View>
 
-                <TextInput style={[stylesI.TextInput]} placeholder="Mobile Number" value={PH_NO}
+                <TextInput style={[stylesI.TextInput]} placeholder="Mobile Number" value={PH_NO} keyboardType={'numeric'}
     onChangeText={number => setPhNo(number)}/>
                 <Text style={styles.boldText}><MaterialIcons name="business-center" size={24} color="black"/> Business
                     Card Details</Text>
@@ -56,6 +61,7 @@ export default function BusinessCardEdit({navigation}) {
                     <Picker
                         placeholder="Designation"
                         style={[{height: 30}]}
+                        selectedValue={DESIGNATION}
                         onValueChange={(itemValue, itemIndex) => setDesignation(itemValue)}
                     >
                         <Picker.Item label="Office" value="owner"/>
@@ -72,6 +78,7 @@ export default function BusinessCardEdit({navigation}) {
                     <Picker
                         placeholder="Designation"
                         style={[{height: 30}]}
+                        selectedValue={BUSINESS_TYPE}
                         onValueChange={(itemValue, itemIndex) => setDesignation(itemValue)}
                     >
                         <Picker.Item label="Business Type" value="owner"/>
@@ -81,7 +88,7 @@ export default function BusinessCardEdit({navigation}) {
                     </Picker>
                 </View>
 
-                <TextInput style={[stylesI.TextInput]} placeholder="GST Number" value={GST_NO}
+                <TextInput style={[stylesI.TextInput]} placeholder="GST Number" value={GST_NO} selectedValue={GST_NO}
     onChangeText={email => setGst(email)}/>
                 <Text style={styles.boldText}><MaterialIcons name="business-center" size={24} color="black"/> Shop
                     Office Address</Text>
