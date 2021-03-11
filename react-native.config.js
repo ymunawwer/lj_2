@@ -18,12 +18,6 @@ module.exports = {
 			}
 		},
 
-		'react-native-image-picker': {
-			platforms: {
-			  android:null
-		  }
-		},
-
 		'react-native-vector-icons': {
 			platforms: {
 				android:null

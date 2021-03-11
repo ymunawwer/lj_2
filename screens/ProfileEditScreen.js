@@ -10,7 +10,7 @@ import {connect} from "react-redux";
 import {setCurrentBookData, setUser} from "../redux/actions/personalsActions";
 import {setAllActiveBooks} from "../redux/actions/booksDataActions";
 import apiRequest from "../components/Logic_Repository/apiRequest";
-import reactNativeImagePicker from "../components/Logic_Repository/searchLibrary/reactNativeImagePicker";
+import reactNativeImagePicker from "../components/Logic_Repository/reactNativeImagePicker";
 import openImagePickerAsync from "../components/Logic_Repository/openImagePickerAsync";
 
 function ProfileEditScreen(props) {

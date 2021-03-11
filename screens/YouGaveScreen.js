@@ -22,7 +22,7 @@ import storeObject from "../store/store";
 import calculatorButtons from "./UiComponents/calculatorButtons";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import reactNativeImagePicker from "../components/Logic_Repository/searchLibrary/reactNativeImagePicker";
+import reactNativeImagePicker from "../components/Logic_Repository/reactNativeImagePicker";
 import {backupNewCustomerRecord} from "../components/Logic_Repository/backupLogics";
 import openImagePickerAsync from "../components/Logic_Repository/openImagePickerAsync";
 import calcTypes from "../store/reducers/types/calcTypes";
@@ -96,7 +96,7 @@ function YouGaveScreen(props) {
                 setSelectedValue("Cash")
             }
 
-        })
+        })()
       
 
     }, []);
@@ -105,16 +105,22 @@ function YouGaveScreen(props) {
     async function openImagePicker() {
         console.log("image picker clicked...")
         try {
-            const pickerResult = await openImagePickerAsync(true, false)
-            if (pickerResult.cancelled === true) {
-                return;
+            const pickerResult = await reactNativeImagePicker();
+            if (pickerResult.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (pickerResult.errorCode) {
+                console.log('ImagePicker Error: ', pickerResult.errorCode);
+                alert(pickerResult.errorMessage);
+            } else if (pickerResult.customButton) {
+                console.log('User tapped custom button: ', pickerResult.customButton);
+            } else {
+                setSelectedImage(pickerResult.uri)
             }
-            setSelectedImage(pickerResult.uri);
         } catch (e) {
             alert("something went wrong")
             console.log(e)
         }
-    };
+    }
 
 
 
