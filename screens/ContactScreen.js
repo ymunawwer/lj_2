@@ -26,7 +26,7 @@ function ContactScreen(props) {
   let lan = props.personals.currentLan
   const sortType = Contacts.SortTypes.FirstName;
 
-  const [mContacts, setContacts] = useState(null)
+  const [mContacts, setContacts] = useState([])
   const [errorCheckComplete, setErrorCheckComplete] = useState(false);
   const [contactFetchStatus, setContactFetchStatus] = useState(false)
   const [filteredContacts, setFilteredContacts] = useState([])
