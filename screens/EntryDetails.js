@@ -11,7 +11,7 @@ import storeObject from "../store/store";
 
 export default function EntryDetails(props) {
 
-    const [mRecords, setRecords] = useState(null)
+    const [mRecords, setRecords] = useState([])
     const [mIsLoan, setIsLoan] = useState(null)
     
  

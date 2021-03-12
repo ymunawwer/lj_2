@@ -28,12 +28,12 @@ function ContactScreen(props) {
 
   const [mContacts, setContacts] = useState([])
   const [errorCheckComplete, setErrorCheckComplete] = useState(false);
-  const [contactFetchStatus, setContactFetchStatus] = useState(false)
-  const [filteredContacts, setFilteredContacts] = useState([])
-  const [permStatus, setPermStatus] = useState(false)
-  const [originalContacts, setOriginalContacts] = useState([])
-  const [countFilteredItems, setCountFilteredItems] = useState(-1)
-  const [manualCustomerName, setManualCustomerName] = useState("")
+  const [contactFetchStatus, setContactFetchStatus] = useState(false);
+  const [filteredContacts, setFilteredContacts] = useState([]);
+  const [permStatus, setPermStatus] = useState(false);
+  const [originalContacts, setOriginalContacts] = useState([]);
+  const [countFilteredItems, setCountFilteredItems] = useState(-1);
+  const [manualCustomerName, setManualCustomerName] = useState("");
 
   //const searchDebounced = useDebounce((text) => searchContacts(text), 250)
 

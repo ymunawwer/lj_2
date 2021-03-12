@@ -19,7 +19,7 @@ function DuePayableScreen(props) {
   const { navigation } = props
   let lan = props.personals.currentLan
 
-  const [duePayableRecord, setDuePayable] = useState(null)
+  const [duePayableRecord, setDuePayable] = useState([])
    console.log("Props ::: ", props.personals.currentBookData.id)
 
      useEffect(() => {
