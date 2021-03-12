@@ -12,6 +12,8 @@ const calcTypes = {
     setIsMrcActive: 11,
     setMrcText: 12,
     setMrcValue: 13,
+    setInterestRate:9,
+    setInterestAmount:0,
     setIsPercentActive: 14
 }
 

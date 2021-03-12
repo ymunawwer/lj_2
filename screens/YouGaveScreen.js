@@ -281,10 +281,8 @@ function YouGaveScreen(props) {
                     <RoundedInput
                         style={[{color: themeColor}]}
                         label="Interest Amount"
-                        onChangeText={text => {
-                            dispatch({type: calcTypes.setAmountText, payload: text})
-                        }}
-                        value={state.amountText}
+                      disable={true}
+                        value={JSON.stringify(Math.round(state.amountText*0.09*(4/12)* 100)/100)} //t in years month/12
                         keyboardType="phone-pad"
                     />
                 </View>

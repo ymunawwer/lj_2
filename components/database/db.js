@@ -3,7 +3,7 @@ import * as SQLite from 'expo-sqlite';
 import storeObject from "../../store/store";
 
 
-const db = SQLite.openDatabase("ljdbtest65.db");
+const db = SQLite.openDatabase("ljdbtest64.db");
 
 
 class database {
@@ -671,9 +671,11 @@ getRecordId(phone,bookId){
                     // "SELECT * FROM contactwithrecords WHERE bookid=" + bookId + " AND isDeleted=0 ORDER BY lastupdated DESC",
                     [],
                     (tx, results) => {
+                        console.log('obj',results)
                         resolve(results.rows['_array'])
                     },
                     (t, error) => {
+                        console.log('err',error)
                         reject(error)
                     })
             })
