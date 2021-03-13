@@ -667,7 +667,7 @@ getRecordId(phone,bookId){
         return new Promise((resolve, reject) => {
             db.transaction(tx => {
                 tx.executeSql(
-                    "SELECT *, sum(amount) as amount FROM contactwithrecords rc,records r WHERE rc.recordid=r.recordid AND rc.bookid = r.book_id AND r.book_id=" + bookId + " AND isDeleted=0 GROUP BY contact ORDER BY lastupdated DESC",
+                    "SELECT *, sum(amount) as amount FROM contactwithrecords rc LEFT JOIN records r ON ( rc.recordid=r.recordid OR rc.bookid = r.book_id ) WHERE r.book_id=" + bookId + " AND isDeleted=0 GROUP BY contact ORDER BY lastupdated DESC",
                     // "SELECT * FROM contactwithrecords WHERE bookid=" + bookId + " AND isDeleted=0 ORDER BY lastupdated DESC",
                     [],
                     (tx, results) => {
