@@ -105,7 +105,7 @@ function HomeTab1CustomersComponent(props) {
     })();
 
     return () => {
-      setContacts(null)
+      setContacts([])
     }
 
 
