@@ -96,18 +96,18 @@ function Loan(props) {
       
     }
 
-    hideModal = () =>{ setModalVisibility(false);
+    const hideModal = () =>{ setModalVisibility(false);
       // setRecord(null)
     }
-  showModal = (index) => {
+  const showModal = async (index) => {
     
    console.log(index)
    if(index===0){
     setIsGiven('Loan Given')
-    getModalData('GIVEN')
+    await getModalData('GIVEN')
    }if(index===1){
     setIsGiven('Loan Taken')
-    getModalData('TAKEN');
+    await getModalData('TAKEN');
    }
 
 
@@ -265,12 +265,16 @@ function Loan(props) {
         (async () => {
 
         
-          getCustomerCount(props.personals.currentBookData.id);
+          await getCustomerCount(props.personals.currentBookData.id);
 
             try {
                 setLoansLoadStatus(false)
-                setSumOfTakesLoan(dbObject.getSumOfTakesLoanContact(props.personals.currentBookData.id))
-                setSumOfGavesLoan(dbObject.getSumOfGavesLoanContact(props.personals.currentBookData.id))
+                const loanTakenSum = await dbObject.getSumOfTakesLoanContact(props.personals.currentBookData.id)
+                const loanGivenSum = await dbObject.getSumOfGavesLoanContact(props.personals.currentBookData.id)
+                console.log("loanTakenSum ", loanTakenSum)
+                console.log("loanGivenSum ", loanGivenSum)
+                setSumOfTakesLoan(loanTakenSum)
+                setSumOfGavesLoan(loanGivenSum)
                 const res = await dbObject.getLoanNames(props.personals.currentBookData.id)
                 console.log("loan data ", res)
                 
@@ -413,11 +417,11 @@ function Loan(props) {
    <View style={{flex: 3,flexDirection: "column"}}>
           <Searchbar
           
-            style={{flex: 3, elevation: 0,borderRadius: 30}}
+            style={{elevation: 0,borderRadius: 30}}
             placeholder={ lang[lan]['search']}
             onChangeText={text => SearchFilterFunction(text)}
           />
-            <Text style={[styles.countInfo,{fontSize: 8, fontWeight: "bold", color: "#78909c", fontFamily: "monospace", alignItems: "flex-start"}]}>no. of customers: {mCustomerCount}</Text>
+            <Text style={[styles.countInfo,{fontSize: 8, fontWeight: "bold", color: "#78909c", fontFamily: "monospace"}]}>no. of customers: {mCustomerCount}</Text>
 </View>
 
                     <TouchableOpacity style={styles.shopOpen} onPress={() => refRBSheet.current.open()}>

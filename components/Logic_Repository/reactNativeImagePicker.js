@@ -1,26 +1,27 @@
 import {launchImageLibrary} from 'react-native-image-picker';
 
-const reactNativeImagePicker = async() => {
+const reactNativeImagePicker = () => {
+  return new Promise((resolve, reject) => {
+    try {
+      const options = {
+        mediaType: "photo",
+        includeBase64: false,
+        quality: 1,
+      };
 
-  try {
-    const options = {
-      mediaType: "photo",
-      includeBase64: false,
-      quality: 1,
-    };
+      /**
+       * The first arg is the options object for customization (it can also be null or omitted for default options),
+       * The second arg is the callback which sends object: response (more info in the API Reference)
+       */
+      launchImageLibrary(options, (response) => {
 
-    /**
-     * The first arg is the options object for customization (it can also be null or omitted for default options),
-     * The second arg is the callback which sends object: response (more info in the API Reference)
-     */
-    launchImageLibrary(options, (response) => {
-
-      return response
-    });
-  }
-  catch (e) {
-    new Promise.reject(e)
-  }
+        resolve(response)
+      });
+    }
+    catch (e) {
+      reject(e)
+    }
+  })
 
 }
 

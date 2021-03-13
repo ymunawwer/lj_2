@@ -86,7 +86,6 @@ export const styles = StyleSheet.create({
     searchFilter: {
         flexDirection: "row", 
         justifyContent: "space-between",
-        paddingVertical: 10,
         alignItems: "center",
         paddingHorizontal: 3,
         marginHorizontal: 10,
@@ -98,8 +97,6 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         // paddingHorizontal: 8,
         marginHorizontal: 38,
-        marginTop: 1,
-        marginBottom:-8
     },
 
     searchinput: {

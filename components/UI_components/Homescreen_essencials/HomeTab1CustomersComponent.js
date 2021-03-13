@@ -81,8 +81,10 @@ function HomeTab1CustomersComponent(props) {
           })
 
       dbObject.getExistingContacts(props.personals.currentBookId).then(function(res){
+        console.log("currentBookId ", props.personals.currentBookId)
         console.log("All", res)
         setContacts(res)
+
       })
 
       //console.log("Contacts ", props.booksData.existingCustomers)

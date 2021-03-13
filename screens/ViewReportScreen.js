@@ -429,13 +429,13 @@ const sharePdf = (url) => {
 
                 <View style={[styles.row, {
                     marginTop: 10,
-                    height: 50,
                     justifyContent: 'space-between',
                     paddingHorizontal: 0,
-                    paddingLeft: 10
+                    paddingLeft: 10,
+                    paddingVertical: 0
                 }]}>
                     <AntDesign name="search1" size={22} color="#4e54c8"/>
-                    <TextInput style={{flex: 2, marginRight: 20, width: '60%'}} placeholder="Enter the Mobile Number" onValueChange={(itemValue) => {
+                    <TextInput style={{flex: 2, marginRight: 20, width: '60%', marginVertical: 5}} placeholder="Enter the Mobile Number" onValueChange={(itemValue) => {
                       setNameValue(itemValue);
                       nameFilter()
                       }}/>
