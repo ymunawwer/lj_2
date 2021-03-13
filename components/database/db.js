@@ -853,7 +853,7 @@ getRecordId(phone,bookId){
                     // ln,loanrecords lr WHERE ln.contactno = lr.partner_contact AND ln.bookid=lr.book_id AND bookid = "+bookid+" ORDER BY lastupdated DESC",
                     [],
                     (tx, results) => {
-                        //console.log('get Record Results new ', results.rows['_array']);
+                        // console.log('get Record Results new ', results.rows['_array']);
                         resolve(results.rows['_array'])
                     }, (t, error) => {
                         console.log('Constructor error : ', error)

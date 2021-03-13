@@ -297,11 +297,11 @@ function Loan(props) {
     const cardsData = [
         {
             title: "Loan Given",
-            amount: sumOfGavesLoan['_W']
+            amount: sumOfGavesLoan
         },
         {
             title: "Loan Taken",
-            amount: sumOfTakesLoan['_W']
+            amount: sumOfTakesLoan
         }
     ]
 
