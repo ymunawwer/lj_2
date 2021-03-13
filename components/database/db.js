@@ -3,7 +3,7 @@ import * as SQLite from 'expo-sqlite';
 import storeObject from "../../store/store";
 
 
-const db = SQLite.openDatabase("ljdbtest66.db");
+const db = SQLite.openDatabase("ljdbtest67.db", null, SQLite.CREATE_IF_NECESSARY);
 
 
 class database {

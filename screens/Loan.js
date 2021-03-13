@@ -269,8 +269,8 @@ function Loan(props) {
 
             try {
                 setLoansLoadStatus(false)
-                const loanTakenSum = await dbObject.getSumOfTakesLoanContact(props.personals.currentBookData.id)
-                const loanGivenSum = await dbObject.getSumOfGavesLoanContact(props.personals.currentBookData.id)
+                const loanTakenSum = (await dbObject.getSumOfTakesLoanContact(props.personals.currentBookData.id))?await dbObject.getSumOfTakesLoanContact(props.personals.currentBookData.id):0
+                const loanGivenSum = await dbObject.getSumOfGavesLoanContact(props.personals.currentBookData.id)?await dbObject.getSumOfGavesLoanContact(props.personals.currentBookData.id):0
                 console.log("loanTakenSum ", loanTakenSum)
                 console.log("loanGivenSum ", loanGivenSum)
                 setSumOfTakesLoan(loanTakenSum)
