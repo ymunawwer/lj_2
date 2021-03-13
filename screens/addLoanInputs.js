@@ -91,6 +91,7 @@ function addLoanInputs(props) {
       setLoaderVisibility(true)
     console.log('ccc',item)
       // dbObject.addLoanName(loanName, item.name, item.contact, props.personals.currentBookData.id).then(function(res){
+        await dbObject.setrecord(props.personals.currentBookData.id, 0, duedate, -1, -1, attachment, '', item.contact)
           setLoaderVisibility(false)
 
           /*navigation.navigate('OneCustomerScreenLoan', {
