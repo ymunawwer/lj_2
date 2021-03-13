@@ -42,39 +42,49 @@ export default function BusinessCard() {
         console.log('log',data['_array'])
         setPersonalData(data['_array']);
         // code to run on component mount
-        getTemplates(data)
+            const visitingCardData = {
+                BUSINESS_NAME : "Lekha jokha",
+                BUSINESS_TYPE : "business type",
+                PH_NO : "+913333333333",
+                EMAIL : "fakeEmail@fakeEmailprovider",
+                ADDRESS : " fake address",
+                USER_NAME : "user name",
+
+            }
+
+        await getTemplates(visitingCardData)
     })()
 }, [])
 
 
     async function getTemplates(PersonalData) {
 
-        console.log("Data", PersonalData['_array'])
-       
-      
-            PersonalData['_array'].forEach(function(item) {
-                fetchTemplate(templateObjects[0].templateRequire)
-                    .then(function(str) {
-                        const str1 = str.replace("${BUSINESS_NAME}", item.BUSINESS_NAME)
-                        const str2 = str1.replace("${BUSINESS_TYPE}", item.BUSINESS_TYPE)
-                        const str3 = str2.replace("${PH_NO}", item.PH_NO.toString())
-                        const str4 = str3.replace("${EMAIL}", item.EMAIL)
-                        const str5 = str4.replace("${ADDRESS}", item.ADDRESS)
-                        const str6 = str5.replace("${USER_NAME}", item.USER_NAME)
-                        const data = {
-                            id:templateObjects[0].templateName.slice(0, -5),
-                            template_ID:templateObjects[0].templateName.slice(0, -5),
-                            htmlContent:str6
-                        }
-                        console.log(str6)
-    
-                        setFlData(flatListData => [...flatListData, data])
-                        console.log(flatListData)
-                    })
-                    .catch(function (e) {
-                        console.log(e)
-                    })
-            })
+        console.log("Data", PersonalData)
+
+
+        templateObjects.forEach(function(templateObject) {
+            fetchTemplate(templateObject.templateRequire)
+                .then(function(str) {
+                    const str1 = str.replace("${BUSINESS_NAME}", PersonalData.BUSINESS_NAME)
+                    const str2 = str1.replace("${BUSINESS_TYPE}", PersonalData.BUSINESS_TYPE)
+                    const str3 = str2.replace("${PH_NO}", PersonalData.PH_NO.toString())
+                    const str4 = str3.replace("${EMAIL}", PersonalData.EMAIL)
+                    const str5 = str4.replace("${ADDRESS}", PersonalData.ADDRESS)
+                    const str6 = str5.replace("${USER_NAME}", PersonalData.USER_NAME)
+                    const data = {
+                        id:templateObject.templateName.slice(0, -5),
+                        template_ID:templateObject.templateName.slice(0, -5),
+                        htmlContent:str6
+                    }
+                    console.log(str6)
+
+                    setFlData(flatListData => [...flatListData, data])
+                    console.log(flatListData)
+                })
+                .catch(function (e) {
+                    console.log(e)
+                })
+        })
             
      
       

@@ -57,7 +57,7 @@ export default function BusinessCardEdit({navigation}) {
                 <TextInput style={[stylesI.TextInput, {marginTop: 20}]} placeholder="Business Name" value={BUSINESS_NAME}
     onChangeText={bName => setBusinessName(bName)}/>
 
-                <View style={stylesI.TextInput}>
+                {/*<View style={stylesI.TextInput}>
                     <Picker
                         placeholder="Designation"
                         style={[{height: 30}]}
@@ -69,7 +69,7 @@ export default function BusinessCardEdit({navigation}) {
                         <Picker.Item label="Office3" value="proprietor"/>
 
                     </Picker>
-                </View>
+                </View>*/}
 
                 <TextInput style={[stylesI.TextInput]} placeholder="Business Email" value={EMAIL}
     onChangeText={email => setEmail(email)}/>

@@ -1,9 +1,9 @@
-import {Alert, SafeAreaView, ScrollView, Text, TouchableOpacity,StyleSheet, View} from 'react-native';
+import {Alert, SafeAreaView, ScrollView, Text, TouchableOpacity, StyleSheet, View} from 'react-native';
 import {AntDesign, Entypo, FontAwesome5} from '@expo/vector-icons';
 import React, {useEffect, useRef, useState} from 'react';
 import {styles} from '../styles/globalStyle';
 import Header from '../navigation/shared/header';
-import dbObject from '../components/database/db' 
+import dbObject from '../components/database/db'
 import * as lang from "../translations/lang.json"
 import RBSheet from "react-native-raw-bottom-sheet";
 import RadioButtonRN from "radio-buttons-react-native";
@@ -45,107 +45,101 @@ function Loan(props) {
     const [loansLoadStatus, setLoansLoadStatus] = useState(false)
     const refRBSheet = useRef();
     const [mCustomerCount, setmCustomerCount] = useState(null)
-    const [sumOfTakesLoan,setSumOfTakesLoan] = useState('')
-    const [sumOfGavesLoan,setSumOfGavesLoan] = useState('')
-    const [modalData,setModalData] = useState([])
-    const [isGiven,setIsGiven] = useState('')
-    
-    
+    const [sumOfTakesLoan, setSumOfTakesLoan] = useState('')
+    const [sumOfGavesLoan, setSumOfGavesLoan] = useState('')
+    const [modalData, setModalData] = useState([])
+    const [isGiven, setIsGiven] = useState('')
+
+
     const sortingData = [
         {
-          label: 'Most Recent'
+            label: 'Most Recent'
         },
         {
-          label: 'Highest Amount'
+            label: 'Highest Amount'
         },
         {
-          label: 'By Name(A-Z)'
+            label: 'By Name(A-Z)'
         },
         {
-          label: 'Oldest'
+            label: 'Oldest'
         },
         {
-          label: 'Least Amount'
+            label: 'Least Amount'
         }
-      ];
-    
+    ];
+
 
     const navigationOptions = {
         //To hide the NavigationBar from current Screen
         header: null
     };
 
-    async function getModalData(key){
-      let data 
-      switch(key){
-        case 'GIVEN':
-           data = await dbObject.getGavesLoanContact(props.personals.currentBookData.id)
-          // console.log('test data',data['_array'])
-          setModalData(data['_array'])
-          setModalVisibility(true );
-          break;
-        case 'TAKEN':
-           data =await dbObject.getTakesLoanContact(props.personals.currentBookData.id)
-          //  console.log('test data',data['_array'])
-          setModalData(data['_array'])
-          setModalVisibility(true );
-          break;
+    async function getModalData(key) {
+        let data
+        switch (key) {
+            case 'GIVEN':
+                data = await dbObject.getGavesLoanContact(props.personals.currentBookData.id)
+                // console.log('test data',data['_array'])
+                setModalData(data['_array'])
+                setModalVisibility(true);
+                break;
+            case 'TAKEN':
+                data = await dbObject.getTakesLoanContact(props.personals.currentBookData.id)
+                //  console.log('test data',data['_array'])
+                setModalData(data['_array'])
+                setModalVisibility(true);
+                break;
 
-      }
-      
-      
+        }
+
+
     }
 
-    const hideModal = () =>{ setModalVisibility(false);
-      // setRecord(null)
+    const hideModal = () => {
+        setModalVisibility(false);
     }
-  const showModal = async (index) => {
-    
-   console.log(index)
-   if(index===0){
-    setIsGiven('Loan Given')
-    await getModalData('GIVEN')
-   }if(index===1){
-    setIsGiven('Loan Taken')
-    await getModalData('TAKEN');
-   }
+    const showModal = async (index) => {
 
+        console.log(index)
+        if (index === 0) {
+            setIsGiven('Loan Given')
+            await getModalData('GIVEN')
+        }
+        if (index === 1) {
+            setIsGiven('Loan Taken')
+            await getModalData('TAKEN');
+        }
 
-    
-    
-    
-    // console.log(isGive)
-    
-  };
-
-    
-  function getPickerInitial() {
-    if (sortingSelection === 'Most Recent') {
-      return 1
-    } else if (sortingSelection === 'Highest Amount') {
-      return 2
-    } else if (sortingSelection === 'By Name(A-Z)') {
-      return 3
-    } else if (sortingSelection === 'Oldest') {
-      return 4
-    } else if (sortingSelection === 'Least Amount') {
-      return 5
     }
-  }
+
+
+    function getPickerInitial() {
+        if (sortingSelection === 'Most Recent') {
+            return 1
+        } else if (sortingSelection === 'Highest Amount') {
+            return 2
+        } else if (sortingSelection === 'By Name(A-Z)') {
+            return 3
+        } else if (sortingSelection === 'Oldest') {
+            return 4
+        } else if (sortingSelection === 'Least Amount') {
+            return 5
+        }
+    }
 
     // download share
     // download share
-  
-  
-  
-    const Prints = 
-    `<style>
+
+
+    const Prints =
+        `<style>
     
     </style>
 
     <div id="demo">
   <h1>Lekha Jokha Report</h1>
-  <h2>`+new Date()+`</h2>
+  <h2>` + new Date() + `</h2>
   
   <table>
   <thead>
@@ -162,81 +156,82 @@ function Loan(props) {
     </tr>
   </thead>
   <tbody>`
- 
- const sharePdf = (url) => {
-     Sharing.shareAsync(url)
- }
-     
-       
-       
-       const print = async (html) => {
-         try {
-         
-          loans.forEach(element => {
-            html = html+`<tr>
-              <td data-column="Book Id">`+element.bookid+`</td>
-              <td data-column="Name">`+element.name+`</td>
-              <td data-column="Contact">`+element.contactno+`</td>
+
+    const sharePdf = (url) => {
+        Sharing.shareAsync(url)
+    }
+
+
+    const print = async (html) => {
+        try {
+
+            loans.forEach(element => {
+                html = html + `<tr>
+              <td data-column="Book Id">` + element.bookid + `</td>
+              <td data-column="Name">` + element.name + `</td>
+              <td data-column="Contact">` + element.contactno + `</td>
               
               
-              <td data-column="Record Id">  `+element.recordid+`  </td>
-              <td data-column="AmountGiven">  `+element.amountGiven+`  </td>
-              <td data-column="AmountTaken">  `+element.amountTaken+`  </td>
-              <td data-column="Type">    `+element.type+`  </td>
-              <td data-column="Date">    `+element.date.substring(4, 15).toUpperCase() + " - " + element.date.substring(16, 21)+`  </td>
+              <td data-column="Record Id">  ` + element.recordid + `  </td>
+              <td data-column="AmountGiven">  ` + element.amountGiven + `  </td>
+              <td data-column="AmountTaken">  ` + element.amountTaken + `  </td>
+              <td data-column="Type">    ` + element.type + `  </td>
+              <td data-column="Date">    ` + element.date.substring(4, 15).toUpperCase() + " - " + element.date.substring(16, 21) + `  </td>
               
             </tr>`
-            
-          });
-           const { uri } = await Print.printToFileAsync({ 'html':html });
-           
-           if (Platform.OS === "ios") {
-             await Sharing.shareAsync(uri);
-             return uri;
-           } else {
-             const permission = await MediaLibrary.requestPermissionsAsync();      if (permission.granted) {
-             //     const asset =await MediaLibrary.createAssetAsync(uri);
-             //   alert(console.log(asset))
-             //   return uri;
-             var currentdate = new Date(); 
-             var datetime = currentdate.getDate() + "_"
-                 + (currentdate.getMonth()+1)  + "_" 
-                 + currentdate.getFullYear() + "-"  
-                 + currentdate.getHours() + ":"  
-                 + currentdate.getMinutes() + ":" 
-                 + currentdate.getSeconds();
-             const pdfName = `${uri.slice(
-                 0,
-                 uri.lastIndexOf('/') + 1
-             )}Report_${datetime}.pdf`
-     
-             await FileSystem.moveAsync({
-                 from: uri,
-                 to: pdfName,
-             })
-             sharePdf(pdfName)
-         }
-     
-        
-           }  } catch (error) {
-           console.error(error);
-         }
-       };
- 
-     // end
+
+            });
+            const {uri} = await Print.printToFileAsync({'html': html});
+
+            if (Platform.OS === "ios") {
+                await Sharing.shareAsync(uri);
+                return uri;
+            } else {
+                const permission = await MediaLibrary.requestPermissionsAsync();
+                if (permission.granted) {
+                    //     const asset =await MediaLibrary.createAssetAsync(uri);
+                    //   alert(console.log(asset))
+                    //   return uri;
+                    var currentdate = new Date();
+                    var datetime = currentdate.getDate() + "_"
+                        + (currentdate.getMonth() + 1) + "_"
+                        + currentdate.getFullYear() + "-"
+                        + currentdate.getHours() + ":"
+                        + currentdate.getMinutes() + ":"
+                        + currentdate.getSeconds();
+                    const pdfName = `${uri.slice(
+                        0,
+                        uri.lastIndexOf('/') + 1
+                    )}Report_${datetime}.pdf`
+
+                    await FileSystem.moveAsync({
+                        from: uri,
+                        to: pdfName,
+                    })
+                    sharePdf(pdfName)
+                }
+
+
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    // end
     const fabRef = useRef(null)
 
-     // customer count
-  const getCustomerCount = async (book_id) => {
-   
+    // customer count
+    const getCustomerCount = async (book_id) => {
 
-    const record = await dbObject.getCustomerCount(book_id)
-  console.log("View Report record outside if ", record[0]["COUNT(*)"])
 
-  setmCustomerCount(record[0]["COUNT(*)"]?record[0]["COUNT(*)"]:0);
-  
+        const record = await dbObject.getCustomerCount(book_id)
+        console.log("View Report record outside if ", record[0]["COUNT(*)"])
 
-}
+        setmCustomerCount(record[0]["COUNT(*)"] ? record[0]["COUNT(*)"] : 0);
+
+
+    }
 
 // customer count end
 
@@ -259,25 +254,23 @@ function Loan(props) {
 
     useEffect(() => {
 
-      
-   
 
         (async () => {
 
-        
-          await getCustomerCount(props.personals.currentBookData.id);
+
+            await getCustomerCount(props.personals.currentBookData.id);
 
             try {
                 setLoansLoadStatus(false)
-                const loanTakenSum = (await dbObject.getSumOfTakesLoanContact(props.personals.currentBookData.id))?await dbObject.getSumOfTakesLoanContact(props.personals.currentBookData.id):0
-                const loanGivenSum = await dbObject.getSumOfGavesLoanContact(props.personals.currentBookData.id)?await dbObject.getSumOfGavesLoanContact(props.personals.currentBookData.id):0
+                const loanTakenSum = (await dbObject.getSumOfTakesLoanContact(props.personals.currentBookData.id)) ? await dbObject.getSumOfTakesLoanContact(props.personals.currentBookData.id) : 0
+                const loanGivenSum = await dbObject.getSumOfGavesLoanContact(props.personals.currentBookData.id) ? await dbObject.getSumOfGavesLoanContact(props.personals.currentBookData.id) : 0
                 console.log("loanTakenSum ", loanTakenSum)
                 console.log("loanGivenSum ", loanGivenSum)
                 setSumOfTakesLoan(loanTakenSum)
                 setSumOfGavesLoan(loanGivenSum)
                 const res = await dbObject.getLoanNames(props.personals.currentBookData.id)
                 console.log("loan data ", res)
-                
+
                 setLoans(res)
                 setOriginalLoans(res)
                 setLoansLoadStatus(true)
@@ -290,7 +283,7 @@ function Loan(props) {
             setLoans([])
             setOriginalLoans([])
         }
-       
+
 
     }, [isFocused]);
 
@@ -335,52 +328,43 @@ function Loan(props) {
                                         style={index === 0 ? styles.giveAmountText : styles.takeAmountText}>₹{data.amount}</Text>
                                 </View>
                                 <Entypo name={"info-with-circle"} size={20}
-                                        style={{position: "absolute", top: 0, right: 0, margin: 10}} color={"#303030"} onPress={showModal.bind(this,index)}/>
+                                        style={{position: "absolute", top: 0, right: 0, margin: 10}} color={"#303030"}
+                                        onPress={() => showModal(index)}/>
                             </View>
                         ))
                     }
 
                 </View>
 
-                {
-           (modalData != null && modalData.length > 0) ?
 
-           (
-            modalData.length > 0?
-        <Modal
-          visible={isModalVisible}
-          dismiss={hideModal}
-          mRecord ={modalData}
-          headerItem={[
-            "Customer Details",
-            isGiven==='Loan Given'?isGiven:isGiven,
-           
-            
-          ]}
-          // tableData = {tableData}
-          // mTakeSum={tableData['sumArray']}
-          //         lan={lan}
-          //         navigation={navigation}
-          //         data={mContacts}
-        ></Modal>
-      
-        :
-        <Caption>No contacts found according to your search...</Caption>
-           ):
-           <Caption>No contacts found according to your search...</Caption>
+                <Modal
+                    visible={isModalVisible}
+                    dismiss={hideModal}
+                    mRecord={modalData}
+                    headerItem={[
+                        "Customer Details",
+                        isGiven === 'Loan Given' ? isGiven : isGiven,
 
-}
+
+                    ]}
+                    // tableData = {tableData}
+                    // mTakeSum={tableData['sumArray']}
+                    //         lan={lan}
+                    //         navigation={navigation}
+                    //         data={mContacts}
+                />
+
 
                 <TouchableOpacity style={{
-                     flexDirection: "row",
-                     elevation: 8,
-                     borderRadius: 5,
-                     padding: 8,
-                     backgroundColor: "#fff",
-                     margin:2,
-                     marginBottom:0,
-                     alignItems: "center",
-                     justifyContent: "center",
+                    flexDirection: "row",
+                    elevation: 8,
+                    borderRadius: 5,
+                    padding: 8,
+                    backgroundColor: "#fff",
+                    margin: 2,
+                    marginBottom: 0,
+                    alignItems: "center",
+                    justifyContent: "center",
                 }}
 
                                   onPress={() => {
@@ -405,7 +389,7 @@ function Loan(props) {
                     borderRadius: 30,
                     paddingRight: 5,
                 }]}> */}
-                 <View style={[styles.searchFilter, {borderRadius: 30, elevation: 8, backgroundColor: "#fff"}]}>
+                <View style={[styles.searchFilter, {borderRadius: 30, elevation: 8, backgroundColor: "#fff"}]}>
 
 
                     {/* <Searchbar
@@ -414,21 +398,28 @@ function Loan(props) {
                         value={searchText}
                         onChangeText={text => SearchFilterFunction(text)}
                     /> */}
-   <View style={{flex: 3,flexDirection: "column"}}>
-          <Searchbar
-          
-            style={{elevation: 0,borderRadius: 30}}
-            placeholder={ lang[lan]['search']}
-            onChangeText={text => SearchFilterFunction(text)}
-          />
-            <Text style={[styles.countInfo,{fontSize: 8, fontWeight: "bold", color: "#78909c", fontFamily: "monospace"}]}>no. of customers: {mCustomerCount}</Text>
-</View>
+                    <View style={{flex: 3, flexDirection: "column"}}>
+                        <Searchbar
+
+                            style={{elevation: 0, borderRadius: 30}}
+                            placeholder={lang[lan]['search']}
+                            onChangeText={text => SearchFilterFunction(text)}
+                        />
+                        <Text style={[styles.countInfo, {
+                            fontSize: 8,
+                            fontWeight: "bold",
+                            color: "#78909c",
+                            fontFamily: "monospace"
+                        }]}>no. of customers: {mCustomerCount}</Text>
+                    </View>
 
                     <TouchableOpacity style={styles.shopOpen} onPress={() => refRBSheet.current.open()}>
                         <AntDesign style={styles.iSearchicon} name="filter" size={24} color="#4e54c8"/>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.shopOpen}  onPress={()=>{print(Prints)}}>
+                    <TouchableOpacity style={styles.shopOpen} onPress={() => {
+                        print(Prints)
+                    }}>
                         <AntDesign style={styles.iSearchicon} name="pdffile1" size={24} color="#4e54c8"/>
                     </TouchableOpacity>
 
@@ -505,87 +496,91 @@ function Loan(props) {
                     }
                 }}
             />
-               <RBSheet
-        ref={refRBSheet}
+            <RBSheet
+                ref={refRBSheet}
 
-        closeOnDragDown={true}
-        closeOnPressMask={true}
-        height={510}
-        customStyles={{
-          wrapper: {
-            backgroundColor: "rgba(0,0,0,.5)",
+                closeOnDragDown={true}
+                closeOnPressMask={true}
+                height={510}
+                customStyles={{
+                    wrapper: {
+                        backgroundColor: "rgba(0,0,0,.5)",
 
-          },
-          draggableIcon: {
-            backgroundColor: "#4e54c8"
-          },
-          container: {
-            backgroundColor: "#f1f2f3",
-            paddingHorizontal: 10
-          }
-        }}
-      >
+                    },
+                    draggableIcon: {
+                        backgroundColor: "#4e54c8"
+                    },
+                    container: {
+                        backgroundColor: "#f1f2f3",
+                        paddingHorizontal: 10
+                    }
+                }}
+            >
 
-        <Text style={[styles.normalText]}>Filter by</Text>
+                <Text style={[styles.normalText]}>Filter by</Text>
 
-        <View style={[styles.row, {
-          justifyContent: 'flex-start',
-          backgroundColor: 'transparent',
-          paddingHorizontal: 0,
-          marginBottom: 12
-        }]}>
-          <TouchableOpacity style={[styleI.filterBtn, {backgroundColor: filterSelection === 'A' ? "#4e54c8" : 'white'}]}
-                            onPress={() => setFilterSelection('A')}>
-            <Text style={[{color: filterSelection === 'A' ? 'white' : 'grey'}]}>ALL</Text>
-          </TouchableOpacity>
+                <View style={[styles.row, {
+                    justifyContent: 'flex-start',
+                    backgroundColor: 'transparent',
+                    paddingHorizontal: 0,
+                    marginBottom: 12
+                }]}>
+                    <TouchableOpacity
+                        style={[styleI.filterBtn, {backgroundColor: filterSelection === 'A' ? "#4e54c8" : 'white'}]}
+                        onPress={() => setFilterSelection('A')}>
+                        <Text style={[{color: filterSelection === 'A' ? 'white' : 'grey'}]}>ALL</Text>
+                    </TouchableOpacity>
 
-          <TouchableOpacity style={[styleI.filterBtn, {backgroundColor: filterSelection === 'R' ? "#4e54c8" : 'white'}]}
-                            onPress={() => setFilterSelection('R')}>
-            <Text style={[{color: filterSelection === 'R' ? 'white' : 'grey'}]}>Receivables</Text>
-          </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styleI.filterBtn, {backgroundColor: filterSelection === 'R' ? "#4e54c8" : 'white'}]}
+                        onPress={() => setFilterSelection('R')}>
+                        <Text style={[{color: filterSelection === 'R' ? 'white' : 'grey'}]}>Receivables</Text>
+                    </TouchableOpacity>
 
-          <TouchableOpacity style={[styleI.filterBtn, {backgroundColor: filterSelection === 'P' ? "#4e54c8" : 'white'}]}
-                            onPress={() => setFilterSelection('P')}>
-            <Text style={[{color: filterSelection === 'P' ? 'white' : 'grey'}]}>Payables</Text>
-          </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styleI.filterBtn, {backgroundColor: filterSelection === 'P' ? "#4e54c8" : 'white'}]}
+                        onPress={() => setFilterSelection('P')}>
+                        <Text style={[{color: filterSelection === 'P' ? 'white' : 'grey'}]}>Payables</Text>
+                    </TouchableOpacity>
 
-          <TouchableOpacity style={[styleI.filterBtn, {backgroundColor: filterSelection === 'S' ? "#4e54c8" : 'white'}]}
-                            onPress={() => setFilterSelection('S')}>
-            <Text style={[{color: filterSelection === 'S' ? 'white' : 'grey'}]}>Settled</Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={[styles.normalText, {marginBottom: 5}]}>Sort by</Text>
+                    <TouchableOpacity
+                        style={[styleI.filterBtn, {backgroundColor: filterSelection === 'S' ? "#4e54c8" : 'white'}]}
+                        onPress={() => setFilterSelection('S')}>
+                        <Text style={[{color: filterSelection === 'S' ? 'white' : 'grey'}]}>Settled</Text>
+                    </TouchableOpacity>
+                </View>
+                <Text style={[styles.normalText, {marginBottom: 5}]}>Sort by</Text>
 
 
-        <View style={[styles.container, {padding: 5, backgroundColor: 'white', borderRadius: 5}]}>
-          <RadioButtonRN
-            data={sortingData}
-            selectedBtn={(e) => setSortingSelection(e.label)}
-            activeColor={'#4e54c8'}
-            circleSize={10}
-            initial={getPickerInitial()}
-          />
-        </View>
+                <View style={[styles.container, {padding: 5, backgroundColor: 'white', borderRadius: 5}]}>
+                    <RadioButtonRN
+                        data={sortingData}
+                        selectedBtn={(e) => setSortingSelection(e.label)}
+                        activeColor={'#4e54c8'}
+                        circleSize={10}
+                        initial={getPickerInitial()}
+                    />
+                </View>
 
-        <View style={{
-          position: 'absolute',
-          left: '3%',
-          bottom: '1%',
-          width: '100%',
-          height: 50,
-          backgroundColor: "#4e54c8",
-          borderRadius: 6,
-          paddingHorizontal: 0
-        }}>
-          <TouchableOpacity
-            style={{width: '100%', alignItems: 'center', height: 50, justifyContent: 'center'}}
-            onPress={() => handleSortingAndFilter()}
-          >
-            <Text style={{color: 'white'}}>VIEW RESULT</Text>
-          </TouchableOpacity>
-        </View>
+                <View style={{
+                    position: 'absolute',
+                    left: '3%',
+                    bottom: '1%',
+                    width: '100%',
+                    height: 50,
+                    backgroundColor: "#4e54c8",
+                    borderRadius: 6,
+                    paddingHorizontal: 0
+                }}>
+                    <TouchableOpacity
+                        style={{width: '100%', alignItems: 'center', height: 50, justifyContent: 'center'}}
+                        onPress={() => handleSortingAndFilter()}
+                    >
+                        <Text style={{color: 'white'}}>VIEW RESULT</Text>
+                    </TouchableOpacity>
+                </View>
 
-      </RBSheet>
+            </RBSheet>
 
 
         </SafeAreaView>
@@ -637,63 +632,63 @@ const mapDispatchToProps = dispatch => (
 const styleI = StyleSheet.create({
 
     modalView: {
-      margin: 20,
-      flex: 1,
-      backgroundColor: "white",
-      borderRadius: 2,
-      //   padding: 10,
-      alignItems: "center",
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5
+        margin: 20,
+        flex: 1,
+        backgroundColor: "white",
+        borderRadius: 2,
+        //   padding: 10,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
     },
     openButton: {
-      backgroundColor: "#F194FF",
-      borderRadius: 20,
-      padding: 10,
-      elevation: 2
+        backgroundColor: "#F194FF",
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2
     },
     textStyle: {
-      color: "white",
-      fontWeight: "bold",
-      textAlign: "center"
+        color: "white",
+        fontWeight: "bold",
+        textAlign: "center"
     },
     modalText: {
-      marginBottom: 15,
-      textAlign: "center"
+        marginBottom: 15,
+        textAlign: "center"
     },
     oneLangCont: {
-      elevation: 5,
-      width: 160,
-      justifyContent: 'flex-start',
-      borderRadius: 6
+        elevation: 5,
+        width: 160,
+        justifyContent: 'flex-start',
+        borderRadius: 6
     },
-  
+
     filterBtn: {
-      paddingHorizontal: 10,
-      paddingVertical: 8,
-      borderRadius: 6,
-      marginRight: 10,
-      backgroundColor: 'white',
-      elevation: 2
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        borderRadius: 6,
+        marginRight: 10,
+        backgroundColor: 'white',
+        elevation: 2
     },
     active: {
-      backgroundColor: "#4e54c8"
+        backgroundColor: "#4e54c8"
     },
-  
+
     searchBar: {
-      backgroundColor: "#FFFFF0",
-      borderRadius: 25,
-      paddingHorizontal: 5,
-      paddingVertical: 10,
-      alignItems: "center",
-      elevation: 5
+        backgroundColor: "#FFFFF0",
+        borderRadius: 25,
+        paddingHorizontal: 5,
+        paddingVertical: 10,
+        alignItems: "center",
+        elevation: 5
     }
-  });
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Loan)
