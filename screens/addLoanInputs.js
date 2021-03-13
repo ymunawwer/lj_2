@@ -87,11 +87,12 @@ function addLoanInputs(props) {
       }
 
 
-  function saveHandler(item) {
+ async function saveHandler(item) {
       setLoaderVisibility(true)
     console.log('ccc',item)
       // dbObject.addLoanName(loanName, item.name, item.contact, props.personals.currentBookData.id).then(function(res){
-        await dbObject.setrecord(props.personals.currentBookData.id, 0, duedate, -1, -1, attachment, '', item.contact)
+
+        // await dbObject.setLoanGivenRecord(props.personals.currentBookData.id, 0, '', '', -1, -1, '', '', item.contact,item.name, item.contact, -1, -1, installmentdb, totalMonths,interestdb, loanName, 0)
           setLoaderVisibility(false)
 
           /*navigation.navigate('OneCustomerScreenLoan', {

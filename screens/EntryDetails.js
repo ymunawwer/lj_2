@@ -19,6 +19,7 @@ export default function EntryDetails(props) {
     useEffect(() => {
        
         (async () => {
+            console.log('mrecords',mRecords)
             console.log("store loan", storeObject.getRecordLoanYes()===1)
             console.log("store", storeObject.getRecordId())
             try {
@@ -56,23 +57,23 @@ export default function EntryDetails(props) {
 
                             {/* Initials */}
                             <View style={styles.initialsCont}>
-                                <Text style={styles.initialText}>{mRecords?mRecords[0].partner_contact[0]:console.log('')}</Text>
+                                <Text style={styles.initialText}>{mRecords?mRecords[0]?.partner_contact:console.log('')}</Text>
 
                             </View>
                             {/* Initials */}
 
                             <View style={styles.cNameTimeCont}>
                                 <Text style={styles.cName}>{
-                                    mRecords?mRecords[0].partner_contact:console.log('')
+                                    mRecords?mRecords[0]?.partner_contact:console.log('')
                                 }</Text>
                                 <Text style={[styles.greyTextSm, {margin: 0, paddingHorizontal: 0}]}>{
 
-                                   mRecords?mRecords[0].date.slice(0,25):console.log('')
+                                   mRecords?mRecords[0]?.date.slice(0,25):console.log('')
                                 }</Text>
                             </View>
 
                             {
-                                mRecords?mRecords[0].take===1?
+                                mRecords?mRecords[0]?.take===1?
                                 <View style={{alignItems:'flex-end'}}>
                                     <Text style={[styles.greyTextSm, {margin: 0, paddingHorizontal: 0}]}>You Got</Text>
                                 </View>:<View style={{alignItems:'flex-end'}}>
@@ -88,13 +89,13 @@ export default function EntryDetails(props) {
                         
                     {
                         mIsLoan===0?
-                        mRecords?mRecords[0].take===0?
-                        <View style={[styles.row,{borderRadius:0}]}><Text>Running Balance</Text><Text style={styles.giveAmountText}>₹{mRecords[0].amount}</Text></View>
-                        :<View style={[styles.row,{borderRadius:0}]}><Text>Running Balance</Text><Text style={styles.takeAmountText}>₹{mRecords[0].amount}</Text></View>:
+                        mRecords?mRecords[0]?.take===0?
+                        <View style={[styles.row,{borderRadius:0}]}><Text>Running Balance</Text><Text style={styles.giveAmountText}>₹{mRecords[0]?.amount}</Text></View>
+                        :<View style={[styles.row,{borderRadius:0}]}><Text>Running Balance</Text><Text style={styles.takeAmountText}>₹{mRecords[0]?.amount}</Text></View>:
                         console.log(''):
-                        mRecords?mRecords[0].take===0?
-                        <View style={[styles.row,{borderRadius:0}]}><Text>Running Balance</Text><Text style={styles.giveAmountText}>₹{(getTotalAmount(mRecords[0].amountGiven, mRecords[0].interest, mRecords[0].installment, mRecords[0].totalMonths) + mRecords[0].amountGiven)}</Text></View>
-                        :<View style={[styles.row,{borderRadius:0}]}><Text>Running Balance</Text><Text style={styles.takeAmountText}>₹{(getTotalAmount(mRecords[0].amountTaken, mRecords[0].interest, mRecords[0].installment, mRecords[0].totalMonths) + mRecords[0].amountTaken)}</Text></View>:
+                        mRecords?mRecords[0]?.take===0?
+                        <View style={[styles.row,{borderRadius:0}]}><Text>Running Balance</Text><Text style={styles.giveAmountText}>₹{(getTotalAmount(mRecords[0]?.amountGiven, mRecords[0]?.interest, mRecords[0]?.installment, mRecords[0]?.totalMonths) + mRecords[0]?.amountGiven)}</Text></View>
+                        :<View style={[styles.row,{borderRadius:0}]}><Text>Running Balance</Text><Text style={styles.takeAmountText}>₹{(getTotalAmount(mRecords[0]?.amountTaken, mRecords[0]?.interest, mRecords[0]?.installment, mRecords[0]?.totalMonths) + mRecords[0]?.amountTaken)}</Text></View>:
                         console.log('')
                     }
                         
@@ -118,36 +119,36 @@ export default function EntryDetails(props) {
                         <View style={{borderBottomWidth: .2, borderBottomColor: '#dedede'}}/>
 
                         <View>
-                            <Text style={[stylesI.greyTextSm]}>{mRecords?"You gave ₹"+mRecords[0].amountGiven+" to "+mRecords[0].partner_contact:console.log('')}</Text>
-                            {mRecords?mRecords[0].remarks!=""?<Text style={[stylesI.greyTextSm]}>{mRecords[0].remarks}</Text>:console.log(''):console.log('')}
-                            {mRecords?mRecords[0].type?<Text style={[stylesI.greyTextSm]}>{mRecords[0].type}</Text>:console.log(''):console.log('')}
-                            {mRecords?mRecords[0].attachment!='null'?<View style={[{marginRight:2}]}><Image style={{width: 100, height: 100,borderRadius:8}} source={{ uri: mRecords[0].attachment}}/></View>:console.log(''):console.log('')}
+                            <Text style={[stylesI.greyTextSm]}>{mRecords?"You gave ₹"+mRecords[0]?.amountGiven+" to "+mRecords[0]?.partner_contact:console.log('')}</Text>
+                            {mRecords?mRecords[0]?.remarks!=""?<Text style={[stylesI.greyTextSm]}>{mRecords[0]?.remarks}</Text>:console.log(''):console.log('')}
+                            {mRecords?mRecords[0]?.type?<Text style={[stylesI.greyTextSm]}>{mRecords[0]?.type}</Text>:console.log(''):console.log('')}
+                            {mRecords?mRecords[0]?.attachment!='null'?<View style={[{marginRight:2}]}><Image style={{width: 100, height: 100,borderRadius:8}} source={{ uri: mRecords[0]?.attachment}}/></View>:console.log(''):console.log('')}
                             {
                                 mIsLoan===1?
                                     mRecords?
                                     <View >
                                         {
-                                            mRecords[0].give === 1 ?
+                                            mRecords[0]?.give === 1 ?
                                                 <Text
-                                                    style={[styles.greyTextSm, styles.giveAmountText]}>{'Principal ₹ ' + mRecords[0].amountGiven}</Text> :
+                                                    style={[styles.greyTextSm, styles.giveAmountText]}>{'Principal ₹ ' + mRecords[0]?.amountGiven}</Text> :
                                                 <Text
-                                                    style={[styles.greyTextSm, styles.takeAmountText]}>{'Pricipal ₹ ' + mRecords[0].amountTaken}</Text>
+                                                    style={[styles.greyTextSm, styles.takeAmountText]}>{'Pricipal ₹ ' + mRecords[0]?.amountTaken}</Text>
                                         }
                                         
 { 
    
-                    mRecords[0].give === 1 ?
+                    mRecords[0]?.give === 1 ?
                     <View >
                                         <Text
-                                            style={[styles.greyTextSm, styles.boldText, {color: "#f9c032"}]}>{' Interest         + ₹ ' + getTotalAmount(mRecords[0].amountGiven, mRecords[0].interest, mRecords[0].installment, mRecords[0].totalMonths)}</Text>
+                                            style={[styles.greyTextSm, styles.boldText, {color: "#f9c032"}]}>{' Interest         + ₹ ' + getTotalAmount(mRecords[0]?.amountGiven, mRecords[0]?.interest, mRecords[0]?.installment, mRecords[0]?.totalMonths)}</Text>
                                         <Text
-                                            style={[styles.greyTextSm, styles.boldText, {color: "black"}]}>{' Final              = ₹ ' + (getTotalAmount(mRecords[0].amountGiven, mRecords[0].interest, mRecords[0].installment, mRecords[0].totalMonths) + mRecords[0].amountGiven)}</Text>
+                                            style={[styles.greyTextSm, styles.boldText, {color: "black"}]}>{' Final              = ₹ ' + (getTotalAmount(mRecords[0]?.amountGiven, mRecords[0]?.interest, mRecords[0]?.installment, mRecords[0]?.totalMonths) + mRecords[0]?.amountGiven)}</Text>
                                        </View>
 : <View >
 <Text
-    style={[styles.greyTextSm, styles.boldText, {color: "#f9c032"}]}>{' Interest         + ₹ ' + getTotalAmount(mRecords[0].amountTaken, mRecords[0].interest, mRecords[0].installment, mRecords[0].totalMonths)}</Text>
+    style={[styles.greyTextSm, styles.boldText, {color: "#f9c032"}]}>{' Interest         + ₹ ' + getTotalAmount(mRecords[0]?.amountTaken, mRecords[0]?.interest, mRecords[0]?.installment, mRecords[0]?.totalMonths)}</Text>
 <Text
-    style={[styles.greyTextSm, styles.boldText, {color: "black"}]}>{' Final              = ₹ ' + (getTotalAmount(mRecords[0].amountTaken, mRecords[0].interest, mRecords[0].installment, mRecords[0].totalMonths) + mRecords[0].amountTaken)}</Text>
+    style={[styles.greyTextSm, styles.boldText, {color: "black"}]}>{' Final              = ₹ ' + (getTotalAmount(mRecords[0]?.amountTaken, mRecords[0]?.interest, mRecords[0]?.installment, mRecords[0]?.totalMonths) + mRecords[0]?.amountTaken)}</Text>
 </View>
                                     
                             }
@@ -163,7 +164,7 @@ export default function EntryDetails(props) {
             </View>
 
             <View style={[styles.row,{alignItems:'center',margin:10,marginVertical:5,height:50,borderRadius:5}]}>
-            {mRecords?mRecords[0].uploaded===1?<Text> <MaterialIcons name="backup" size={16} color="black" /> Entry is backed up</Text>:<Text> <MaterialIcons name="backup" size={16} color="black" /> Entry is not backed up</Text>:console.log('')}
+            {mRecords?mRecords[0]?.uploaded===1?<Text> <MaterialIcons name="backup" size={16} color="black" /> Entry is backed up</Text>:<Text> <MaterialIcons name="backup" size={16} color="black" /> Entry is not backed up</Text>:console.log('')}
         </View>
 
         <View style={[styles.row,{position:'absolute',bottom:0,width:'100%'}]}>
