@@ -16,7 +16,7 @@ export default function BusinessCardEdit({navigation}) {
     const [EMAIL,setEmail] = useState(null)
     const [DESIGNATION,setDesignation] = useState(null)
 
-    
+
 
     async function save(){
 
@@ -24,9 +24,9 @@ export default function BusinessCardEdit({navigation}) {
         if(!BUSINESS_TYPE || !USER_NAME || !PH_NO || !GST_NO || !BUSINESS_TYPE || !ADDRESS || !EMAIL || !DESIGNATION){
             Alert.alert("All field mandatory")
         }else{
-           let data = await dbObject.setVisitingCard(BUSINESS_NAME , USER_NAME , parseInt(PH_NO) , GST_NO,BUSINESS_TYPE , ADDRESS , EMAIL,DESIGNATION );
-           navigation.goBack()
-       }
+            let data = await dbObject.setVisitingCard(BUSINESS_NAME , USER_NAME , parseInt(PH_NO) , GST_NO,BUSINESS_TYPE , ADDRESS , EMAIL,DESIGNATION );
+            navigation.goBack()
+        }
     }
     return (
         <View style={{backgroundColor: 'white'}}>
@@ -34,7 +34,7 @@ export default function BusinessCardEdit({navigation}) {
 
                 <Text style={styles.boldText}><Entypo name="user" size={24} color="black"/> Personal Details</Text>
                 <TextInput style={[stylesI.TextInput, {marginTop: 20}]} placeholder="Name" value={USER_NAME}
-    onChangeText={name => setUserName(name)}/>
+                           onChangeText={name => setUserName(name)}/>
 
                 <View style={stylesI.TextInput}>
                     <Picker
@@ -51,13 +51,13 @@ export default function BusinessCardEdit({navigation}) {
                 </View>
 
                 <TextInput style={[stylesI.TextInput]} placeholder="Mobile Number" value={PH_NO} keyboardType={'numeric'}
-    onChangeText={number => setPhNo(number)}/>
+                           onChangeText={number => setPhNo(number)}/>
                 <Text style={styles.boldText}><MaterialIcons name="business-center" size={24} color="black"/> Business
                     Card Details</Text>
                 <TextInput style={[stylesI.TextInput, {marginTop: 20}]} placeholder="Business Name" value={BUSINESS_NAME}
-    onChangeText={bName => setBusinessName(bName)}/>
+                           onChangeText={bName => setBusinessName(bName)}/>
 
-                {/*<View style={stylesI.TextInput}>
+                <View style={stylesI.TextInput}>
                     <Picker
                         placeholder="Designation"
                         style={[{height: 30}]}
@@ -69,10 +69,10 @@ export default function BusinessCardEdit({navigation}) {
                         <Picker.Item label="Office3" value="proprietor"/>
 
                     </Picker>
-                </View>*/}
+                </View>
 
                 <TextInput style={[stylesI.TextInput]} placeholder="Business Email" value={EMAIL}
-    onChangeText={email => setEmail(email)}/>
+                           onChangeText={email => setEmail(email)}/>
 
                 <View style={stylesI.TextInput}>
                     <Picker
@@ -89,11 +89,11 @@ export default function BusinessCardEdit({navigation}) {
                 </View>
 
                 <TextInput style={[stylesI.TextInput]} placeholder="GST Number" value={GST_NO} selectedValue={GST_NO}
-    onChangeText={email => setGst(email)}/>
+                           onChangeText={email => setGst(email)}/>
                 <Text style={styles.boldText}><MaterialIcons name="business-center" size={24} color="black"/> Shop
                     Office Address</Text>
                 <TextInput style={[stylesI.TextInput, {marginTop: 20}]} placeholder="Address Line 1" value={ADDRESS}
-    onChangeText={address => setAddress(address)}/>
+                           onChangeText={address => setAddress(address)}/>
                 <TextInput style={[stylesI.TextInput, {marginTop: 20}]} placeholder="Address Line 2"/>
                 <TextInput style={[stylesI.TextInput, {marginTop: 20}]} placeholder="City/District"/>
                 <TextInput style={[stylesI.TextInput, {marginTop: 20}]} placeholder="State"/>
