@@ -250,9 +250,10 @@ function YouGaveScreen(props) {
                                     onValueChange={(itemValue, itemIndex) => setInstallmentNo(itemValue)}
                                 >
                                     <Picker.Item label="Select Installment No." value="" />
-                                    <Picker.Item label="Purchase" value="Purchase" />
-                                    <Picker.Item label="Income" value="Income" />
-                                    <Picker.Item label="Expenses" value="Expenses" />
+                                    <Picker.Item label="1" value="1" />
+                                    <Picker.Item label="2" value="2" />
+                                    <Picker.Item label="3" value="3" />
+                                    <Picker.Item label="4" value="4" />
                                 </Picker>
                             </View>
                         </View>
