@@ -125,7 +125,7 @@ function OneCustomerScreen(props) {
      
          <div id="demo">
        <h1>Lekha Jokha Report</h1>
-       <h2>`+mRecords?.[0].name +'-'+mRecords?.[0].partner_contact+`</h2>
+       <h2>`+route.params.name +'-'+mRecords?.[0].partner_contact+`</h2>
        <h3>`+new Date()+`</h3>
        
        <table>
@@ -133,7 +133,7 @@ function OneCustomerScreen(props) {
          <tr>
            <th>You Gave</th>
            <th>You Got</th>
-           <th> Mode </th>
+       
            <th> Remark </th>
            <th> Date </th>
           
@@ -157,9 +157,9 @@ const sharePdf = (url) => {
             html = html+`<tr>
             <td data-column="Amount">  `+element?.amount+`  </td>
             <td data-column="Amount">  `+element?.amount+`  </td>
-            <td data-column="Mode">  `+element?.mode+`  </td>
+           
             <td data-column="Remark">    `+element?.remarks+`  </td>
-            <td data-column="Date">    `+element?.lastupdated+`  </td>
+            <td data-column="Date">    `+element?.date?.substring(4, 15).toUpperCase() + " - " + element.date?.substring(16, 21)+`  </td>
             </tr>`
             
           });

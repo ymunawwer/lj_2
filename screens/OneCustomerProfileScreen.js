@@ -302,7 +302,7 @@ function OneCustomerProfileScreen(props) {
           containerStyle={[{flex: 3}]}
           label={"Gave:"}
           placeholder={"Gave"}
-          value={JSON.stringify(limitGave)}
+          value={limitGave.toString()}
           onChangeText = {value=>setLimitGave(value)}
 
           
@@ -311,7 +311,7 @@ function OneCustomerProfileScreen(props) {
           containerStyle={[{flex: 3}]}
           label={"Got:"}
           placeholder={"Got"}
-          value={JSON.stringify(limitGot)}
+          value={limitGot.toString()}
           onChangeText = {value=>setLimitGot(value)}
 
           

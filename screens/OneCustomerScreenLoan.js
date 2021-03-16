@@ -112,90 +112,72 @@ function OneCustomerScreenLoan(props) {
       Sharing.shareAsync(url)
   }
   
+
+    // pdf
+
     const Prints = () =>{
-     return `<style>
-      
-      </style>
-  
-      <div id="demo">
-    <h1>Lekha Jokha Report</h1>
-    <h2>`+mRecords?.[0].name +'-'+mRecords?.[0].partner_contact+`</h2>
-    <h3>`+new Date()+`</h3>
-    
-    <table>
-    <thead>
-      <tr>
-        <th>Amount</th>
-        <th> Mode </th>
-        <th> Remark </th>
-        <th> Date </th>
+      return `<style>
        
-      </tr>
-    </thead>
-    <tbody>`
-    }
-      
-  //     <tr>
-  //       <td data-column="First Name">Andor</td>
-  //       <td data-column="Last Name">Nagy</td>
-  //       <td data-column="Job Title">Designer</td>
-  //       <td data-column="Twitter">@andornagy</td>
-  //     </tr>
-  //     <tr>
-  //       <td data-column="First Name">Tamas</td>
-  //       <td data-column="Last Name">Biro</td>
-  //       <td data-column="Job Title">Game Tester</td>
-  //       <td data-column="Twitter">@tamas</td>
-  //     </tr>
-  //     <tr>
-  //       <td data-column="First Name">Zoli</td>
-  //       <td data-column="Last Name">Mastah</td>
-  //       <td data-column="Job Title">Developer</td>
-  //       <td data-column="Twitter">@zoli</td>
-  //     </tr>
-  //     <tr>
-  //       <td data-column="First Name">Szabi</td>
-  //       <td data-column="Last Name">Nagy</td>
-  //       <td data-column="Job Title">Chief Sandwich Eater</td>
-  //       <td data-column="Twitter">@szabi</td>
-  //     </tr>
-  //   </tbody>
-  // </table>`
+       </style>
+   
+       <div id="demo">
+     <h1>Lekha Jokha Report</h1>
+     <h2>`+route.params.name +'-'+mRecords?.[0].contactno+`</h2>
+     <h3>`+new Date()+`</h3>
+     
+     <table>
+     <thead>
+       <tr>
+         <th>Amount Taken</th>
+         <th>Amount Given</th>
+         <th> Mode </th>
+         <th> Remark </th>
+         <th> Date </th>
+        
+       </tr>
+     </thead>
+     <tbody>`
+     }
   
-      
+
+
+
+  
+    
+    
     const print = async (html) => {
       try {
+        console.log(mRecords)
         mRecords.forEach(element => {
           html = html+`<tr>
-       
-            <td data-column="Amount">  `+element['give']===1?element['amountGiven']:element['amountTaken']+`  </td>
-            <td data-column="Mode">  `+element?.mode+`  </td>
-            <td data-column="Remark">    `+element?.remarks+`  </td>
-            <td data-column="Date">    `+element?.lastupdated+`  </td>
+          <td data-column="Amount Taken">  `+element?.amountTaken+`  </td>
+          <td data-column="Amount Given">  `+element?.amountGiven+`  </td>
+        
+          <td data-column="Mode">  `+element?.mode+`  </td>
+          <td data-column="Remark">    `+element?.remarks+`  </td>
+          <td data-column="Date">    `+element?.date+`  </td>
           </tr>`
           
         });
         html=html+`</tbody></table>`
-        console.log('contacts',mRecords)
         const { uri } = await Print.printToFileAsync({ 'html':html });
         
         if (Platform.OS === "ios") {
           await Sharing.shareAsync(uri);
           return uri;
         } else {
-          const permission = await MediaLibrary.requestPermissionsAsync();
-          if (permission.granted) {
+          const permission = await MediaLibrary.requestPermissionsAsync();      if (permission.granted) {
           //     const asset =await MediaLibrary.createAssetAsync(uri);
           //   alert(console.log(asset))
           //   return uri;
-            const currentdate = new Date();
-            const datetime = currentdate.getDate() + "_"
-                + (currentdate.getMonth() + 1) + "_"
-                + currentdate.getFullYear() + "-"
-                + currentdate.getHours() + ":"
-                + currentdate.getMinutes() + ":"
-                + currentdate.getSeconds();
-            const pdfName = `${uri.slice(
+          var currentdate = new Date(); 
+          var datetime = currentdate.getDate() + "_"
+              + (currentdate.getMonth()+1)  + "_" 
+              + currentdate.getFullYear() + "-"  
+              + currentdate.getHours() + ":"  
+              + currentdate.getMinutes() + ":" 
+              + currentdate.getSeconds();
+          const pdfName = `${uri.slice(
               0,
               uri.lastIndexOf('/') + 1
           )}Report_${datetime}.pdf`
@@ -212,6 +194,10 @@ function OneCustomerScreenLoan(props) {
         console.error(error);
       }
     };
+
+  // pdf end
+
+
   
     // pdf share end
 
