@@ -113,20 +113,67 @@ console.log(props.route.params.currentBookId)
     return(
       <View>
         <View>
-          <View style={[{justifyContent:'center', width:'100%', flexDirection: "row"}]}>
+            <View style={[{justifyContent:'center', width:'100%', flexDirection: "row"}]}>
+
+                <View style={{flex: 1, marginLeft: 10, alignItems: "center"}}>
+                    <Subheading>From: </Subheading>
+                    <DatePicker
+                        style={{width: "100%"}}
+                        date={fromDate}
+                        mode="date"
+                        placeholder="Date"
+                        format="YYYY-MM-DD"
+                        minDate="2000-06-01"
+                        maxDate={todayDate}
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+
+
+                            // ... You can check the source to find the other keys.
+                        }}
+                        onDateChange={(date) => {
+                            setFromDate(date)
+                        }}
+                    />
+                </View>
+
+                <View style={{flex: 1, marginLeft: 10, alignItems: "center"}}>
+                    <Subheading>To: </Subheading>
+                    <DatePicker
+                        style={{width: "100%"}}
+                        date={toDate}
+                        mode="date"
+                        placeholder="Date"
+                        format="YYYY-MM-DD"
+                        minDate="2000-06-01"
+                        maxDate={todayDate}
+                        confirmBtnText="Confirm"
+                        cancelBtnText="Cancel"
+                        customStyles={{
+                            //...
+                        }}
+                        onDateChange={(date) => {
+                            setToDate(date)
+                        }}
+                    />
+                </View>
+
+            </View>
+          <View style={[{justifyContent:'center', width:'100%', flexDirection: "column", marginTop: 10}]}>
 
             <RoundedInput
               value={openingStock}
-              label={"Opening Stock"}
-              containerStyle={{flex: 1}}
+              label={"Opening Stock (" + fromDate + ")"}
+              //containerStyle={{flex: 1}}
               onChangeText={(text) => setOpeningStock(text)}
               keyboardType="phone-pad"
             />
 
             <RoundedInput
               value={closingStock}
-              label={"Closing Stock"}
-              containerStyle={{flex: 1}}
+              label={"Closing Stock (" + toDate + ")"}
+              //containerStyle={{flex: 1}}
               onChangeText={(text) => setClosingStock(text)}
               keyboardType="phone-pad"
             />
@@ -160,14 +207,17 @@ console.log(props.route.params.currentBookId)
           backgroundColor: "#fff",
           padding: 10
         }}>
-          <View style={[styleI.topCardEachElement]}>
-            <Text>Closing Stock:</Text>
-            <Text>₹ {closingStock}</Text>
-          </View>
+
+            <View style={[styleI.topCardEachElement]}>
+                <Text>Opening Stock:</Text>
+                <Text>({fromDate})</Text>
+                <Text>₹ {openingStock}</Text>
+            </View>
 
           <View style={[styleI.topCardEachElement]}>
-            <Text>Opening Stock:</Text>
-            <Text>₹ {openingStock}</Text>
+            <Text>Closing Stock:</Text>
+              <Text>({toDate})</Text>
+            <Text>₹ {closingStock}</Text>
           </View>
 
           <View>

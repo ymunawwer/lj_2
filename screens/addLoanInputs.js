@@ -56,7 +56,7 @@ function addLoanInputs(props) {
   // setInterestRate( [ 'one', 'two', 'three', 'four', 'five' ])
   // setInstallmentAmount( [ 'one', 'two', 'three', 'four', 'five' ])
 
-  function checkLoanName(name){
+  async function checkLoanName(name){
     // console.log(props.personals.currentBookData.id)
     dbObject.checkLoanName(name, props.personals.currentBookData.id)
       .then(function(data){
@@ -88,12 +88,12 @@ function addLoanInputs(props) {
 
 
  async function saveHandler(item) {
-      setLoaderVisibility(true)
+      //setLoaderVisibility(true)
     console.log('ccc',item)
       // dbObject.addLoanName(loanName, item.name, item.contact, props.personals.currentBookData.id).then(function(res){
 
         // await dbObject.setLoanGivenRecord(props.personals.currentBookData.id, 0, '', '', -1, -1, '', '', item.contact,item.name, item.contact, -1, -1, installmentdb, totalMonths,interestdb, loanName, 0)
-          setLoaderVisibility(false)
+          //setLoaderVisibility(false)
 
           /*navigation.navigate('OneCustomerScreenLoan', {
               phoneNumber: item.phone,
@@ -171,7 +171,7 @@ function addLoanInputs(props) {
                   
                 }}
               >
-                <Text style={{color: 'white', fontWeight: 'bold'}}>Cancel</Text>
+                <Text style={{color: 'white', fontWeight: 'bold'}}>CANCEL</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -187,7 +187,7 @@ function addLoanInputs(props) {
                   
                 }}
               >
-                <Text style={{color: 'white', fontWeight: 'bold'}}>SAVE</Text>
+                <Text style={{color: 'white', fontWeight: 'bold'}}>NEXT</Text>
               </TouchableOpacity>
             </View>
            
