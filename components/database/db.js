@@ -148,7 +148,7 @@ class database {
 
 
             tx.executeSql(
-                "create table if not exists contactwithrecords (recordid integer primary key AUTOINCREMENT, contact text NOT NULL, bookid integer NOT NULL,name text NOT NULL, lastupdated text NOT NULL, loanYes integer, address text, rAmount integer, pAmount integer, netAmount integer, remoteid text, hasGaveGot integer, hasRecievableDue integer,isDeleted integer DEFAULT 0,isActive integer DEFAULT 1,isSms integer DEFAULT 1,limitGave integer DEFAULT 10000,limitGot integer DEFAULT 5000);",
+                "create table if not exists contactwithrecords (recordid integer primary key AUTOINCREMENT, contact text NOT NULL, bookid integer NOT NULL,name text NOT NULL, lastupdated text NOT NULL, loanYes integer, address text, rAmount integer, pAmount integer, netAmount integer, remoteid text, hasGaveGot integer, hasRecievableDue integer,isDeleted integer DEFAULT 0,isActive integer DEFAULT 1,isSms integer DEFAULT 1,limitGave integer DEFAULT 0,limitGot integer DEFAULT 0);",
                 [],
                 (tx, results) => {
                     // console.log('Record table query success Results', results);

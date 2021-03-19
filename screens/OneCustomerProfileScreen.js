@@ -300,19 +300,43 @@ function OneCustomerProfileScreen(props) {
                             
         <RoundedInput
           containerStyle={[{flex: 3}]}
+          keyboardType="numeric"
           label={"Gave:"}
           placeholder={"Gave"}
-          value={limitGave.toString()}
-          onChangeText = {value=>setLimitGave(value)}
+          value={isNaN(limitGave)?0:limitGave.toString()}
+          onChangeText = {(value)=>{
+            
+           
+   let num = value.replace(".", '');
+     if(isNaN(num)){
+         alert('Only Number allowed.')
+     }else{
+        setLimitGave(parseInt(num))
+    }  
+   
+          }
+            }
 
           
         />
            <RoundedInput
           containerStyle={[{flex: 3}]}
+          keyboardType="numeric"
           label={"Got:"}
           placeholder={"Got"}
           value={limitGot.toString()}
-          onChangeText = {value=>setLimitGot(value)}
+          onChangeText =  {(value)=>{
+            
+           
+            let num = value.replace(".", '');
+              if(isNaN(num)){
+                  alert('Only Number allowed.')
+              }else{
+                 setLimitGot(parseInt(num))
+             }  
+            
+                   }
+                     }
 
           
         />
