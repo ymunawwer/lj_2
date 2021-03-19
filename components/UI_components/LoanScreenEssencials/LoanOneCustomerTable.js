@@ -24,8 +24,9 @@ const LoanOneCustomerTable = (props) => {
   const customItem = (item, index) => {
     return (
       <TouchableOpacity onPress={() => {
+        console.log("Item ID new = " , item.recordid)
         navigation.navigate('EntryDetails')
-        storeObject.setRecordId(item.id)
+        storeObject.setRecordId(item.recordid)
         storeObject.setRecordLoanYes(1)
         
       }}>

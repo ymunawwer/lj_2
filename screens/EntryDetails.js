@@ -19,6 +19,10 @@ export default function EntryDetails(props) {
     useEffect(() => {
        
         (async () => {
+
+            console.log('loan record id new = ',storeObject.getRecordId())
+
+
             console.log('mrecords',mRecords)
             console.log("store loan", storeObject.getRecordLoanYes()===1)
             console.log("store", storeObject.getRecordId())
@@ -31,7 +35,7 @@ export default function EntryDetails(props) {
                      setIsLoan(0)
                 }else{
                     const records = await dbObject.getLoanRecordById(storeObject.getRecordId())
-                    console.log('loanrecord',records)
+                    console.log('loanrecord',records['_array'])
                     setRecords(records)
                     setIsLoan(1)
                 }
@@ -57,7 +61,7 @@ export default function EntryDetails(props) {
 
                             {/* Initials */}
                             <View style={styles.initialsCont}>
-                                <Text style={styles.initialText}>{mRecords?mRecords[0]?.partner_contact:console.log('')}</Text>
+                                <Text style={styles.initialText}>{mRecords?mRecords[0]?.partner_contact[1]:console.log('')}</Text>
 
                             </View>
                             {/* Initials */}

@@ -136,7 +136,7 @@ function MainScreen(props) {
 
                 />
                 <Text style={styles.greyTextSm}>
-                    Trusted by Omar, Ammaar and Shubham
+                    Trusted by many businesses.
                 </Text>
             </View>
 
