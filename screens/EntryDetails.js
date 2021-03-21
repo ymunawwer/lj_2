@@ -20,28 +20,30 @@ export default function EntryDetails(props) {
        
         (async () => {
 
-            console.log('loan record id new = ',storeObject.getRecordId())
+            // console.log('loan record id new = ',storeObject.getRecordId())
 
 
-            console.log('mrecords',mRecords)
-            console.log("store loan", storeObject.getRecordLoanYes()===1)
-            console.log("store", storeObject.getRecordId())
+            // console.log('mrecords',mRecords)
+            // console.log("store loan", storeObject.getRecordLoanYes()===1)
+            // console.log("store", storeObject.getRecordId())
             try {
                
                 if(storeObject.getRecordLoanYes()===0){
                     const records = await dbObject.getRecordById(storeObject.getRecordId())
                     setRecords(records)
-                    console.log("records attachment", records)
+                    // console.log("records attachment", records)
                      setIsLoan(0)
                 }else{
+                    console.log("record id", storeObject.getRecordId());
                     const records = await dbObject.getLoanRecordById(storeObject.getRecordId())
-                    console.log('loanrecord',records['_array'])
+                    console.log("recordsss", records);
+                    // console.log('loanrecord',records['_array'])
                     setRecords(records)
                     setIsLoan(1)
                 }
             }
             catch (e) {
-                console.log('error',JSON.stringify(e))
+                // console.log('error',JSON.stringify(e))
             }
 
         })();
@@ -97,10 +99,11 @@ export default function EntryDetails(props) {
                         <View style={[styles.row,{borderRadius:0}]}><Text>Running Balance</Text><Text style={styles.giveAmountText}>₹{mRecords[0]?.amount}</Text></View>
                         :<View style={[styles.row,{borderRadius:0}]}><Text>Running Balance</Text><Text style={styles.takeAmountText}>₹{mRecords[0]?.amount}</Text></View>:
                         console.log(''):
-                        mRecords?mRecords[0]?.take===0?
-                        <View style={[styles.row,{borderRadius:0}]}><Text>Running Balance</Text><Text style={styles.giveAmountText}>₹{(getTotalAmount(mRecords[0]?.amountGiven, mRecords[0]?.interest, mRecords[0]?.installment, mRecords[0]?.totalMonths) + mRecords[0]?.amountGiven)}</Text></View>
-                        :<View style={[styles.row,{borderRadius:0}]}><Text>Running Balance</Text><Text style={styles.takeAmountText}>₹{(getTotalAmount(mRecords[0]?.amountTaken, mRecords[0]?.interest, mRecords[0]?.installment, mRecords[0]?.totalMonths) + mRecords[0]?.amountTaken)}</Text></View>:
-                        console.log('')
+                        mRecords?
+                            mRecords[0]?.take===0?
+                            <View style={[styles.row,{borderRadius:0}]}><Text>Running Balance</Text><Text style={styles.giveAmountText}>₹{(getTotalAmount(mRecords[0]?.amountGiven, mRecords[0]?.interest, mRecords[0]?.installment, mRecords[0]?.totalMonths) + mRecords[0]?.amountGiven)}</Text></View>
+                            :<View style={[styles.row,{borderRadius:0}]}><Text>Running Balance</Text><Text style={styles.takeAmountText}>₹{(getTotalAmount(mRecords[0]?.amountTaken, mRecords[0]?.interest, mRecords[0]?.installment, mRecords[0]?.totalMonths) + mRecords[0]?.amountTaken)}</Text></View>:
+                            console.log('')
                     }
                         
                    
@@ -109,7 +112,9 @@ export default function EntryDetails(props) {
 
                     <View style={{alignItems:'center',backgroundColor:'white', height:40,justifyContent:'center',borderBottomLeftRadius:5,borderBottomRightRadius:5}}>
                         <TouchableOpacity>
-                         {/* <Text style={[styles.blueTextSm]}> <Entypo name="edit" size={18} color="#4e54c8" />   EDIT ENTRY</Text> */}
+                         {/* <Text style={[styles.blueTextSm]}> <Entypo name="edit" size={18} color="#4e54c8" />   EDIT ENTRY</Text> 
+                                                     mRecords?"You gave ₹"+mRecords[0]?.amountGiven+" to "+mRecords[0]?.partner_contact:console.log('')}
+*/}
                         </TouchableOpacity>
                     </View>
             </View>
@@ -123,7 +128,16 @@ export default function EntryDetails(props) {
                         <View style={{borderBottomWidth: .2, borderBottomColor: '#dedede'}}/>
 
                         <View>
-                            <Text style={[stylesI.greyTextSm]}>{mRecords?"You gave ₹"+mRecords[0]?.amountGiven+" to "+mRecords[0]?.partner_contact:console.log('')}</Text>
+                            <Text style={[stylesI.greyTextSm]}>{
+                                // console.log("teee",mRecords[0])
+                                mIsLoan===1?
+                                mRecords?mRecords[0]?.amountGiven!==0?
+                                
+                                    "You Gave ₹"+mRecords[0].amountGiven+" to "+mRecords[0].partner_contact:
+                                    "You Got ₹"+mRecords[0].amountTaken+" to "+mRecords[0].partner_contact:console.log(''):null
+                                
+                            }
+                                </Text>
                             {mRecords?mRecords[0]?.remarks!=""?<Text style={[stylesI.greyTextSm]}>{mRecords[0]?.remarks}</Text>:console.log(''):console.log('')}
                             {mRecords?mRecords[0]?.type?<Text style={[stylesI.greyTextSm]}>{mRecords[0]?.type}</Text>:console.log(''):console.log('')}
                             {mRecords?mRecords[0]?.attachment!='null'?<View style={[{marginRight:2}]}><Image style={{width: 100, height: 100,borderRadius:8}} source={{ uri: mRecords[0]?.attachment}}/></View>:console.log(''):console.log('')}

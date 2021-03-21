@@ -9,6 +9,7 @@ const LoanOneCustomerTable = (props) => {
   const { navigation, lan = "english", data = []} = props
 
   const headerItems = [
+  "Date",
     "Installment",
     "Due Date",
     "Installment Amount",
@@ -19,12 +20,12 @@ const LoanOneCustomerTable = (props) => {
 
   // give width of items according to this array in style
   //For eg: width: widthArr[0] for first item
-  const widthArr = [130, 130, 130, 130, 130, 130]
+  const widthArr = [130,130, 130, 130, 130, 130, 130]
 
   const customItem = (item, index) => {
     return (
       <TouchableOpacity onPress={() => {
-        console.log("Item ID new = " , item.recordid)
+        console.log("Item ID new = " , item)
         navigation.navigate('EntryDetails')
         storeObject.setRecordId(item.recordid)
         storeObject.setRecordLoanYes(1)
@@ -33,9 +34,10 @@ const LoanOneCustomerTable = (props) => {
         <View style={[mStyle.container,{alignItems:'center',width:'100%'}]}>
 
           <Text
-            style={[styles.greyTextSm, styleI.timeDate,{paddingHorizontal:0}]}
+            style={[styles.greyTextSm, styleI.timeDate,{paddingHorizontal:5}]}
           >
-            {item.lastupdated}
+          {new Date(item.lastupdated).toUTCString().slice(5,25)}
+           
           </Text>
           {
             item.attachment?
@@ -46,22 +48,16 @@ const LoanOneCustomerTable = (props) => {
           }
 
           
-<View style={[styleI.cardGiveAmt,{backgroundColor:'#dedede'}]}>
-            <Text style={[styles.greyTextSm, styles.giveAmountText]}>
-            ₹ 10
+<View style={[styleI.cardGiveAmt,{backgroundColor:'#fff'}]}>
+            <Text style={[styles.takeAmountText]}>
+            {item['installment']}
               
             </Text>
           </View>
 
           <View style={styleI.cardGiveAmt}>
             <Text style={[styles.greyTextSm, styles.giveAmountText]}>
-              {
-                item.give === 1 ?
-                  '₹ ' + item['amountGiven']
-                  :
-                  item['amountTaken'] 
-                
-              }
+              TBD
             </Text>
           </View>
           {/* <View style={[styleI.cardTakeAmt, styleI.greenBack]}>
@@ -85,8 +81,8 @@ const LoanOneCustomerTable = (props) => {
           </View> */}
 
 <View style={[styleI.cardGiveAmt,{backgroundColor:'white'}]}>
-            <Text style={[styles.greyTextSm, styles.giveAmountText,{color:'white'}]}>
-            ₹ 10
+            <Text style={[styles.greyTextSm, styles.giveAmountText,{color:'black'}]}>
+            TBD
               
             </Text>
           </View>
@@ -97,7 +93,7 @@ const LoanOneCustomerTable = (props) => {
                 item.give === 1 ?
                   '₹ ' + item['amountGiven']
                   :
-                  console.log('')
+                  item['amountTaken'] 
                 
               }
             </Text>
