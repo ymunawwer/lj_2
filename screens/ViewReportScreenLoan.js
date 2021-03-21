@@ -314,6 +314,7 @@ function ViewReportScreenLoan(props) {
                     <Picker
                         style={[styles.blueText, {height: 50, width: '30%', backgroundColor: 'rgba(0,0,250,.1)'}]}
                         onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                        selectedValue={selectedValue}
                     >
                         <Picker.Item label="All" value="All"/>
                         <Picker.Item label="Cash" value="Cash"/>

@@ -57,7 +57,7 @@ const LoanOneCustomerTable = (props) => {
 
           <View style={styleI.cardGiveAmt}>
             <Text style={[styles.greyTextSm, styles.giveAmountText]}>
-              TBD
+              {item.duedate}
             </Text>
           </View>
           {/* <View style={[styleI.cardTakeAmt, styleI.greenBack]}>
@@ -82,7 +82,7 @@ const LoanOneCustomerTable = (props) => {
 
 <View style={[styleI.cardGiveAmt,{backgroundColor:'white'}]}>
             <Text style={[styles.greyTextSm, styles.giveAmountText,{color:'black'}]}>
-            TBD
+            {item.installmentAmount}
               
             </Text>
           </View>
@@ -93,7 +93,7 @@ const LoanOneCustomerTable = (props) => {
                 item.give === 1 ?
                   '₹ ' + item['amountGiven']
                   :
-                  item['amountTaken'] 
+                  '₹' + item['amountTaken'] 
                 
               }
             </Text>
