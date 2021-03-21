@@ -45,7 +45,7 @@ function ViewReportScreenLoan(props) {
           endDate.setDate(endDate.getDate() + 1)
           startDate.setDate(startDate.getDate() - 1)
       
-        const record = await dbObject.getRecord(props.personals.currentBookId)
+        const record = await dbObject.getLoanRecord(props.personals.currentBookId)
         console.log(record)
         if(selectedStartDate!==null && selectedEndDate!==null ){
           
@@ -70,7 +70,6 @@ function ViewReportScreenLoan(props) {
         }
         if(selectedStartDate===null && selectedEndDate===null){
           setRecord(record)
-          
         }
 
         
@@ -299,7 +298,12 @@ function ViewReportScreenLoan(props) {
                     </TouchableOpacity>
 
 
+
                 </View>
+                <TouchableOpacity onPress={filterData()}>
+                   
+                    </TouchableOpacity>
+                  
 
                 <View style={[styles.row, {
                      marginTop: 10,

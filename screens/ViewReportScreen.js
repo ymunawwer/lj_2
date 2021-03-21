@@ -1,5 +1,5 @@
 import  React,{useState, useEffect} from 'react';
-import {View, Text, TextInput, Picker, StyleSheet, FlatList, ScrollView, TouchableOpacity} from 'react-native';
+import {View, Text, TextInput, Picker, StyleSheet, FlatList, ScrollView, TouchableOpacity,Alert} from 'react-native';
 import {styles} from '../styles/globalStyle';
 import {AntDesign} from '@expo/vector-icons';
 import storeObject from "../store/store";
@@ -380,6 +380,7 @@ const sharePdf = (url) => {
                             {/* <AntDesign name="caretdown" size={10} color="red" /> */}
                         </View>
                     </TouchableOpacity>
+                   
 
 
 
@@ -426,6 +427,12 @@ const sharePdf = (url) => {
                         <AntDesign style={[styles.blueText]} name="calendar" size={18} color="black"/> END DATE</Text> */}
 
                 </View>
+               
+
+                 <TouchableOpacity onPress={filterData()}>
+                   
+                    </TouchableOpacity>
+                  
 
                 <View style={[styles.row, {
                     marginTop: 10,
@@ -444,7 +451,6 @@ const sharePdf = (url) => {
                         style={[styles.blueText, {height: 50, width: '30%', backgroundColor: 'rgba(0,0,250,.1)'}]}
                         onValueChange={(itemValue, itemIndex) => {
                           setSelectedValue(itemValue);
-                         
                         }
               }
 

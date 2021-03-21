@@ -298,10 +298,25 @@ function Loan(props) {
         }
     ]
 
+    async function refresh(){
+        const res = await dbObject.getLoanNames(props.personals.currentBookData.id)
+                setLoans(res)
+    }
+
+
+
 
     return (
 
+          
+                  
+
         <SafeAreaView style={[styles.wrapper, {paddingTop: 0, backgroundColor: "#ffffff"}]}>
+        <TouchableOpacity onPress={
+                refresh()
+          }>
+                   
+                    </TouchableOpacity>
             <Header navigation={navigation}/>
 
             <View style={{padding: 10, backgroundColor: "#fff"}}>
