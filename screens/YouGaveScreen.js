@@ -220,7 +220,7 @@ function YouGaveScreen(props) {
                     <RoundedInput
                         style={[{color: themeColor}]}
                         label="Customer Name"
-                        
+                        editable={false}
                         value={customerName}
                         
                     />
