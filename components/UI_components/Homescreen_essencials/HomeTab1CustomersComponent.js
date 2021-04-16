@@ -6,7 +6,7 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import HomeTabsCommonComponents from "./HomeTabsCommonComponent";
 import storeObject from "../../../store/store";
-
+import Moment from 'moment';
 function HomeTab1CustomersComponent(props) {
   const {navigation} = props
 
