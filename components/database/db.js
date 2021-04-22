@@ -1541,6 +1541,25 @@ getRecordId(phone,bookId){
             });
         })
     }
+// delete entry
+    removeEntry(id) {
+        return new Promise((resolve, reject) => {
+            db.transaction(tx => {
+                tx.executeSql(
+                    "DELETE FROM table_name WHERE id="+id, [],
+                    (tx, results) => {
+                        console.log('Results', results.rowsAffected);
+                        resolve(results.rows)
+                    }, (t, error) => {
+                        console.log('Constructor error : ', error)
+                        reject(error)
+                    }
+                );
+            });
+        })
+    }
+
+
     checkBookPassword(id,password){
         return new Promise((resolve, reject) => {
             db.transaction(tx => {

@@ -187,11 +187,19 @@ export default function EntryDetails(props) {
 
         <View style={[styles.row,{position:'absolute',bottom:0,width:'100%'}]}>
 
-        <TouchableOpacity style={[{width:'49%',borderWidth:1,borderColor:'red',padding:12,borderRadius:6,justifyContent:"center",alignItems:'center',flexDirection:'row',margin:3}]}>
+        <TouchableOpacity style={[{width:'49%',borderWidth:1,borderColor:'red',padding:12,borderRadius:6,justifyContent:"center",alignItems:'center',flexDirection:'row',margin:3}]}
+         onPress={() => {
+            
+            
+          }}>
         <AntDesign name="delete" size={20} color="red" /><Text style={[styles.boldText,{color:'red'}]}> DELETE</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[{width:'49%',padding:12,borderRadius:6,justifyContent:"center",alignItems:'center',flexDirection:'row',margin:3,backgroundColor:'#4e54c8'}]}>
+        <TouchableOpacity style={[{width:'49%',padding:12,borderRadius:6,justifyContent:"center",alignItems:'center',flexDirection:'row',margin:3,backgroundColor:'#4e54c8'}]}
+         onPress={() => {
+            
+            
+          }}>
         <AntDesign name="sharealt" size={20} color="white" /><Text style={[styles.boldText,{color:'white'}]}> SHARE</Text>
         </TouchableOpacity>
 

@@ -5,6 +5,7 @@ import {
     View,
     Alert,
     Modal,
+    KeyboardAvoidingView ,
     Keyboard,
     FlatList,
     Picker,
@@ -301,8 +302,9 @@ function YouGaveScreen(props) {
     function _renderSaveButton() {
 
             return (
-                <View style={{marginBottom: 6}}>
-                    <View style={{margin: 10}}>
+                
+                <View style={{marginBottom: 0,flex:.8}}>
+                    <View style={{margin: 0}}>
                         <TouchableOpacity
                             style={{
                                 backgroundColor: themeColor,
@@ -310,6 +312,7 @@ function YouGaveScreen(props) {
                                 justifyContent: 'center',
                                 alignItems: 'center',
                                 borderRadius: 6
+                                
                             }}
 
                             onPress={() => handleSave()}
@@ -380,6 +383,7 @@ function YouGaveScreen(props) {
             </View>
 
             <View style={{position: 'absolute', bottom: 0, width: "100%"}}>
+                
 
                 {_renderSaveButton()}
 
