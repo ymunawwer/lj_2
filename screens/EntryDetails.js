@@ -10,6 +10,7 @@ import storeObject from "../store/store";
 
 
 export default function EntryDetails(props) {
+    const {navigation} = props
 
     const [mRecords, setRecords] = useState([])
     const [mIsLoan, setIsLoan] = useState(null)
@@ -23,13 +24,14 @@ export default function EntryDetails(props) {
             // console.log('loan record id new = ',storeObject.getRecordId())
 
 
-            // console.log('mrecords',mRecords)
+            console.log('mrecords',mRecords)
             // console.log("store loan", storeObject.getRecordLoanYes()===1)
             // console.log("store", storeObject.getRecordId())
             try {
                
                 if(storeObject.getRecordLoanYes()===0){
-                    const records = await dbObject.getRecordById(storeObject.getRecordId())
+                    const records = await dbObject.getRecordByDate(storeObject.getRecordId())
+                    // const records = await dbObject.getRecordById(storeObject.getRecordId())
                     setRecords(records)
                     // console.log("records attachment", records)
                      setIsLoan(0)
@@ -189,7 +191,16 @@ export default function EntryDetails(props) {
 
         <TouchableOpacity style={[{width:'49%',borderWidth:1,borderColor:'red',padding:12,borderRadius:6,justifyContent:"center",alignItems:'center',flexDirection:'row',margin:3}]}
          onPress={() => {
+            //  Alert.alert(mRecords[0].date)
+            mIsLoan===1?
             
+            dbObject.removeEntry(mRecords[0].lastupdated,1).then(
+                navigation.goBack()
+            ):
+            dbObject.removeEntry(mRecords[0].date,0).then(
+                navigation.goBack()
+            )
+
             
           }}>
         <AntDesign name="delete" size={20} color="red" /><Text style={[styles.boldText,{color:'red'}]}> DELETE</Text>

@@ -533,7 +533,7 @@ const sharePdf = (url) => {
 
                             <TouchableOpacity onPress={() => {
                                 navigation.navigate('EntryDetails')
-                                storeObject.setRecordId(item.recordid)
+                                storeObject.setRecordId(item.date)
                                 storeObject.setRecordLoanYes(0)
                             }
                             }

@@ -282,8 +282,8 @@ function YouGaveScreen(props) {
                 }]}>
                     <RoundedInput
                         style={[{color: themeColor}]}
-                        label="Interest Amount"
-                      disable={true}
+                        label="Interest Amousdnt"
+                      editable={false}
                         value={JSON.stringify(Math.round(state.amountText*0.09*(4/12)* 100)/100)} //t in years month/12
                         keyboardType="phone-pad"
                     />

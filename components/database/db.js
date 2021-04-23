@@ -1,6 +1,7 @@
 import React from 'react';
 import * as SQLite from 'expo-sqlite';
 import storeObject from "../../store/store";
+import { Alert } from 'react-native';
 
 
 const db = SQLite.openDatabase("ljdbtest69.db", null, SQLite.CREATE_IF_NECESSARY);
@@ -1034,6 +1035,25 @@ getRecordId(phone,bookId){
 
     }
 
+    getRecordByDate(id){
+        return new Promise((resolve, reject) => {
+
+            db.transaction(tx => {
+                tx.executeSql(
+                    "SELECT * FROM records WHERE date='" + id + "'",
+                    [],
+                    (tx, results) => {
+                        console.log('get Record Results new ', results.rows['_array']);
+                        resolve(results.rows['_array'])
+                    }, (t, error) => {
+                        console.log('Constructor error : ', error)
+                        reject(error)
+                    }
+                );
+            });
+        })
+    }
+
     getRecordById(id){
         return new Promise((resolve, reject) => {
 
@@ -1542,21 +1562,42 @@ getRecordId(phone,bookId){
         })
     }
 // delete entry
-    removeEntry(id) {
+    removeEntry(id, isLoan) {
+
         return new Promise((resolve, reject) => {
+            if(isLoan===0){
             db.transaction(tx => {
                 tx.executeSql(
-                    "DELETE FROM table_name WHERE id="+id, [],
-                    (tx, results) => {
-                        console.log('Results', results.rowsAffected);
-                        resolve(results.rows)
-                    }, (t, error) => {
-                        console.log('Constructor error : ', error)
-                        reject(error)
-                    }
+                    
+                        "DELETE FROM records WHERE date='"+id+"'", [],
+                        (tx, results) => {
+                            console.log('Results', results.rowsAffected);
+                            resolve(results.rows)
+                        }, (t, error) => {
+                            console.log('Constructor error : ', error)
+                            reject(error)
+                        }
+                    
                 );
             });
+        }else{
+            db.transaction(tx => {
+                tx.executeSql(
+                    
+                        "DELETE FROM loanrecords WHERE lastupdated='"+id+"'", [],
+                        (tx, results) => {
+                            console.log('Results', results.rowsAffected);
+                            resolve(results.rows)
+                        }, (t, error) => {
+                            console.log('Constructor error : ', error)
+                            reject(error)
+                        }
+                    
+                );
+            });
+        }
         })
+    
     }
 
 
