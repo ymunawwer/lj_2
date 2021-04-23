@@ -539,11 +539,12 @@ function Loan(props) {
                             onChangeText={text => SearchFilterFunction(text)}
                         />
                         <Text style={[styles.countInfo, {
-                            fontSize: 8,
+                            alignSelf: "center",
+                            fontSize: 13,
                             fontWeight: "bold",
                             color: "#78909c",
                             fontFamily: "monospace"
-                        }]}>no. of customers: {mCustomerCount}</Text>
+                        }]}>No. of Customers: {mCustomerCount}</Text>
                     </View>
 
                     <TouchableOpacity style={styles.shopOpen} onPress={() => refRBSheet.current.open()}>

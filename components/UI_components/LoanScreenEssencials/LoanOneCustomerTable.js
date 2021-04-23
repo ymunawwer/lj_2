@@ -120,8 +120,15 @@ const LoanOneCustomerTable = (props) => {
             }
             <Text
               style={[styles.greyTextSm, styles.boldText, {color: "#f9c032"}]}>{'+ ₹ ' + props?.getTotalAmount(item['give']===1?item['amountGiven']:(item['give']===0?item['amountTaken'] :0), item.interest, item.installment, item.totalMonths)}</Text>
-            <Text
-              style={[styles.greyTextSm, styles.boldText, {color: "black"}]}>{'= ₹ ' + (Math.round(props?.getTotalAmount(item['give']===1?item['amountGiven']:(item['give']===0?item['amountTaken'] : 0), item.interest, item.installment, item.totalMonths) + item.amount))}</Text>
+
+{
+              item.give === 1 ?
+              <Text
+              style={[styles.greyTextSm, styles.boldText, {color: "black"}]}>{'= ₹ ' + (Math.round(props?.getTotalAmount(item['give']===1?item['amountGiven']:(item['give']===0?item['amountGiven'] : 0), item.interest, item.installment, item.totalMonths) + item['amountGiven']))}</Text> :
+              <Text
+              style={[styles.greyTextSm, styles.boldText, {color: "black"}]}>{'= ₹ ' + (Math.round(props?.getTotalAmount(item['give']===0?item['amountTaken']:(item['give']===0?item['amountTaken'] : 0), item.interest, item.installment, item.totalMonths) + item['amountTaken']))}</Text>
+            }
+            
           </View>
         </View>
       </TouchableOpacity>

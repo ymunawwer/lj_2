@@ -533,7 +533,7 @@ function HomeTabsCommonComponents(props) {
             allowFontScaling={false}
             onChangeText={text => SearchFilterFunction(text)}
           />
-            <Text style={[styles.countInfo,{fontSize: 8, fontWeight: "bold", color: "#78909c", fontFamily: "monospace",}]}>no. of customers:{mCustomerCount}</Text>
+            <Text style={[styles.countInfo,{fontSize: 13,alignSelf: "center", fontWeight: "bold", color: "#78909c", fontFamily: "monospace",}]}>No. of Customers:{mCustomerCount}</Text>
 </View>
           <TouchableOpacity style={styles.shopOpen} onPress={() => refRBSheet.current.open()}>
             <AntDesign style={styles.iSearchicon} name="filter" size={24} color="#4e54c8"/>

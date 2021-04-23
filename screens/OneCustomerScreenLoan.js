@@ -419,7 +419,7 @@ function OneCustomerScreenLoan(props) {
 
 
                   <View>
-                    <Text style={styles.cName}>{route.params.name}</Text>
+                    <Text style={styles.cName}>{route.params.name==undefined?route.params.name:route.params.phoneNumber}</Text>
                     <Text style={styles.cTime}>{route.params.phoneNumber}</Text>
                   </View>
                 </View>
