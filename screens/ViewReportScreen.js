@@ -27,7 +27,7 @@ function ViewReportScreen(props) {
     const [mGot, setGot] = useState(null)
     const [mGave, setGave] = useState(null)
     const [mNet, setNet] = useState(null)
-    const [selectedValue,setSelectedValue] = useState("")
+    const [selectedValue,setSelectedValue] = useState("All")
     const [mNetNeg, setNetNeg] = useState(null)
     const [selectedStartDate, setSelectedStartDate] = useState(null);
     const [selectedEndDate, setSelectedEndDate] = useState(null);
@@ -81,15 +81,39 @@ function ViewReportScreen(props) {
        
       }
 
-      async function nameFilter(){
-        console.log('name')
+      async function nameFilter(value){
+        
         const record = await dbObject.getRecord(props.personals.currentBookId)
-        setSelectedStartDate('')
-        setSelectedEndDate('')
+        let regexp = new RegExp('^' + value, 'i');
+        alert(selectedValue)
+        if(value!=='' && selectedValue=='All' ){
+          alert(JSON.stringify(record))
+          setRecord(record.filter((val,index)=>{
+             
+            return regexp.test(val.name)
+          }))
+        }
+          if(value!=='' && selectedValue=='Cash'){
+            setRecord(record.filter((val,index)=>{
+               
+              return regexp.test(val.name) && val.type=='Cash'
+            }))
+          }
+            if(value!=='' && selectedValue == 'Other'){
+              setRecord(record.filter((val,index)=>{
+                 
+                return regexp.test(val.name) && val.type =='Other'
+              }))
+            }
+        if(value!==''){
         setRecord(record.filter((val,index)=>{
            
-          return (parseInt(val.partner_contact)===parseInt(nameValue))
+          return (regexp.test(val.name) )
         }))
+      }else{
+        setRecord(record)
+
+      }
 
       }
     
@@ -551,22 +575,25 @@ const sharePdf = (url) => {
                     paddingVertical: 0
                 }]}>
                     <AntDesign name="search1" size={22} color="#4e54c8"/>
-                    <TextInput style={{flex: 2, marginRight: 20, width: '60%', marginVertical: 5}} placeholder="Enter the Mobile Number" onValueChange={(itemValue) => {
+                    <TextInput style={{flex: 2, marginRight: 20, width: '60%', marginVertical: 5}} placeholder="Enter the Customer Name" onChangeText={(itemValue) => {
                       setNameValue(itemValue);
-                      nameFilter()
+                
+                      nameFilter(itemValue);
                       }}/>
 
                     <Picker
                         style={[styles.blueText, {height: 50, width: '30%', backgroundColor: 'rgba(0,0,250,.1)'}]}
                         onValueChange={(itemValue, itemIndex) => {
+                          alert(itemValue)
                           setSelectedValue(itemValue);
+                          
                         }
-              }
+              } selectedValue={selectedValue}
 
                     >
                         <Picker.Item label="All" value="All"/>
-                        <Picker.Item label="Cash" value="cash"/>
-                        <Picker.Item label="Other" value="other"/>
+                        <Picker.Item label="Cash" value="Cash"/>
+                        <Picker.Item label="Other" value="Other"/>
                     </Picker>
 
                 </View>

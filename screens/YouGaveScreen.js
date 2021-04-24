@@ -9,6 +9,7 @@ import {
     Keyboard,
     FlatList,
     Picker,
+    
     Image,
     TouchableOpacity
 } from 'react-native';
@@ -23,6 +24,7 @@ import storeObject from "../store/store";
 import calculatorButtons from "./UiComponents/calculatorButtons";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
+
 import reactNativeImagePicker from "../components/Logic_Repository/reactNativeImagePicker";
 import {backupNewCustomerRecord} from "../components/Logic_Repository/backupLogics";
 import openImagePickerAsync from "../components/Logic_Repository/openImagePickerAsync";
@@ -34,6 +36,7 @@ import {
     SelectionChip, SwitchSelectorComponent
 } from "./UiComponents/transactionComponents";
 import {Snackbar, Subheading} from "react-native-paper";
+import { ScrollView } from 'react-native';
 
 function YouGaveScreen(props) {
     const {navigation, themeColor = "red", isGotScreen = false, route} = props
@@ -128,6 +131,7 @@ function YouGaveScreen(props) {
     function _renderMoreDetails() {
         //if (state.moreDetailsVisible) {
         return (
+            
             <View style={{marginTop: 10}}>
 
                 {/* selection chips */}
@@ -277,23 +281,26 @@ function YouGaveScreen(props) {
                     />
                 </View>
                   {/*interest amount input box*/}
+                  {
+                      typeOfTransGaveGot !== "Others"?
                   <View style={[{
                     justifyContent: 'center',
                 }]}>
                     <RoundedInput
                         style={[{color: themeColor}]}
-                        label="Interest Amousdnt"
+                        label="Interest Amount"
                       editable={false}
                         value={JSON.stringify(Math.round(state.amountText*0.09*(4/12)* 100)/100)} //t in years month/12
                         keyboardType="phone-pad"
                     />
-                </View>
-
+                </View>:null
+    }
                 {/*remarks input box*/}
-                <RoundedInput label="Remarks" onChangeText={text => rem.remark = text}/>
+                <RoundedInput label="Remarks"
+                 onChangeText={text => rem.remark = text}/>
 
             </View>
-
+            
         );
 
     }
@@ -303,8 +310,8 @@ function YouGaveScreen(props) {
 
             return (
                 
-                <View style={{marginBottom: 0,flex:.8}}>
-                    <View style={{margin: 0}}>
+                <View style={{marginBottom: 6}}>
+                    <View style={{margin: 10}}>
                         <TouchableOpacity
                             style={{
                                 backgroundColor: themeColor,
@@ -326,8 +333,9 @@ function YouGaveScreen(props) {
     }
 
     return (
-
-        <View style={{flex: 1, backgroundColor: "#fff", width: "100%"}}>
+        <KeyboardAvoidingView style={{flex:1}} enabled={true}>
+            
+        <ScrollView style={{ backgroundColor: "#fff", width: "100%"}}>
 
 
             <Modal
@@ -382,7 +390,7 @@ function YouGaveScreen(props) {
 
             </View>
 
-            <View style={{position: 'absolute', bottom: 0, width: "100%"}}>
+            <View >
                 
 
                 {_renderSaveButton()}
@@ -399,7 +407,9 @@ function YouGaveScreen(props) {
                 <Text>Please select type of transaction as Others or Loan EMI.</Text>
             </Snackbar>
 
-        </View>
+        
+        </ScrollView>
+        </KeyboardAvoidingView>
     );
 
 

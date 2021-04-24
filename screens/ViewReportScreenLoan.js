@@ -28,7 +28,7 @@ function ViewReportScreenLoan(props) {
     const [selectedValue,setSelectedValue] = useState("")
     const [selectedStartDate, setSelectedStartDate] = useState(null);
     const [selectedEndDate, setSelectedEndDate] = useState(null);
-    
+    const [nameValue,setNameValue] = useState(null);
     var today = new Date();
     var date=today.getDate() + "-"+ parseInt(today.getMonth()+1) +"-"+ today.getFullYear();
     
@@ -76,6 +76,43 @@ function ViewReportScreenLoan(props) {
         
        
       }
+
+      async function nameFilter(value){
+        
+        const record = await dbObject.getRecord(props.personals.currentBookId)
+        let regexp = new RegExp('^' + value, 'i');
+        
+        if(value!=='' && selectedValue=='All' ){
+          
+          return setRecord(record.filter((val,index)=>{
+          
+            return regexp.test(val.name)
+          }))
+        }
+          if(value!=='' && selectedValue=='Cash'){
+            return setRecord(record.filter((val,index)=>{
+               
+              return regexp.test(val.name) && val.type=='Cash'
+            }))
+          }
+            if(value!=='' && selectedValue == 'Other'){
+              return setRecord(record.filter((val,index)=>{
+                 
+                return regexp.test(val.name) && val.type =='Other'
+              }))
+            }
+        if(value!==''){
+          return setRecord(record.filter((val,index)=>{
+           
+          return (regexp.test(val.name) )
+        }))
+      }else{
+        return setRecord(record)
+
+      }
+
+      }
+    
        // download share
   
   
@@ -433,17 +470,27 @@ function ViewReportScreenLoan(props) {
                     paddingVertical: 0
                 }]}>
                     <AntDesign name="search1" size={22} color="#4e54c8"/>
-                    <TextInput style={{flex: 2, marginRight: 20, width: '60%', marginVertical: 5}} placeholder="Enter the name"/>
+                    <TextInput style={{flex: 2, marginRight: 20, width: '60%', marginVertical: 5}} placeholder="Enter the Customer Name" onChangeText={(itemValue) => {
+                      setNameValue(itemValue);
+                
+                      nameFilter(itemValue);
+                      }}/>
 
                     <Picker
                         style={[styles.blueText, {height: 50, width: '30%', backgroundColor: 'rgba(0,0,250,.1)'}]}
-                        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-                        selectedValue={selectedValue}
+                        onValueChange={(itemValue, itemIndex) => {
+                          alert(itemValue)
+                          setSelectedValue(itemValue);
+                          
+                        }
+              } selectedValue={selectedValue}
+
                     >
                         <Picker.Item label="All" value="All"/>
                         <Picker.Item label="Cash" value="Cash"/>
                         <Picker.Item label="Other" value="Other"/>
                     </Picker>
+
 
                 </View>
             </View>
