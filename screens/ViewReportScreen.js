@@ -85,9 +85,9 @@ function ViewReportScreen(props) {
         
         const record = await dbObject.getRecord(props.personals.currentBookId)
         let regexp = new RegExp('^' + value, 'i');
-        alert(selectedValue)
+     
         if(value!=='' && selectedValue=='All' ){
-          alert(JSON.stringify(record))
+          
           setRecord(record.filter((val,index)=>{
              
             return regexp.test(val.name)
@@ -103,6 +103,18 @@ function ViewReportScreen(props) {
               setRecord(record.filter((val,index)=>{
                  
                 return regexp.test(val.name) && val.type =='Other'
+              }))
+            }
+            if(selectedValue==='Cash'){
+              setRecord(record.filter((val,index)=>{
+                 
+                return val.type =='Cash'
+              }))
+            }
+            if(selectedValue==='Other'){
+              setRecord(record.filter((val,index)=>{
+                 
+                return val.type =='Other'
               }))
             }
         if(value!==''){
@@ -584,8 +596,9 @@ const sharePdf = (url) => {
                     <Picker
                         style={[styles.blueText, {height: 50, width: '30%', backgroundColor: 'rgba(0,0,250,.1)'}]}
                         onValueChange={(itemValue, itemIndex) => {
-                          alert(itemValue)
+                          
                           setSelectedValue(itemValue);
+                          nameFilter(nameValue)
                           
                         }
               } selectedValue={selectedValue}
@@ -636,7 +649,7 @@ const sharePdf = (url) => {
                             <TouchableOpacity onPress={() =>
                                 {
                                     navigation.navigate('EntryDetails')
-                                    storeObject.setRecordId(item.recordid)
+                                    storeObject.setRecordId(item.date)
                                     storeObject.setRecordLoanYes(0)
                             }
                         }>

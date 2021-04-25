@@ -81,33 +81,45 @@ function ViewReportScreenLoan(props) {
         
         const record = await dbObject.getRecord(props.personals.currentBookId)
         let regexp = new RegExp('^' + value, 'i');
-        
+     
         if(value!=='' && selectedValue=='All' ){
           
-          return setRecord(record.filter((val,index)=>{
-          
+          setRecord(record.filter((val,index)=>{
+             
             return regexp.test(val.name)
           }))
         }
           if(value!=='' && selectedValue=='Cash'){
-            return setRecord(record.filter((val,index)=>{
+            setRecord(record.filter((val,index)=>{
                
               return regexp.test(val.name) && val.type=='Cash'
             }))
           }
             if(value!=='' && selectedValue == 'Other'){
-              return setRecord(record.filter((val,index)=>{
+              setRecord(record.filter((val,index)=>{
                  
                 return regexp.test(val.name) && val.type =='Other'
               }))
             }
+            if(selectedValue==='Cash'){
+              setRecord(record.filter((val,index)=>{
+                 
+                return val.type =='Cash'
+              }))
+            }
+            if(selectedValue==='Other'){
+              setRecord(record.filter((val,index)=>{
+                 
+                return val.type =='Other'
+              }))
+            }
         if(value!==''){
-          return setRecord(record.filter((val,index)=>{
+        setRecord(record.filter((val,index)=>{
            
           return (regexp.test(val.name) )
         }))
       }else{
-        return setRecord(record)
+        setRecord(record)
 
       }
 
@@ -479,8 +491,9 @@ function ViewReportScreenLoan(props) {
                     <Picker
                         style={[styles.blueText, {height: 50, width: '30%', backgroundColor: 'rgba(0,0,250,.1)'}]}
                         onValueChange={(itemValue, itemIndex) => {
-                          alert(itemValue)
+                   
                           setSelectedValue(itemValue);
+                          nameFilter(nameValue)
                           
                         }
               } selectedValue={selectedValue}
