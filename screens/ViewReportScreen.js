@@ -31,7 +31,7 @@ function ViewReportScreen(props) {
     const [mNetNeg, setNetNeg] = useState(null)
     const [selectedStartDate, setSelectedStartDate] = useState(null);
     const [selectedEndDate, setSelectedEndDate] = useState(null);
-    const [nameValue,setNameValue] = useState(null);
+    const [nameValue,setNameValue] = useState("");
     var today = new Date();
     var date=today.getDate() + "-"+ parseInt(today.getMonth()+1) +"-"+ today.getFullYear();
     var calendarShow = false
@@ -43,19 +43,96 @@ function ViewReportScreen(props) {
       }
 
 
+      // async function filterData(){
+      //   let endDate=new Date(selectedEndDate),
+      //     startDate=new Date(selectedStartDate)
+      //     endDate.setDate(endDate.getDate() + 1)
+      //     startDate.setDate(startDate.getDate() - 1)
+      
+      //   const record = await dbObject.getRecord(props.personals.currentBookId)
+        
+      //   if(selectedStartDate!==null && selectedEndDate!==null ){
+          
+      //     setRecord(record.filter((val,index)=>{
+           
+      //       return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime()
+      //     }))
+      //   }
+      //   if(selectedStartDate===null && selectedEndDate!==null){
+          
+      //     setRecord(record.filter((val,index)=>{
+           
+      //       return new Date(val.date).getTime()<endDate.getTime()
+      //     }))
+      //   }
+      //   if(selectedStartDate!==null && selectedEndDate===null){
+         
+      //     setRecord(record.filter((val,index)=>{
+           
+      //       return new Date(val.date).getTime()>startDate.getTime() 
+      //     }))
+      //   }
+      //   if(selectedStartDate===null && selectedEndDate===null){
+      //     setRecord(record)
+          
+      //   }
+
+        
+       
+      // }
+
+
       async function filterData(){
         let endDate=new Date(selectedEndDate),
           startDate=new Date(selectedStartDate)
           endDate.setDate(endDate.getDate() + 1)
           startDate.setDate(startDate.getDate() - 1)
-      
-        const record = await dbObject.getRecord(props.personals.currentBookId)
+          let regexp = new RegExp('^' + nameValue, 'i');
+          const record = await dbObject.getRecord(props.personals.currentBookId)
+          // alert(JSON.stringify(record))
         
-        if(selectedStartDate!==null && selectedEndDate!==null ){
+        if(selectedStartDate!==null && selectedEndDate!==null && nameValue !="" && selectedValue==="All"){
           
           setRecord(record.filter((val,index)=>{
            
-            return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime()
+            return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime() && regexp.test(val.name)
+          }))
+        }
+      
+        if(selectedStartDate!==null && selectedEndDate!==null && nameValue !="" && selectedValue==="Cash"){
+          
+          setRecord(record.filter((val,index)=>{
+        
+            return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime() && regexp.test(val.name) && val.type=='Cash'
+          }))
+        }
+        if(selectedStartDate!==null && selectedEndDate!==null && nameValue !="" && selectedValue==="Other"){
+          
+          setRecord(record.filter((val,index)=>{
+        
+            return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime() && regexp.test(val.name) && val.type=='Other'
+          }))
+        }
+      
+        if(selectedStartDate!==null && selectedEndDate!==null && nameValue =="" && selectedValue==="All"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime() 
+          }))
+        }
+        if(selectedStartDate!==null && selectedEndDate!==null && nameValue =="" && selectedValue==="Cash"){
+          
+          setRecord(record.filter((val,index)=>{
+        
+            return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime() && val.type=='Cash'
+          }))
+        }
+        if(selectedStartDate!==null && selectedEndDate!==null && nameValue =="" && selectedValue==="Other"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime() && val.type=='Other'
           }))
         }
         if(selectedStartDate===null && selectedEndDate!==null){
@@ -65,31 +142,148 @@ function ViewReportScreen(props) {
             return new Date(val.date).getTime()<endDate.getTime()
           }))
         }
-        if(selectedStartDate!==null && selectedEndDate===null){
+        if(selectedStartDate!==null && selectedEndDate===null && nameValue =="" && selectedValue==="All"){
          
           setRecord(record.filter((val,index)=>{
            
             return new Date(val.date).getTime()>startDate.getTime() 
           }))
         }
-        if(selectedStartDate===null && selectedEndDate===null){
-          setRecord(record)
+
+        if(selectedStartDate!==null && selectedEndDate===null && nameValue =="" && selectedValue==="Cash"){
+         
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()>startDate.getTime() && val.type=='Cash'
+          }))
+        }
+        if(selectedStartDate!==null && selectedEndDate===null && nameValue =="" && selectedValue==="Other"){
+         
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()>startDate.getTime() && val.type=='Other'
+          }))
+        }        
+       
+        if(selectedStartDate!==null && selectedEndDate===null && nameValue !="" && selectedValue==="All"){
+         
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()>startDate.getTime() && regexp.test(val.name)
+          }))
+        }
+        if(selectedStartDate!==null && selectedEndDate===null && nameValue !="" && selectedValue==="Cash"){
+         
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()>startDate.getTime() && val.type=='Cash' && regexp.test(val.name)
+          }))
+        }
+
+        if(selectedStartDate!==null && selectedEndDate===null && nameValue !="" && selectedValue==="Other"){
+         
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()>startDate.getTime() && val.type=='Other' && regexp.test(val.name)
+          }))
+        }
+
+        if(selectedStartDate===null && selectedEndDate!==null && nameValue !="" && selectedValue==="All"){
           
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()<endDate.getTime() && regexp.test(val.name)
+          }))
+        }
+
+        if(selectedStartDate===null && selectedEndDate!==null && nameValue !="" && selectedValue==="Cash"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()<endDate.getTime() && regexp.test(val.name) && val.type=='Cash'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate!==null && nameValue !="" && selectedValue==="Other"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()<endDate.getTime() && regexp.test(val.name) && val.type=='Other'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate!==null && nameValue =="" && selectedValue==="All"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()<endDate.getTime()
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate!==null && nameValue =="" && selectedValue==="Cash"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()<endDate.getTime() && val.type=='Cash'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate!==null && selectedValue==="Other"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()<endDate.getTime() && val.type=='Other'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate===null && nameValue !="" && selectedValue==="All"){
+        
+          setRecord(record.filter((val,index)=>{
+           
+            return regexp.test(val.name) 
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate===null && nameValue !="" && selectedValue==="Cash"){
+        
+          setRecord(record.filter((val,index)=>{
+           
+            return regexp.test(val.name) && val.type=='Cash'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate===null && nameValue !="" && selectedValue==="Other"){
+        
+          setRecord(record.filter((val,index)=>{
+           
+            return regexp.test(val.name) && val.type=='Other'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate===null && nameValue =="" && selectedValue==="Cash"){
+        
+          setRecord(record.filter((val,index)=>{
+           
+            return val.type=='Cash'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate===null && nameValue =="" && selectedValue==="Other"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return val.type=='Other'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate===null && nameValue =="" && selectedValue==="All"){
+        
+          setRecord(record)
         }
 
         
        
       }
 
-      async function nameFilter(value){
-        alert(JSON.stringify(value))
-        const record = await dbObject.getRecord(props.personals.currentBookId)
-        let regexp = new RegExp('^' + value, 'i');
-        setRecord([])
+      // async function nameFilter(value){
+      //   alert(JSON.stringify(value))
+      //   const record = await dbObject.getRecord(props.personals.currentBookId)
+      //   let regexp = new RegExp('^' + value, 'i');
+      //   setRecord([])
         
      
       
-      }
+      // }
     
 
     useEffect(() => {
@@ -478,8 +672,9 @@ const sharePdf = (url) => {
                                 //     setDate(duedate)
                                 // }}
                                 onDateChange={(date)=>{
-                                  filterData();
+                                  
                                   setSelectedEndDate(date)
+                                  filterData();
                                 }
                               }
                             />
@@ -552,7 +747,7 @@ const sharePdf = (url) => {
                     <TextInput style={{flex: 2, marginRight: 20, width: '60%', marginVertical: 5}} placeholder="Enter the Customer Name" onChangeText={(itemValue) => {
                       setNameValue(itemValue);
                 
-                      nameFilter(itemValue);
+                      filterData();
                       }}/>
 
                     <Picker
@@ -560,7 +755,7 @@ const sharePdf = (url) => {
                         onValueChange={(itemValue, itemIndex) => {
                           
                           setSelectedValue(itemValue);
-                          nameFilter(nameValue)
+                          filterData();
                           
                         }
               } selectedValue={selectedValue}
