@@ -50,7 +50,7 @@ function ViewReportScreen(props) {
           startDate.setDate(startDate.getDate() - 1)
       
         const record = await dbObject.getRecord(props.personals.currentBookId)
-        console.log(record)
+        
         if(selectedStartDate!==null && selectedEndDate!==null ){
           
           setRecord(record.filter((val,index)=>{
@@ -82,51 +82,13 @@ function ViewReportScreen(props) {
       }
 
       async function nameFilter(value){
-        
+        alert(JSON.stringify(value))
         const record = await dbObject.getRecord(props.personals.currentBookId)
         let regexp = new RegExp('^' + value, 'i');
+        setRecord([])
+        
      
-        if(value!=='' && selectedValue=='All' ){
-          
-          setRecord(record.filter((val,index)=>{
-             
-            return regexp.test(val.name)
-          }))
-        }
-          if(value!=='' && selectedValue=='Cash'){
-            setRecord(record.filter((val,index)=>{
-               
-              return regexp.test(val.name) && val.type=='Cash'
-            }))
-          }
-            if(value!=='' && selectedValue == 'Other'){
-              setRecord(record.filter((val,index)=>{
-                 
-                return regexp.test(val.name) && val.type =='Other'
-              }))
-            }
-            if(selectedValue==='Cash'){
-              setRecord(record.filter((val,index)=>{
-                 
-                return val.type =='Cash'
-              }))
-            }
-            if(selectedValue==='Other'){
-              setRecord(record.filter((val,index)=>{
-                 
-                return val.type =='Other'
-              }))
-            }
-        if(value!==''){
-        setRecord(record.filter((val,index)=>{
-           
-          return (regexp.test(val.name) )
-        }))
-      }else{
-        setRecord(record)
-
-      }
-
+      
       }
     
 

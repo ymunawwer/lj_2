@@ -25,10 +25,10 @@ function ViewReportScreenLoan(props) {
     const [mGave, setGave] = useState(null)
     const [mNet, setNet] = useState(null)
     const [mNetNeg, setNetNeg] = useState(null)
-    const [selectedValue,setSelectedValue] = useState("")
+    const [selectedValue,setSelectedValue] = useState("All")
     const [selectedStartDate, setSelectedStartDate] = useState(null);
     const [selectedEndDate, setSelectedEndDate] = useState(null);
-    const [nameValue,setNameValue] = useState(null);
+    const [nameValue,setNameValue] = useState("");
     var today = new Date();
     var date=today.getDate() + "-"+ parseInt(today.getMonth()+1) +"-"+ today.getFullYear();
     
@@ -45,14 +45,51 @@ function ViewReportScreenLoan(props) {
           startDate=new Date(selectedStartDate)
           endDate.setDate(endDate.getDate() + 1)
           startDate.setDate(startDate.getDate() - 1)
-      
+          let regexp = new RegExp('^' + nameValue, 'i');
         const record = await dbObject.getLoanRecord(props.personals.currentBookId)
-        console.log(record)
-        if(selectedStartDate!==null && selectedEndDate!==null ){
+        
+        if(selectedStartDate!==null && selectedEndDate!==null && nameValue !="" && selectedValue==="All"){
           
           setRecord(record.filter((val,index)=>{
            
-            return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime()
+            return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime() && regexp.test(val.name)
+          }))
+        }
+      
+        if(selectedStartDate!==null && selectedEndDate!==null && nameValue !="" && selectedValue==="Cash"){
+          
+          setRecord(record.filter((val,index)=>{
+        
+            return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime() && regexp.test(val.name) && val.mode=='Cash'
+          }))
+        }
+        if(selectedStartDate!==null && selectedEndDate!==null && nameValue !="" && selectedValue==="Other"){
+          
+          setRecord(record.filter((val,index)=>{
+        
+            return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime() && regexp.test(val.name) && val.mode=='Other'
+          }))
+        }
+      
+        if(selectedStartDate!==null && selectedEndDate!==null && nameValue =="" && selectedValue==="All"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime() 
+          }))
+        }
+        if(selectedStartDate!==null && selectedEndDate!==null && nameValue =="" && selectedValue==="Cash"){
+          
+          setRecord(record.filter((val,index)=>{
+        
+            return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime() && val.mode=='Cash'
+          }))
+        }
+        if(selectedStartDate!==null && selectedEndDate!==null && nameValue =="" && selectedValue==="Other"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()>startDate.getTime() && new Date(val.date).getTime()<endDate.getTime() && val.mode=='Other'
           }))
         }
         if(selectedStartDate===null && selectedEndDate!==null){
@@ -62,14 +99,132 @@ function ViewReportScreenLoan(props) {
             return new Date(val.date).getTime()<endDate.getTime()
           }))
         }
-        if(selectedStartDate!==null && selectedEndDate===null){
+        if(selectedStartDate!==null && selectedEndDate===null && nameValue =="" && selectedValue==="All"){
          
           setRecord(record.filter((val,index)=>{
            
             return new Date(val.date).getTime()>startDate.getTime() 
           }))
         }
-        if(selectedStartDate===null && selectedEndDate===null){
+
+        if(selectedStartDate!==null && selectedEndDate===null && nameValue =="" && selectedValue==="Cash"){
+         
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()>startDate.getTime() && val.mode=='Cash'
+          }))
+        }
+        if(selectedStartDate!==null && selectedEndDate===null && nameValue =="" && selectedValue==="Other"){
+         
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()>startDate.getTime() && val.mode=='Other'
+          }))
+        }        
+       
+        if(selectedStartDate!==null && selectedEndDate===null && nameValue !="" && selectedValue==="All"){
+         
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()>startDate.getTime() && regexp.test(val.name)
+          }))
+        }
+        if(selectedStartDate!==null && selectedEndDate===null && nameValue !="" && selectedValue==="Cash"){
+         
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()>startDate.getTime() && val.mode=='Cash' && regexp.test(val.name)
+          }))
+        }
+
+        if(selectedStartDate!==null && selectedEndDate===null && nameValue !="" && selectedValue==="Other"){
+         
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()>startDate.getTime() && val.mode=='Other' && regexp.test(val.name)
+          }))
+        }
+
+        if(selectedStartDate===null && selectedEndDate!==null && nameValue !="" && selectedValue==="All"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()<endDate.getTime() && regexp.test(val.name)
+          }))
+        }
+
+        if(selectedStartDate===null && selectedEndDate!==null && nameValue !="" && selectedValue==="Cash"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()<endDate.getTime() && regexp.test(val.name) && val.mode=='Cash'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate!==null && nameValue !="" && selectedValue==="Other"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()<endDate.getTime() && regexp.test(val.name) && val.mode=='Other'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate!==null && nameValue =="" && selectedValue==="All"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()<endDate.getTime()
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate!==null && nameValue =="" && selectedValue==="Cash"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()<endDate.getTime() && val.mode=='Cash'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate!==null && selectedValue==="Other"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return new Date(val.date).getTime()<endDate.getTime() && val.mode=='Other'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate===null && nameValue !="" && selectedValue==="All"){
+        
+          setRecord(record.filter((val,index)=>{
+           
+            return regexp.test(val.name) 
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate===null && nameValue !="" && selectedValue==="Cash"){
+        
+          setRecord(record.filter((val,index)=>{
+           
+            return regexp.test(val.name) && val.mode=='Cash'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate===null && nameValue !="" && selectedValue==="Other"){
+        
+          setRecord(record.filter((val,index)=>{
+           
+            return regexp.test(val.name) && val.mode=='Other'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate===null && nameValue =="" && selectedValue==="Cash"){
+        
+          setRecord(record.filter((val,index)=>{
+           
+            return val.mode=='Cash'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate===null && nameValue =="" && selectedValue==="Other"){
+          
+          setRecord(record.filter((val,index)=>{
+           
+            return val.mode=='Other'
+          }))
+        }
+        if(selectedStartDate===null && selectedEndDate===null && nameValue =="" && selectedValue==="All"){
+        
           setRecord(record)
         }
 
@@ -77,53 +232,7 @@ function ViewReportScreenLoan(props) {
        
       }
 
-      async function nameFilter(value){
-        
-        const record = await dbObject.getRecord(props.personals.currentBookId)
-        let regexp = new RegExp('^' + value, 'i');
      
-        if(value!=='' && selectedValue=='All' ){
-          
-          setRecord(record.filter((val,index)=>{
-             
-            return regexp.test(val.name)
-          }))
-        }
-          if(value!=='' && selectedValue=='Cash'){
-            setRecord(record.filter((val,index)=>{
-               
-              return regexp.test(val.name) && val.type=='Cash'
-            }))
-          }
-            if(value!=='' && selectedValue == 'Other'){
-              setRecord(record.filter((val,index)=>{
-                 
-                return regexp.test(val.name) && val.type =='Other'
-              }))
-            }
-            if(selectedValue==='Cash'){
-              setRecord(record.filter((val,index)=>{
-                 
-                return val.type =='Cash'
-              }))
-            }
-            if(selectedValue==='Other'){
-              setRecord(record.filter((val,index)=>{
-                 
-                return val.type =='Other'
-              }))
-            }
-        if(value!==''){
-        setRecord(record.filter((val,index)=>{
-           
-          return (regexp.test(val.name) )
-        }))
-      }else{
-        setRecord(record)
-
-      }
-
-      }
     
        // download share
   
@@ -483,17 +592,17 @@ function ViewReportScreenLoan(props) {
                 }]}>
                     <AntDesign name="search1" size={22} color="#4e54c8"/>
                     <TextInput style={{flex: 2, marginRight: 20, width: '60%', marginVertical: 5}} placeholder="Enter the Customer Name" onChangeText={(itemValue) => {
-                      setNameValue(itemValue);
-                
-                      nameFilter(itemValue);
+                      setNameValue(itemValue)
+                      filterData()
+                      // nameFilter(itemValue)
                       }}/>
 
                     <Picker
                         style={[styles.blueText, {height: 50, width: '30%', backgroundColor: 'rgba(0,0,250,.1)'}]}
                         onValueChange={(itemValue, itemIndex) => {
                    
-                          setSelectedValue(itemValue);
-                          nameFilter(nameValue)
+                          setSelectedValue(itemValue)
+                          filterData()
                           
                         }
               } selectedValue={selectedValue}
