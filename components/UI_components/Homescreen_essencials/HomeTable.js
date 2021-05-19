@@ -74,7 +74,7 @@ function HomeTable(props) {
               :
               (
                  <View style={[styles.cAmtTimeCont, {marginLeft: 10, alignItems:"center"}]}>
-                <Text style={styles.giveAmountText}>₹{componentName==='dashboard'?sumArr[index]:-(item.amount)}</Text>
+                <Text style={styles.giveAmountText}>₹{componentName==='dashboard'?sumArr[index]:(item.amount)}</Text>
                 <Text style={styles.cTime}>{marker}</Text>
                 </View>
               )

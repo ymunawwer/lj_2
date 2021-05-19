@@ -35,14 +35,15 @@ function YouGaveScreenLoan(props) {
     const { navigation, themeColor = "red", isGotScreen = false, route } = props
     const {contact,customerName,loanName} = route.params
     // props.personals.currentBookData.id
-    console.log('params',contact,customerName,loanName)
+    // console.log('params',contact,customerName,loanName)
     let type = "Sales";
-    let installment = "Monthly";
+    let installment = "Daily";
     let interest = 0;
     let months = 0;
 
     const [selectedValue, setSelectedValue] = useState("Sales");
-    const [selectedValueI, setSelectedValueI] = useState("Monthly");
+    const [selectedOption, setSelectedOption] = useState("Interest Rate");
+    const [selectedValueI, setSelectedValueI] = useState("Daily");
     const [mode, setMode] = useState("Mode");
 
     const [principle, setPrinciple] = useState("");
@@ -80,22 +81,22 @@ function YouGaveScreenLoan(props) {
     const [selectedImage, setSelectedImage] = React.useState(null);
 
     async function openImagePicker() {
-        console.log("image picker clicked...")
+        // console.log("image picker clicked...")
         try {
             const pickerResult = await reactNativeImagePicker();
             if (pickerResult.didCancel) {
-                console.log('User cancelled image picker');
+                // console.log('User cancelled image picker');
             } else if (pickerResult.errorCode) {
-                console.log('ImagePicker Error: ', pickerResult.errorCode);
+                // console.log('ImagePicker Error: ', pickerResult.errorCode);
                 alert(pickerResult.errorMessage);
             } else if (pickerResult.customButton) {
-                console.log('User tapped custom button: ', pickerResult.customButton);
+                // console.log('User tapped custom button: ', pickerResult.customButton);
             } else {
                 setSelectedImage(pickerResult.uri)
             }
         } catch (e) {
             alert("something went wrong")
-            console.log(e)
+            // console.log(e)
         }
     }
 
@@ -230,11 +231,13 @@ function YouGaveScreenLoan(props) {
                         onValueChange={(itemValue, itemIndex) =>
                         {
                             installment = itemValue
-                            setIntervalPeriod(getIntervalValue(itemValue))
-                            setSelectedValueI(itemValue)
+
+                            // setIntervalPeriod(getIntervalValue(itemValue))
+                            // setSelectedValueI(itemValue)
                         }
                         }
                       >
+                          <Picker.Item label="Daily" value="Daily"/>
                           <Picker.Item label="Monthly" value="Monthly"/>
                           <Picker.Item label="Quarterly" value="Quarterly"/>
                           <Picker.Item label="Half Yearly" value="Half Yearly"/>
@@ -302,6 +305,36 @@ function YouGaveScreenLoan(props) {
                           </View>
                       </TouchableOpacity>
                   </View>
+
+                  <View style={[ {
+                      marginVertical:5,
+                      flexDirection: "row"
+                  }]}>
+                       <View style={[styles.row, {
+
+                            borderRadius: 5,
+                            marginHorizontal:10,
+                            marginVertical:5,
+                            elevation:5
+                            }]}>
+                     <Picker
+                        selectedValue={selectedOption}
+                        style={[styles.blueText, {height: 50, width: '100%', backgroundColor: 'rgba(0,0,250,.1)',margin:2,borderRadius:5}]}
+                        onValueChange={(itemValue, itemIndex) =>
+                        {
+                            type = itemValue
+                            setSelectedOption(itemValue)
+                        }
+                        }
+                      >
+                          <Picker.Item label="Interest Rate" value="Interest Rate"/>
+                          <Picker.Item label="Installment Amount" value="Installment Amount"/>
+                      </Picker>
+                      </View>
+
+
+                  </View>
+
                   <View style={[ {
                       marginVertical:5,
                       flexDirection: "row"
@@ -455,6 +488,7 @@ function YouGaveScreenLoan(props) {
         else if(value === "Quarterly"){i=3}
           else if(value === "Half Yearly"){i=6}
             else if(value === "Annually"){i=12}
+                else if(value === "Daily"){i=.3}
 
 
       return i

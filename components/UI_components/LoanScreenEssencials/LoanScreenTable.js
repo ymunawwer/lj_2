@@ -38,14 +38,15 @@ const LoanScreenTable = (props) => {
     "Recent Loan",
     "Taken",
     "Given",
-    "Customer"
+    "Customer",
+    "View"
   ]
 
   const FooterItem = [
     addCustomerBtn(), "₹ 10", "₹ 10", ""
   ]
 
-  const widthArr = [190, 80, 80, 100]
+  const widthArr = [120, 80, 80, 100, 70]
 
   const tableFooter = () => {
     return (
@@ -84,6 +85,10 @@ const LoanScreenTable = (props) => {
 
             <View style={[styles.cTime, { alignItems:"center", width: widthArr[3]}]}>
               <Text>{item.contactname}</Text>
+            </View>
+
+            <View style={[styles.cTime, { alignItems:"center", width: widthArr[4]}]}>
+              <Text style={styles.viewText}>View</Text>
             </View>
           </View>
         </TouchableOpacity>

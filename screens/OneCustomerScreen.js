@@ -78,7 +78,7 @@ function OneCustomerScreen(props) {
 
                 setRecords(records['_array'])
 
-                //console.log("Records:", records['_array'])
+                console.log("Records:", records['_array'])
                 let takeSum = 0;
                 let giveSum = 0;
                 const map = mRecords.map(a => {
@@ -450,7 +450,7 @@ const sharePdf = (url) => {
                                     :
                                     <View style={{alignItems: "center", justifyContent: "center"}}>
                                         <Text style={styles.normalText}> You'll Get </Text>
-                                        {mNet ? <Text style={styles.giveAmountText}> ₹{-mNet} </Text> :
+                                        {mNet ? <Text style={styles.giveAmountText}> ₹{mNet} </Text> :
                                             <Text style={styles.giveAmountText}> ₹0 </Text>}
 
                                     </View>

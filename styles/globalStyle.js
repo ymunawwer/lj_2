@@ -45,12 +45,17 @@ export const styles = StyleSheet.create({
     giveAmountText: {
         color: "#ff4268",
         fontWeight: "bold",
-        fontSize: 18,
+        fontSize: 15,
     },
     takeAmountText: {
         color: "#68bd72",
         fontWeight: "bold",
-        fontSize: 18,
+        fontSize: 15,
+    },
+    viewText: {
+        color: "#005",
+        fontWeight: "bold",
+        fontSize: 15,
     },
     youGiveTake: {
         fontSize: 12,

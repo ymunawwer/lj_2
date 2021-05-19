@@ -272,7 +272,7 @@ function YouGaveScreen(props) {
                 }]}>
                     <RoundedInput
                         style={[{color: themeColor}]}
-                        label="Principle Amount"
+                        label="Amount"
                         onChangeText={text => {
                             dispatch({type: calcTypes.setAmountText, payload: text})
                         }}

@@ -10,13 +10,13 @@ const db = SQLite.openDatabase("ljdbtest69.db", null, SQLite.CREATE_IF_NECESSARY
 class database {
      constructor() {
         (async()=>{
-            console.log('DB Cons');
+            //console.log('DB Cons');
         this.state = {};
         await db.transaction(tx => {
             tx.executeSql(
                 "create table if not exists books (id integer primary key AUTOINCREMENT, name text NOT NULL, trashed integer, password text, remoteid text);", [],
                 (tx, results) => {
-                    // console.log('Books Table Create Results : ', results);
+                    // //console.log('Books Table Create Results : ', results);
 
                 }
             );
@@ -31,14 +31,14 @@ class database {
                             [],
                             (tx, results) => {
 
-                                // console.log('Languages Table Create Results : ', results);
+                                // //console.log('Languages Table Create Results : ', results);
                                 }, (t, error) => {
-                                    // console.log(' Languages Constructor error : ', error)
+                                    // //console.log(' Languages Constructor error : ', error)
 
                                 }
                                 );
                             });
-                    // console.log('Books Table Create Results : ', results);
+                    // //console.log('Books Table Create Results : ', results);
 
                 }
             );
@@ -54,14 +54,14 @@ class database {
                             [],
                             (tx, results) => {
 
-                                // console.log('Languages Table Create Results : ', results);
+                                // //console.log('Languages Table Create Results : ', results);
                                 }, (t, error) => {
-                                    // console.log(' Languages Constructor error : ', error)
+                                    // //console.log(' Languages Constructor error : ', error)
 
                                 }
                                 );
                             });
-                    // console.log('Books Table Create Results : ', results);
+                    // //console.log('Books Table Create Results : ', results);
 
                 }
             );
@@ -75,7 +75,7 @@ class database {
             tx.executeSql(
                 "create table if not exists personals (id integer PRIMARY KEY, fullname text, phone_no text, auth_token text, active integer, language text, currency text, tagline char(50), shopaddress char(50), email text, first_sign_in text, last_sign_in text, photourl text, isemailverified integer, uid text, currentbook integer, UPIID text, remoteid text);", [],
                 (tx, results) => {
-                    // console.log('Personals Table Create Results : ', results);
+                    // //console.log('Personals Table Create Results : ', results);
 
                 }
             );
@@ -86,15 +86,15 @@ class database {
             //     "DROP table loanname;",
             //     [],
             //     (tx, results) => {
-            //         // console.log('Record table query success Results', results);
+            //         // //console.log('Record table query success Results', results);
             //     }, (t, error) => {
-            //         // console.log('Constructor error : ', error)
+            //         // //console.log('Constructor error : ', error)
             //     }
             // );
             tx.executeSql(
                 "create table if not exists loanname (id integer primary key AUTOINCREMENT, name text, isactive integer, lastupdated text NOT NULL, contactname text, contactno text, bookid integer, remoteid text);", [],
                 (tx, results) => {
-                    // console.log('Personals Table Create Results : ', results);
+                    // //console.log('Personals Table Create Results : ', results);
 
                 }
             );
@@ -106,10 +106,10 @@ class database {
             tx.executeSql(
                 "INSERT INTO personals (id, language, currency) VALUES (1, 'english', 'USD')", [],
                 (tx, results) => {
-                    console.log('Personals Table Value Inserted Results : ', results);
+                    //console.log('Personals Table Value Inserted Results : ', results);
 
                 }, (t, error) => {
-                    // console.log('Constructor error : ', error)
+                    // //console.log('Constructor error : ', error)
                 }
             );
         });
@@ -119,18 +119,18 @@ class database {
             //     "DROP table records;",
             //     [],
             //     (tx, results) => {
-            //         // console.log('Record table query success Results', results);
+            //         // //console.log('Record table query success Results', results);
             //     }, (t, error) => {
-            //         // console.log('Constructor error : ', error)
+            //         // //console.log('Constructor error : ', error)
             //     }
             // );
             tx.executeSql(
                 "create table if not exists records (recordid integer, txid text, book_id integer, amount integer, date text, duedate text, give integer, take integer, attachment text, remarks text, partner_contact text, uploaded integer, phoneid integer, type text, remoteid text);",
                 [],
                 (tx, results) => {
-                    // console.log('Record table query success Results', results);
+                    // //console.log('Record table query success Results', results);
                 }, (t, error) => {
-                    // console.log('Constructor error : ', error)
+                    // //console.log('Constructor error : ', error)
                 }
             );
         });
@@ -140,9 +140,9 @@ class database {
             //     "DROP table contactwithrecords;",
             //     [],
             //     (tx, results) => {
-            //         // console.log('Record table query success Results', results);
+            //         // //console.log('Record table query success Results', results);
             //     }, (t, error) => {
-            //         // console.log('Constructor error : ', error)
+            //         // //console.log('Constructor error : ', error)
             //     }
             // );
 
@@ -152,9 +152,9 @@ class database {
                 "create table if not exists contactwithrecords (recordid integer primary key AUTOINCREMENT, contact text NOT NULL, bookid integer NOT NULL,name text NOT NULL, lastupdated text NOT NULL, loanYes integer, address text, rAmount integer, pAmount integer, netAmount integer, remoteid text, hasGaveGot integer, hasRecievableDue integer,isDeleted integer DEFAULT 0,isActive integer DEFAULT 1,isSms integer DEFAULT 1,limitGave integer DEFAULT 0,limitGot integer DEFAULT 0);",
                 [],
                 (tx, results) => {
-                    // console.log('Record table query success Results', results);
+                    // //console.log('Record table query success Results', results);
                 }, (t, error) => {
-                    // console.log('Constructor error : ', error)
+                    // //console.log('Constructor error : ', error)
                 }
             );
         });
@@ -164,9 +164,9 @@ class database {
             //     "DROP table loanrecords;",
             //     [],
             //     (tx, results) => {
-            //         // console.log('Record table query success Results', results);
+            //         // //console.log('Record table query success Results', results);
             //     }, (t, error) => {
-            //         // console.log('Constructor error : ', error)
+            //         // //console.log('Constructor error : ', error)
             //     }
             // );
             tx.executeSql(
@@ -174,9 +174,9 @@ class database {
                 "create table if not exists loanrecords (recordid integer primary key AUTOINCREMENT,txid text, customername text, bookId integer, amountTaken integer DEFAULT 0,amountGiven integer DEFAULT 0, date text, duedate text,lastupdated text NOT NULL, give integer, take integer, attachment text, remarks text, contactno text, uploaded integer, interest integer, type text, mode text, installment integer, totalMonths integer, loanName text, installmentAmount text,isactive integer, remoteid text);",
                 [],
                 (tx, results) => {
-                    // console.log('Loan table query success Results', results);
+                    // //console.log('Loan table query success Results', results);
                 }, (t, error) => {
-                    // console.log('Constructor error : ', error)
+                    // //console.log('Constructor error : ', error)
                 }
             );
         });
@@ -192,9 +192,9 @@ class database {
             //     "DROP table visitingrecords;",
             //     [],
             //     (tx, results) => {
-            //         // console.log('Record table query success Results', results);
+            //         // //console.log('Record table query success Results', results);
             //     }, (t, error) => {
-            //         // console.log('Constructor error : ', error)
+            //         // //console.log('Constructor error : ', error)
             //     }
             // );
 
@@ -202,9 +202,9 @@ class database {
                 "create table if not exists visitingrecords (recordid integer primary key AUTOINCREMENT,BUSINESS_NAME text, USER_NAME text, PH_NO integer, GST_NO text, BUSINESS_TYPE text, ADDRESS text, EMAIL text,DESIGNATION text);",
                 [],
                 (tx, results) => {
-                    // console.log('Loan table query success Results', results);
+                    // //console.log('Loan table query success Results', results);
                 }, (t, error) => {
-                    // console.log('Constructor error : ', error)
+                    // //console.log('Constructor error : ', error)
                 }
             );
         });
@@ -214,9 +214,9 @@ class database {
         //         "create table if not exists contactwithrecordsloan (recordid integer primary key AUTOINCREMENT, contact text NOT NULL, bookid integer NOT NULL,name text NOT NULL, lastupdated text NOT NULL);",
         //         [],
         //         (tx, results) => {
-        //             // console.log('Record table query success Results', results);
+        //             // //console.log('Record table query success Results', results);
         //         }, (t, error) => {
-        //             // console.log('Constructor error : ', error)
+        //             // //console.log('Constructor error : ', error)
         //         }
         //     );
         // });
@@ -226,9 +226,9 @@ class database {
         //     "INSERT INTO records (recordid) VALUES (1)",
         //     [],
         //     (tx, results) => {
-        //       console.log('Record table query success Results', results);
+        //       //console.log('Record table query success Results', results);
         //     }, (t, error) => {
-        //         console.log('Constructor error : ', error)
+        //         //console.log('Constructor error : ', error)
         //     }
         //   );
         // });
@@ -249,7 +249,7 @@ class database {
                         // conssole.log('setrecord : Results', results);
                     }, (t, error) => {
                         reject(error)
-                        // console.log('setrecord : error : ', error)
+                        // //console.log('setrecord : error : ', error)
                     }
                 );
             });
@@ -265,11 +265,11 @@ class database {
                 (tx, results) => {
                                             resolve(results)
 
-                    // console.log('setrecord : Results', results);
+                    // //console.log('setrecord : Results', results);
                 }, (t, error) => {
                                             reject(error)
 
-                    // console.log('setrecord : error : ', error)
+                    // //console.log('setrecord : error : ', error)
                 }
             );
         });
@@ -283,14 +283,14 @@ class database {
                 "SELECT * from visitingrecords",
                 [],
                 (tx, results) => {
-                    // console.log('data',results)
+                    // //console.log('data',results)
                                             resolve(results.rows)
 
-                    // console.log('setrecord : Results', results);
+                    // //console.log('setrecord : Results', results);
                 }, (t, error) => {
                                             reject(error)
 
-                    // console.log('setrecord : error : ', error)
+                    // //console.log('setrecord : error : ', error)
                 }
             );
         });
@@ -311,10 +311,10 @@ class database {
                     [],
                     (tx, results) => {
     
-                        console.log('setrecord : Results', results.rows);
+                        //console.log('setrecord : Results', results.rows);
                         resolve(results.rows)
                     }, (t, error) => {
-                        console.log('setrecord : error : ', error)
+                        //console.log('setrecord : error : ', error)
                     }
                 );
             });
@@ -332,7 +332,7 @@ class database {
                     "SELECT * FROM binpass WHERE firstuse=0", [],
                     (tx, results) => {
 
-                        console.log("checking " + results.rows.item(0).binpass +" with " + password )
+                        //console.log("checking " + results.rows.item(0).binpass +" with " + password )
 
                         if(results.rows.item(0).binpass===password){
                             resolve(1)
@@ -342,7 +342,7 @@ class database {
 
 
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -356,9 +356,9 @@ class database {
                 "UPDATE loanname SET remoteid='"+remoteid+"' WHERE name='"+name+"'",
                 [],
                 (tx, results) => {
-                    // console.log('setrecord : Results', results);
+                    // //console.log('setrecord : Results', results);
                 }, (t, error) => {
-                    // console.log('setrecord : error : ', error)
+                    // //console.log('setrecord : error : ', error)
                 }
             );
         });
@@ -369,9 +369,9 @@ class database {
                 "UPDATE loanrecords SET remoteid='"+remoteid+"' WHERE recordid="+recordid,
                 [],
                 (tx, results) => {
-                    // console.log('setrecord : Results', results);
+                    // //console.log('setrecord : Results', results);
                 }, (t, error) => {
-                    // console.log('setrecord : error : ', error)
+                    // //console.log('setrecord : error : ', error)
                 }
             );
         });
@@ -382,9 +382,9 @@ class database {
                 "UPDATE records SET remoteid='"+remoteid+"' WHERE recordid="+recordid,
                 [],
                 (tx, results) => {
-                    // console.log('setrecord : Results', results);
+                    // //console.log('setrecord : Results', results);
                 }, (t, error) => {
-                    // console.log('setrecord : error : ', error)
+                    // //console.log('setrecord : error : ', error)
                 }
             );
         });
@@ -396,9 +396,9 @@ class database {
                 "UPDATE contactwithrecords SET remoteid='"+remoteid+"' WHERE recordid="+recordid,
                 [],
                 (tx, results) => {
-                    // console.log('setrecord : Results', results);
+                    // //console.log('setrecord : Results', results);
                 }, (t, error) => {
-                    // console.log('setrecord : error : ', error)
+                    // //console.log('setrecord : error : ', error)
                 }
             );
         });
@@ -410,9 +410,9 @@ class database {
                 "UPDATE books SET remoteid='"+remoteid+"' WHERE name='"+name+"'",
                 [],
                 (tx, results) => {
-                    // console.log('setrecord : Results', results);
+                    // //console.log('setrecord : Results', results);
                 }, (t, error) => {
-                    // console.log('setrecord : error : ', error)
+                    // //console.log('setrecord : error : ', error)
                 }
             );
         });
@@ -425,9 +425,9 @@ class database {
                 "UPDATE personals SET remoteid='"+remoteid+"' WHERE id=1",
                 [],
                 (tx, results) => {
-                    // console.log('setrecord : Results', results);
+                    // //console.log('setrecord : Results', results);
                 }, (t, error) => {
-                    // console.log('setrecord : error : ', error)
+                    // //console.log('setrecord : error : ', error)
                 }
             );
         });
@@ -443,9 +443,9 @@ class database {
                 "UPDATE firstuse SET firstuse=0 WHERE firstuse=1",
                 [],
                 (tx, results) => {
-                    console.log('setrecord : Results', results);
+                    //console.log('setrecord : Results', results);
                 }, (t, error) => {
-                    console.log('setrecord : error : ', error)
+                    //console.log('setrecord : error : ', error)
                 }
             );
         });
@@ -459,10 +459,10 @@ class database {
                     [],
                     (tx, results) => {
                         resolve(results)
-                        // console.log('setrecord : Results', results);
+                        // //console.log('setrecord : Results', results);
                     }, (t, error) => {
                         reject(error)
-                        // console.log('setrecord : error : ', error)
+                        // //console.log('setrecord : error : ', error)
                     }
                 );
             });
@@ -484,9 +484,9 @@ class database {
                 [],
                 (tx, results) => {
 
-                    console.log('setrecord : Results', results);
+                    //console.log('setrecord : Results', results);
                 }, (t, error) => {
-                    console.log('setrecord : error : ', error)
+                    //console.log('setrecord : error : ', error)
                 }
             );
         });
@@ -509,9 +509,9 @@ class database {
                [],
                (tx, results) => {
 
-                   console.log('setrecord : Results', results);
+                   //console.log('setrecord : Results', results);
                }, (t, error) => {
-                   console.log('setrecord : error : ', error)
+                   //console.log('setrecord : error : ', error)
                }
            );
        });
@@ -528,10 +528,10 @@ class database {
                     "DELETE FROM language WHERE contact='"+phone +"' AND bookid='" + bookid + "' AND loanYes="+loanYes,
                     [],
                     (tx, results) => {
-                        // console.log('Languages Texts : ', results['rows']['_array']);
+                        // //console.log('Languages Texts : ', results['rows']['_array']);
                         // resolve(results['rows']['_array'])
                     }, (t, error) => {
-                        // console.log('Error')
+                        // //console.log('Error')
                         // reject(error)
                     })
             })
@@ -547,7 +547,7 @@ class database {
                             (tx, results) => {
                                 resolve(results)
                             }, (t, error) => {
-                                console.log('Constructor error : ', error)
+                                //console.log('Constructor error : ', error)
                                 reject(error)
                             }
                         );
@@ -565,7 +565,7 @@ class database {
                             (tx, results) => {
                                 resolve(results)
                             }, (t, error) => {
-                                console.log('Constructor error : ', error)
+                                //console.log('Constructor error : ', error)
                                 reject(error)
                             }
                         );
@@ -580,10 +580,10 @@ getRecordId(phone,bookId){
                 "SELECT recordid FROM contactwithrecords WHERE contact='" + phone + "' AND bookid='" + bookId+ "' ",
                 [],
                 (tx, results) => {
-                    console.log('recordid',results.rows['_array'][0]['recordid'])
+                    //console.log('recordid',results.rows['_array'][0]['recordid'])
                     resolve(results.rows['_array'][0]['recordid'])
                 }, (t, error) => {
-                    console.log('Constructor error : ', error)
+                    //console.log('Constructor error : ', error)
                     reject(error)
                 }
             );
@@ -602,7 +602,7 @@ getRecordId(phone,bookId){
                     "SELECT * FROM contactwithrecords WHERE contact='" + phone + "' AND bookid='" + bookId +" AND isDeleted=0 "+ "' AND loanYes="+loanYes+" AND hasGaveGot="+Gg+" AND hasRecievableDue="+Rd,
                     [],
                     (tx, results) => {
-                        console.log('setrecord : Results', results);
+                        //console.log('setrecord : Results', results);
                         const date = new Date();
                         results.rows.length === 0 ?
                             db.transaction(tx => {
@@ -611,16 +611,16 @@ getRecordId(phone,bookId){
                                     [],
                                     (tx, results) => {
                                         resolve(1)
-                                        console.log('setrecord : Results', results);
+                                        //console.log('setrecord : Results', results);
                                     }, (t, error) => {
-                                        console.log('setrecord : error : ', error)
+                                        //console.log('setrecord : error : ', error)
                                     }
                                 );
                             }) : resolve(results);
-                        console.log('Already exists');
+                        //console.log('Already exists');
 
                     }, (t, error) => {
-                        console.log('setrecord : error : ', error)
+                        //console.log('setrecord : error : ', error)
                         reject(error)
                     }
                 );
@@ -639,7 +639,7 @@ getRecordId(phone,bookId){
                     (tx, results) => {
                         resolve(results)
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -655,9 +655,9 @@ getRecordId(phone,bookId){
                 "UPDATE contactwithrecords SET lastupdated='" + date + "' WHERE contact='" + phone + "' AND bookid='" + bookId + "'",
                 [],
                 (tx, results) => {
-                    console.log('setrecord : Results', results);
+                    //console.log('setrecord : Results', results);
                 }, (t, error) => {
-                    console.log('setrecord : error : ', error)
+                    //console.log('setrecord : error : ', error)
                 }
             );
         });
@@ -672,11 +672,11 @@ getRecordId(phone,bookId){
                     // "SELECT * FROM contactwithrecords WHERE bookid=" + bookId + " AND isDeleted=0 ORDER BY lastupdated DESC",
                     [],
                     (tx, results) => {
-                        console.log('obj',results)
+                        //console.log('obj',results)
                         resolve(results.rows['_array'])
                     },
                     (t, error) => {
-                        console.log('err',error)
+                        //console.log('err',error)
                         reject(error)
                     })
             })
@@ -747,7 +747,7 @@ getRecordId(phone,bookId){
                     "SELECT *, sum(amount) as amount FROM contactwithrecords rc,records r WHERE rc.recordid=r.recordid AND rc.bookid = r.book_id AND r.book_id=" + bookId + " AND isDeleted=0 AND ((give = 0 AND take = 2) OR (give = 2 AND take = 0)) GROUP BY contact,give ORDER BY lastupdated DESC",
                     [],
                     (tx, results) => {
-                        console.log('rcvble',results.rows['_array'])
+                        //console.log('rcvble',results.rows['_array'])
                         resolve(results.rows['_array'])
                     },
                     (t, error) => {
@@ -769,16 +769,16 @@ getRecordId(phone,bookId){
     setrecord(recordid,bookid, amount, duedate, give, take, attachment, remarks, partner_contact, phoneid, type) {
         const date = new Date();
         const uploaded = 0;
-        console.log()
+        //console.log()
         db.transaction(tx => {
             tx.executeSql(
                 "INSERT INTO records (recordid,book_id, amount, date, duedate, give, take, attachment, remarks, partner_contact, uploaded, phoneid, type) VALUES ("+recordid+","+ bookid + "," + amount + ",'" + date + "', '" + duedate + "', " + give + ", " + take + ", '" + attachment + "', '" + remarks + "', '" + partner_contact + "' ,0,"+phoneid+",'"+type+"')",
                 [],
                 (tx, results) => {
                     this.updateLastUpdated(partner_contact, bookid);
-                    console.log('setrecord : Results', results);
+                    //console.log('setrecord : Results', results);
                 }, (t, error) => {
-                    console.log('setrecord : error : ', error)
+                    //console.log('setrecord : error : ', error)
                 }
             );
         });
@@ -792,10 +792,10 @@ getRecordId(phone,bookId){
                     "SELECT * FROM records WHERE uploaded=0",
                     [],
                     (tx, results) => {
-                        console.log('get Record Results new ', results.rows['_array']);
+                        //console.log('get Record Results new ', results.rows['_array']);
                         resolve(results.rows['_array'])
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -811,10 +811,10 @@ getRecordId(phone,bookId){
                     "SELECT * FROM loanname WHERE bookid = "+bookid+" AND name='"+name+"' ORDER BY lastupdated DESC",
                     [],
                     (tx, results) => {
-                        //console.log('get Record Results new ', results.rows['_array']);
+                        ////console.log('get Record Results new ', results.rows['_array']);
                         resolve(results.rows['_array'])
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -825,7 +825,7 @@ getRecordId(phone,bookId){
     addLoanName(name, contactname, contactno,bookid){
 
         return new Promise((resolve, reject)=>{
-            console.log('phno',contactno)
+            //console.log('phno',contactno)
             db.transaction(tx => {
                 const date = new Date();
                 tx.executeSql(
@@ -834,10 +834,10 @@ getRecordId(phone,bookId){
                     (tx, results) => {
                         resolve(1)
 
-                        console.log('setrecord : Results', results);
+                        //console.log('setrecord : Results', results);
                     }, (t, error) => {
 
-                        console.log('setrecord : error : ', error)
+                        //console.log('setrecord : error : ', error)
                         reject(0)
                     }
                 );
@@ -854,10 +854,10 @@ getRecordId(phone,bookId){
                     // ln,loanrecords lr WHERE ln.contactno = lr.partner_contact AND ln.bookid=lr.book_id AND bookid = "+bookid+" ORDER BY lastupdated DESC",
                     [],
                     (tx, results) => {
-                        // console.log('get Record Results new ', results.rows['_array']);
+                        // //console.log('get Record Results new ', results.rows['_array']);
                         resolve(results.rows['_array'])
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -877,7 +877,7 @@ getRecordId(phone,bookId){
                     (tx, results) => {
                         resolve(results)
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -910,10 +910,10 @@ getRecordId(phone,bookId){
                                                 "SELECT * FROM contactwithrecords WHERE contact='" + phone + "' AND bookid=" + bookId +" AND isDeleted=0 ",
                                                 [],
                                                 (tx, results) => {
-                                                    console.log('get updated Results new ', results.rows['_array']);
+                                                    //console.log('get updated Results new ', results.rows['_array']);
                                                     resolve(results.rows)
                                                 }, (t, error) => {
-                                                    console.log('Constructor error : ', error)
+                                                    //console.log('Constructor error : ', error)
                                                     reject(error)
                                                 }
                                             );
@@ -922,14 +922,14 @@ getRecordId(phone,bookId){
                                      
                                    
                                     }, (t, error) => {
-                                        console.log('setrecord : error : ', error)
+                                        //console.log('setrecord : error : ', error)
                                     }
                                 );
                             }) : resolve(results);
-                        console.log('exists');
+                        //console.log('exists');
 
                     }, (t, error) => {
-                        console.log('No customer exist ', error)
+                        //console.log('No customer exist ', error)
                         reject(error)
                     }
                 );
@@ -948,7 +948,7 @@ getRecordId(phone,bookId){
             //         (tx, results) => {
             //             resolve(results)
             //         }, (t, error) => {
-            //             console.log('Constructor error : ', error)
+            //             //console.log('Constructor error : ', error)
             //             reject(error)
             //         }
             //     );
@@ -966,7 +966,7 @@ getRecordId(phone,bookId){
                     (tx, results) => {
                         resolve(results)
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -983,10 +983,10 @@ getRecordId(phone,bookId){
                     "SELECT * FROM loanrecords WHERE uploaded=0",
                     [],
                     (tx, results) => {
-                        console.log('get Record Results new ', results.rows['_array']);
+                        //console.log('get Record Results new ', results.rows['_array']);
                         resolve(results.rows['_array'])
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1004,10 +1004,10 @@ getRecordId(phone,bookId){
                     "SELECT *,contactno as partner_contact,lastupdated as date ,customername as contactname,loanName as name FROM loanrecords WHERE recordid=" + id,
                     [],
                     (tx, results) => {
-                        console.log('get Record Results new ', results.rows['_array']);
+                        //console.log('get Record Results new ', results.rows['_array']);
                         resolve(results.rows['_array'])
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1023,10 +1023,10 @@ getRecordId(phone,bookId){
                     "SELECT * FROM loanrecords WHERE bookid=" + bookid,
                     [],
                     (tx, results) => {
-                        console.log('get Record Results new ', results.rows['_array']);
+                        //console.log('get Record Results new ', results.rows['_array']);
                         resolve(results.rows['_array'])
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1043,10 +1043,10 @@ getRecordId(phone,bookId){
                     "SELECT * FROM records WHERE date='" + id + "'",
                     [],
                     (tx, results) => {
-                        console.log('get Record Results new ', results.rows['_array']);
+                        //console.log('get Record Results new ', results.rows['_array']);
                         resolve(results.rows['_array'])
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1062,10 +1062,10 @@ getRecordId(phone,bookId){
                     "SELECT * FROM records WHERE recordid=" + id,
                     [],
                     (tx, results) => {
-                        console.log('get Record Results new ', results.rows['_array']);
+                        //console.log('get Record Results new ', results.rows['_array']);
                         resolve(results.rows['_array'])
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1080,10 +1080,10 @@ getRecordId(phone,bookId){
                     "SELECT * FROM records",
                     [],
                     (tx, results) => {
-                        console.log('get Record Results new ', results.rows['_array']);
+                        //console.log('get Record Results new ', results.rows['_array']);
                         resolve(results.rows['_array'])
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1099,10 +1099,10 @@ getRecordId(phone,bookId){
                     "SELECT * FROM records r,contactwithrecords cws WHERE r.book_id=cws.bookid AND r.partner_contact=cws.contact AND book_id=" +bookid+" and " +queryString,
                     [],
                     (tx, results) => {
-                        console.log('get Record Results new ', results.rows['_array']);
+                        //console.log('get Record Results new ', results.rows['_array']);
                         resolve(results.rows['_array'])
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1120,10 +1120,10 @@ getRecordId(phone,bookId){
                     "SELECT * FROM contactwithrecords cws,records r WHERE  r.partner_contact=cws.contact AND r.book_id=cws.bookid AND book_id=" + bookid,
                     [],
                     (tx, results) => {
-                        console.log('get Record Results new ', results.rows['_array']);
+                        //console.log('get Record Results new ', results.rows['_array']);
                         resolve(results.rows['_array'])
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1141,10 +1141,10 @@ getRecordId(phone,bookId){
                     "SELECT *,contactno as partner_contact,lastupdated as date ,customername as contactname,loanName as name FROM loanrecords WHERE bookid=" + bookid,
                     [],
                     (tx, results) => {
-                        console.log('get Record Results new ', results.rows['_array']);
+                        //console.log('get Record Results new ', results.rows['_array']);
                         resolve(results.rows['_array'])
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1161,10 +1161,10 @@ getRecordId(phone,bookId){
                     "SELECT COUNT(*) FROM contactwithrecords WHERE bookid=" + bookid +" AND isDeleted=0 ",
                     [],
                     (tx, results) => {
-                        console.log('get Record Results new ', results.rows['_array']);
+                        //console.log('get Record Results new ', results.rows['_array']);
                         resolve(results.rows['_array'])
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1182,10 +1182,10 @@ getRecordId(phone,bookId){
                     "SELECT * FROM contactwithrecords WHERE bookid=" + bookid + " AND contact='" + phone+"'"+" AND isDeleted=0",
                     [],
                     (tx, results) => {
-                        console.log('get Record Results', results.rows);
+                        //console.log('get Record Results', results.rows);
                         resolve(results.rows)
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1204,10 +1204,10 @@ getRecordId(phone,bookId){
                     "SELECT * FROM records WHERE book_id=" + bookid + " AND partner_contact='" + phone+"'",
                     [],
                     (tx, results) => {
-                        console.log('get Record Results', results.rows);
+                        //console.log('get Record Results', results.rows);
                         resolve(results.rows)
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1226,10 +1226,10 @@ getRecordId(phone,bookId){
                     "SELECT * FROM contactwithrecords cws,records r WHERE  r.contact=cws.partner_contact AND r.book_id=cws.bookid AND r.book_id=" + bookid + " AND cws.isDeleted=0 and r.book_id=cws.bookid and r.take=2 OR r.give=2",
                     [],
                     (tx, results) => {
-                        console.log('get Record Results', results.rows['_array']);
+                        //console.log('get Record Results', results.rows['_array']);
                         resolve(results.rows)
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1246,10 +1246,10 @@ getRecordId(phone,bookId){
                     "SELECT *,customername as contactname,loanName as name FROM loanrecords WHERE bookid=" + bookid + " AND contactno='" + phone+"'",
                     [],
                     (tx, results) => {
-                        console.log('get Record Results', results.rows);
+                        //console.log('get Record Results', results.rows);
                         resolve(results.rows)
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1263,7 +1263,7 @@ getRecordId(phone,bookId){
                 tx.executeSql(
                     "UPDATE personals SET fullname = ? WHERE ID=1", [name],
                     (tx, results) => {
-                        console.log('Results', results.rowsAffected);
+                        //console.log('Results', results.rowsAffected);
                         resolve(results)
                     },
                     (t, err) => {
@@ -1281,7 +1281,7 @@ getRecordId(phone,bookId){
                 tx.executeSql(
                     "UPDATE personals SET currentbook = ? WHERE ID=1", [bookid],
                     (tx, results) => {
-                        console.log('Set Current book', results.rowsAffected);
+                        //console.log('Set Current book', results.rowsAffected);
                         resolve(results)
                     },
                     (t, err) => {
@@ -1299,10 +1299,10 @@ getRecordId(phone,bookId){
                 tx.executeSql(
                     "SELECT * FROM personals WHERE id=1", [],
                     (tx, results) => {
-                        console.log('UID getter Results', results.rows.item(0));
+                        //console.log('UID getter Results', results.rows.item(0));
                         resolve(results.rows.item(0))
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1319,7 +1319,7 @@ getRecordId(phone,bookId){
 
                         resolve(results.rows.item(0).currentbook)
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1332,9 +1332,9 @@ getRecordId(phone,bookId){
             tx.executeSql(
                 "UPDATE personals SET uid = ? WHERE ID=1", [uid],
                 (tx, results) => {
-                    console.log('Results', results.rowsAffected);
+                    //console.log('Results', results.rowsAffected);
                 }, (t, error) => {
-                    console.log(dbObject.getUid())
+                    //console.log(dbObject.getUid())
                 }
             );
         });
@@ -1346,7 +1346,7 @@ getRecordId(phone,bookId){
             tx.executeSql(
                 "UPDATE personals SET isemailverified = ? WHERE id=1", [isemailverified],
                 (tx, results) => {
-                    console.log('Results', results.rowsAffected);
+                    //console.log('Results', results.rowsAffected);
                 }
             );
         });
@@ -1358,7 +1358,7 @@ getRecordId(phone,bookId){
             tx.executeSql(
                 "UPDATE personals SET photourl = ? WHERE id=1", [photourl],
                 (tx, results) => {
-                    console.log('Results', results.rowsAffected);
+                    //console.log('Results', results.rowsAffected);
                 }
             );
         });
@@ -1370,7 +1370,7 @@ getRecordId(phone,bookId){
             tx.executeSql(
                 "UPDATE personals SET last_sign_in = ? WHERE id=1", [last_sign_in],
                 (tx, results) => {
-                    console.log('Results', results.rowsAffected);
+                    //console.log('Results', results.rowsAffected);
                 }
             );
         });
@@ -1382,7 +1382,7 @@ getRecordId(phone,bookId){
             tx.executeSql(
                 "UPDATE personals SET first_sign_in = ? WHERE id=1", [first_sign_in],
                 (tx, results) => {
-                    console.log('Results', results.rowsAffected);
+                    //console.log('Results', results.rowsAffected);
                 }
             );
         });
@@ -1394,7 +1394,7 @@ getRecordId(phone,bookId){
             tx.executeSql(
                 "UPDATE personals SET email = ? WHERE id=1", [email],
                 (tx, results) => {
-                    console.log('Results', results.rowsAffected);
+                    //console.log('Results', results.rowsAffected);
                 }
             );
         });
@@ -1406,7 +1406,7 @@ getRecordId(phone,bookId){
             tx.executeSql(
                 "UPDATE personals SET shopaddress = ? WHERE id=1", [shopaddress],
                 (tx, results) => {
-                    console.log('Results', results.rowsAffected);
+                    //console.log('Results', results.rowsAffected);
                 }
             );
         });
@@ -1418,7 +1418,7 @@ getRecordId(phone,bookId){
             tx.executeSql(
                 "UPDATE personals SET tagline = ? WHERE id=1", [tagline],
                 (tx, results) => {
-                    console.log('Results', results.rowsAffected);
+                    //console.log('Results', results.rowsAffected);
                 }
             );
         });
@@ -1430,7 +1430,7 @@ getRecordId(phone,bookId){
             tx.executeSql(
                 "UPDATE personals SET currency = '"+currency+"' WHERE id=1", [],
                 (tx, results) => {
-                    console.log('Results', results.rowsAffected);
+                    //console.log('Results', results.rowsAffected);
                 }
             );
         });
@@ -1441,11 +1441,11 @@ getRecordId(phone,bookId){
             tx.executeSql(
                 "UPDATE personals SET language = '"+language+"' WHERE id=1", [],
                 (tx, results) => {
-                    console.log('Results', results.rowsAffected);
+                    //console.log('Results', results.rowsAffected);
                     this.getUserData()
                 },
                     (t, err) => {
-                        console.log(err)
+                        //console.log(err)
                     }
             );
         });
@@ -1457,7 +1457,7 @@ getRecordId(phone,bookId){
             tx.executeSql(
                 "UPDATE personals SET active = ? WHERE id=1", [active],
                 (tx, results) => {
-                    console.log('Results', results.rowsAffected);
+                    //console.log('Results', results.rowsAffected);
                 }
             );
         });
@@ -1470,7 +1470,7 @@ getRecordId(phone,bookId){
                 tx.executeSql(
                     "UPDATE personals SET phone_no = ? WHERE id=1", [phone],
                     (tx, results) => {
-                        console.log('Results', results.rowsAffected);
+                        //console.log('Results', results.rowsAffected);
                         resolve(results)
                     },
                     (t, err) => {
@@ -1487,7 +1487,7 @@ getRecordId(phone,bookId){
                 tx.executeSql(
                     "UPDATE personals SET UPIID = ? WHERE id=1", [UPIID],
                     (tx, results) => {
-                        console.log('Results', results.rowsAffected);
+                        //console.log('Results', results.rowsAffected);
                         resolve(results)
                     },
                     (t, err) => {
@@ -1503,7 +1503,7 @@ getRecordId(phone,bookId){
             tx.executeSql(
                 "UPDATE personals auth_token = ? WHERE id=1", [authtoken],
                 (tx, results) => {
-                    console.log('Results', results.rowsAffected);
+                    //console.log('Results', results.rowsAffected);
                 }
             );
         });
@@ -1518,10 +1518,10 @@ getRecordId(phone,bookId){
                     (tx, results) => {
                         resolve(1)
 
-                        console.log('setrecord : Results', results);
+                        //console.log('setrecord : Results', results);
                     }, (t, error) => {
 
-                        console.log('setrecord : error : ', error)
+                        //console.log('setrecord : error : ', error)
                         reject(0)
                     }
                 );
@@ -1535,10 +1535,10 @@ getRecordId(phone,bookId){
                 tx.executeSql(
                     "UPDATE books SET trashed = 1 WHERE id="+id, [],
                     (tx, results) => {
-                        console.log('Results', results.rowsAffected);
+                        //console.log('Results', results.rowsAffected);
                         resolve(results.rows)
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1551,10 +1551,10 @@ getRecordId(phone,bookId){
                 tx.executeSql(
                     "UPDATE books SET trashed = 0 WHERE id="+id, [],
                     (tx, results) => {
-                        console.log('Results', results.rowsAffected);
+                        //console.log('Results', results.rowsAffected);
                         resolve(results.rows)
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1571,10 +1571,10 @@ getRecordId(phone,bookId){
                     
                         "DELETE FROM records WHERE date='"+id+"'", [],
                         (tx, results) => {
-                            console.log('Results', results.rowsAffected);
+                            //console.log('Results', results.rowsAffected);
                             resolve(results.rows)
                         }, (t, error) => {
-                            console.log('Constructor error : ', error)
+                            //console.log('Constructor error : ', error)
                             reject(error)
                         }
                     
@@ -1586,10 +1586,10 @@ getRecordId(phone,bookId){
                     
                         "DELETE FROM loanrecords WHERE lastupdated='"+id+"'", [],
                         (tx, results) => {
-                            console.log('Results', results.rowsAffected);
+                            // //console.log('Results', results.rowsAffected);
                             resolve(results.rows)
                         }, (t, error) => {
-                            console.log('Constructor error : ', error)
+                            // //console.log('Constructor error : ', error)
                             reject(error)
                         }
                     
@@ -1616,7 +1616,7 @@ getRecordId(phone,bookId){
 
 
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        ////console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1629,10 +1629,10 @@ getRecordId(phone,bookId){
                 tx.executeSql(
                     "UPDATE books SET trashed = 2 WHERE id="+id, [],
                     (tx, results) => {
-                        console.log('Results', results.rowsAffected);
+                        //console.log('Results', results.rowsAffected);
                         resolve(results.rows)
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1649,7 +1649,7 @@ getRecordId(phone,bookId){
 
                         resolve(results.rows.item(0))
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1664,10 +1664,10 @@ getRecordId(phone,bookId){
                 tx.executeSql(
                     "SELECT * FROM books WHERE trashed=0", [],
                     (tx, results) => {
-                        // console.log("Record All Books", results.rows)
+                        // //console.log("Record All Books", results.rows)
                         resolve(results.rows)
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1684,7 +1684,7 @@ getRecordId(phone,bookId){
 
                         resolve(results.rows['_array'])
                     }, (t, error) => {
-                        console.log('Constructor error : ', error)
+                        //console.log('Constructor error : ', error)
                         reject(error)
                     }
                 );
@@ -1807,8 +1807,8 @@ getRecordId(phone,bookId){
                     "SELECT amount FROM records WHERE book_id=" + bookid+" AND (take=1 OR take=2) AND partner_contact='"+c+"'", [],
                     (tx, results) => {
                         const arr = results.rows['_array']
-                        console.log('ckecking arr')
-                        console.log(arr)
+                        //console.log('ckecking arr')
+                        //console.log(arr)
                         const map = arr.map(a => a.amount)
                         const sum = map.reduce((a, b) => a + b, 0)
                         resolve(sum)
@@ -1846,11 +1846,11 @@ getRecordId(phone,bookId){
                     // "SELECT * FROM records r,contactwithrecords cws WHERE book_id=" + bookid+" AND type='Cash' OR type='cash'", [],
                     [],
                     (tx, results) => {
-                        console.log('Cash in',results.rows)
+                        //console.log('Cash in',results.rows)
                         resolve(results.rows['_array'])
 
                     }, (t, error) => {
-                        console.log('Cash in error',JSON.stringify(error))
+                        //console.log('Cash in error',JSON.stringify(error))
                         reject(error)
                     }
                 )
@@ -1919,7 +1919,7 @@ getRecordId(phone,bookId){
                     "SELECT *,amountGiven as amount,contactno as partner_contact,loanName as name,customername as contactname,lastupdated as date FROM loanrecords WHERE  bookid=" + bookid + " AND give=1", [],
                     (tx, results) => {
                         
-                       console.log('loan records',results.rows)
+                       //console.log('loan records',results.rows)
                         
                         resolve(results.rows)
                     }, (t, error) => {
@@ -1985,9 +1985,9 @@ getRecordId(phone,bookId){
                 })
                 sum = take + give;
                 if (sum < 0) {
-                    console.log("Take")
+                    //console.log("Take")
                 } else {
-                    console.log("Give")
+                    //console.log("Give")
                 }
             }
         )
