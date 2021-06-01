@@ -234,8 +234,8 @@ function OneCustomerScreenLoan(props) {
                                                   border="0" alt="" width="58" height="auto" style="display: block;"/><br>
                                                   <h1>Lekha Jokha Report</h1>
                                                   <h2>Customer Name : `+mRecords?.[0].contactno+`</h2>
-                                                  <h2>Loan Name : `+mRecords?.[0].partner_contact+`</h2>
-                                                  <h5>Loan Amount : `+mRecords?.[0].totalTaken  +`</h5>
+                                                  <h2>Loan Name : `+mRecords?.[0].loanName+`</h2>
+                                                  <h5>Loan Amount : `+(mRecords?.[0].amountGiven===0?mRecords?.[0].amountTaken-mRecords?.[0].installmentAmount:mRecords?.[0].amountGiven-mRecords?.[0].installmentAmount).toFixed(2)  +`</h5>
                                                   <h5>Number of Installment : `+mRecords?.[0].installmentAmount   +`</h5>
                                                   <h5>Frequency : `+mRecords?.[0].installment   +`</h5>
                                                   <h5>Rate of Interest : `+mRecords?.[0].interest   +`</h5>

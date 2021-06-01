@@ -71,18 +71,18 @@ function HomeTab1CustomersComponent(props) {
           setGiveSum(res)
         })
           .catch(function (e) {
-            console.log('homeScreen:: line 89' + e)
+            // console.log('homeScreen:: line 89' + e)
           })
         dbObject.getSumOfAllGreen(props.personals.currentBookId).then(function (res) {
           setTakeSum(res)
         })
           .catch(function (e) {
-            console.log('homeScreen:: line 95' + e)
+            // console.log('homeScreen:: line 95' + e)
           })
 
       dbObject.getExistingContacts(props.personals.currentBookId).then(function(res){
-        console.log("currentBookId ", props.personals.currentBookId)
-        console.log("All", res)
+        // console.log("currentBookId ", props.personals.currentBookId)
+        // console.log("All", res)
         setContacts(res)
 
       })
@@ -163,7 +163,7 @@ function HomeTab1CustomersComponent(props) {
         })
       )
     } catch (e) {
-      console.log('HomeScreen.js:: gotToOneCustomerScreen' + e)
+      // console.log('HomeScreen.js:: gotToOneCustomerScreen' + e)
     }
 
   }

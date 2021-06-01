@@ -208,14 +208,13 @@ function Routes(props) {
                             headerRight: null,
                             headerLeft: null
                           }}
-
             />
 
           :
 
             <>
               {
-               props.personals.isLoggedIn === false
+               props.personals.isLoggedIn === true
                  ?
                   <Stack.Screen name="Login" component={Login} options={{title: 'Log In'}}/>
 

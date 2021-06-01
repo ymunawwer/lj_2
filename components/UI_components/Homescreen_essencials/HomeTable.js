@@ -14,7 +14,7 @@ function HomeTable(props) {
   console.log('navigation ',componentName)
   useEffect(() => {
     setSumArr(props?.mTakeSum)
-    console.log(sumArr)
+    // console.log(sumArr)
   }, [props?.mTakeSum])
 
   const customItem = (item, index) => {
@@ -74,7 +74,7 @@ function HomeTable(props) {
               :
               (
                  <View style={[styles.cAmtTimeCont, {marginLeft: 10, alignItems:"center"}]}>
-                <Text style={styles.giveAmountText}>₹{componentName==='dashboard'?sumArr[index]:(item.amount)}</Text>
+                <Text style={styles.giveAmountText}>₹{componentName==='dashboard'?sumArr[index]<0?-sumArr[index]:sumArr[index]:(item.amount)}</Text>
                 <Text style={styles.cTime}>{marker}</Text>
                 </View>
               )

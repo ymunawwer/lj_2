@@ -76,11 +76,15 @@ export const SwitchSelectorComponent = (props) => {
 
 export const getTypeOrModeSelection = (type) => {
 
+
+
     if(type === transactionTypes.RECEIVABLE) {
         return ["Sales", "Income"]
     }
     else if (type === transactionTypes.PAYABLE) {
         return ["Purchases", "Expenses"]
+    }else if (type === "LOAN"){
+        return ["Interest Rate", "Installment Amount"]
     }
     else {
         return ["Cash", "Other"]

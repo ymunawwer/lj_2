@@ -230,23 +230,26 @@ function YouGaveScreen(props) {
                         
                     />
                 </View>
+                
+
 
                 {
                     typeOfTransGaveGot === "Loan EMI" ?
+                    
                         <View>
-
-                            <View style={{borderWidth: 1, borderColor:'#303030', borderRadius: 5, marginVertical: 10, marginHorizontal: 10}}>
-                                <Picker
-                                    selectedValue={loanName}
-                                    style={{ height: 55, borderWidth: 1, borderColor:'#dedede' }}
-                                    onValueChange={(itemValue, itemIndex) => setLoanName(itemValue)}
-                                >
-                                    <Picker.Item label="Sales" value="Sales"/>
-                          <Picker.Item label="Purchases" value="Purchases"/>
-                          <Picker.Item label="Income" value="Income"/>
-                          <Picker.Item label="Expenses" value="Expenses"/>
-                                </Picker>
+                            <View style={[{
+                                justifyContent: 'center',
+                            }]}>
+                                <RoundedInput
+                                    style={[{color: themeColor}]}
+                                    label="Loan Name"
+                                    onChangeText={text => {
+                                        dispatch({type: calcTypes.setAmountText, payload: text})
+                                    }}
+                                />
                             </View>
+                            
+                            
 
                             <View style={{borderWidth: 1, borderColor:'#303030', borderRadius: 5, marginVertical: 10, marginHorizontal: 10}}>
                                 <Picker

@@ -84,7 +84,7 @@ function HomeTabsCommonComponents(props) {
   // if
 
   const showModal = async (index) => {
-    console.log('modal-',componentName)
+    // console.log('modal-',componentName)
     switch(componentName){
     case 'dashboard':
     index === 0 ? await getData('((give = 1 AND take = 0) OR (give = 2 AND take = 0))','Gave / Payable') : await getData('((give = 0 AND take = 1) OR (give = 0 AND take = 2))','Got / Receivable');
@@ -127,21 +127,21 @@ function HomeTabsCommonComponents(props) {
             let totalGot = 0
             let totalGave = 0
             
-            console.log(key)
+            // console.log(key)
 
             const record = await dbObject.getRecordByQueryString(storeObject.getCurrentBook(),key)
            
-              console.log('data data',record)
+              // console.log('data data',record)
                   setRecord(record);
                   setModalVisibility(true );
                   setIsGive(value);
                   for (let entry of record) {
                       if (entry.take === 1) {
                           totalGot += entry.amount
-                          console.log("Gave Entry = ", entry.amount)
+                          // console.log("Gave Entry = ", entry.amount)
                       } else {
                           totalGave += entry.amount
-                          console.log("Take Entry = ", entry.amount)
+                          // console.log("Take Entry = ", entry.amount)
                       }
                   }
                   
@@ -484,6 +484,8 @@ function HomeTabsCommonComponents(props) {
     visible={isModalVisible}
     dismiss={hideModal}
     mRecord ={mRecord}
+    nav={navigation}
+    
     headerItem={[
       "Customer Details",
       isGive ,

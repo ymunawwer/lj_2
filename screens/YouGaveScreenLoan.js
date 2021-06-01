@@ -30,18 +30,24 @@ import Colors from "../constants/Colors";
 import {RoundedBtn} from "../components/UI_components/Buttons";
 import openImagePickerAsync from "../components/Logic_Repository/openImagePickerAsync";
 import calcTypes from "../store/reducers/types/calcTypes";
+import {Snackbar, Subheading} from "react-native-paper";
+import {
+    getTypeOrModeSelection,
+    SelectionChip, SwitchSelectorComponent
+} from "./UiComponents/transactionComponents";
+
 
 function YouGaveScreenLoan(props) {
     const { navigation, themeColor = "red", isGotScreen = false, route } = props
     const {contact,customerName,loanName} = route.params
     // props.personals.currentBookData.id
     // console.log('params',contact,customerName,loanName)
-    let type = "Sales";
+    let type = "Purchases";
     let installment = "Daily";
     let interest = 0;
     let months = 0;
 
-    const [selectedValue, setSelectedValue] = useState("Sales");
+    const [selectedValue, setSelectedValue] = useState("Purchases");
     const [selectedOption, setSelectedOption] = useState("Interest Rate");
     const [selectedValueI, setSelectedValueI] = useState("Daily");
     const [mode, setMode] = useState("Mode");
@@ -219,7 +225,7 @@ function YouGaveScreenLoan(props) {
                         }
                         }
                       >
-                          <Picker.Item label="Sales" value="Sales"/>
+                          
                           <Picker.Item label="Purchases" value="Purchases"/>
                           <Picker.Item label="Income" value="Income"/>
                           <Picker.Item label="Expenses" value="Expenses"/>
@@ -231,9 +237,10 @@ function YouGaveScreenLoan(props) {
                         onValueChange={(itemValue, itemIndex) =>
                         {
                             installment = itemValue
+                            
+                            setIntervalPeriod(getIntervalValue(itemValue))
+                            setSelectedValueI(itemValue)
 
-                            // setIntervalPeriod(getIntervalValue(itemValue))
-                            // setSelectedValueI(itemValue)
                         }
                         }
                       >
@@ -310,27 +317,44 @@ function YouGaveScreenLoan(props) {
                       marginVertical:5,
                       flexDirection: "row"
                   }]}>
-                       <View style={[styles.row, {
+                       {/* <View style={[styles.row, {
 
                             borderRadius: 5,
                             marginHorizontal:10,
                             marginVertical:5,
                             elevation:5
-                            }]}>
-                     <Picker
+                            }]}> */}
+                                <View
+                                    style={{marginHorizontal: 10, marginBottom: 10}}
+                                >
+
+                                    <SwitchSelectorComponent
+                                        values={getTypeOrModeSelection("LOAN")}
+                                        onPress={(val) => {
+                                            setSelectedValue(val)
+                                            type = val
+                                            setSelectedOption(val)
+                                        }}
+                                        defaultSelected={0}
+                                        selectedBgColor={themeColor}
+                                    />
+
+                                </View>
+                     {/* <Picker
                         selectedValue={selectedOption}
                         style={[styles.blueText, {height: 50, width: '100%', backgroundColor: 'rgba(0,0,250,.1)',margin:2,borderRadius:5}]}
                         onValueChange={(itemValue, itemIndex) =>
                         {
                             type = itemValue
                             setSelectedOption(itemValue)
+
                         }
                         }
                       >
                           <Picker.Item label="Interest Rate" value="Interest Rate"/>
                           <Picker.Item label="Installment Amount" value="Installment Amount"/>
-                      </Picker>
-                      </View>
+                      </Picker> */}
+                      
 
 
                   </View>
@@ -339,27 +363,32 @@ function YouGaveScreenLoan(props) {
                       marginVertical:5,
                       flexDirection: "row"
                   }]}>
+                      {selectedOption==="Interest Rate"?
                       <RoundedInput
-                        placeholder="Interest Rate"
-                        label={"Interest Rate"}
-                        keyboardType='numeric'
-                        maxLength={3}
-                        onChangeText={text => {
-                            interest = text
-                            setInterestRate(text)
-                        }}
-                        containerStyle={{flex: 1}}
-                      />
-
-                      <RoundedInput
+                      placeholder="Interest Rate"
+                      label={"Interest Rate"}
+                      keyboardType='numeric'
+                      maxLength={3}
+                      onChangeText={text => {
+                          interest = text
+                          setInterestRate(text)
+                      }}
+                      containerStyle={{flex: 1}}
+                    />:
+                    <RoundedInput
                         placeholder="Installment Amount"
                         label={"Installment Amount"}
+                        // value = {state.amountText*(interestRate(1+interestRate))}
                         value={parseFloat(parseFloat(installmentAmount*interval)+parseFloat((installmentAmount/interval) * interestRate/100)).toFixed(2)}
                         onChangeText={text => {
 
                         }}
                         containerStyle={{flex: 1}}
                       />
+                      }
+                      
+
+                      
 
 
                   </View>

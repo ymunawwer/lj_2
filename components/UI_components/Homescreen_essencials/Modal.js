@@ -33,6 +33,7 @@ class MyModal extends React.Component {
       mGave:null,
       mNet:null,
       mNetNeg:null,
+
     }
    
     const widthArr = [190, 80, 80, 100]
@@ -49,7 +50,7 @@ class MyModal extends React.Component {
   }
   
    getData = async (key) => {
-    console.log(key)
+    // console.log(key)
        
     let totalGot = 0
     let totalGave = 0
@@ -58,17 +59,17 @@ class MyModal extends React.Component {
     if(true)
     {
         const record = await dbObject.getRecordByQueryString(key+"=1")
-        console.log("View Report record outside if ", record)
+        // console.log("View Report record outside if ", record)
 
         this.setState({'mRecord':record})
 
         for (let entry of record) {
             if (entry.take === 1) {
                 totalGot += entry.amount
-                console.log("Gave Entry = ", entry.amount)
+                // console.log("Gave Entry = ", entry.amount)
             } else {
                totalGave += entry.amount
-                console.log("Take Entry = ", entry.amount)
+                // console.log("Take Entry = ", entry.amount)
             }
         }
         
@@ -83,17 +84,17 @@ class MyModal extends React.Component {
         
     }else{
        const record = await dbObject.getRecord(this.props.personals.currentBookId)
-       console.log("View Report record outside if ", record)
+      //  console.log("View Report record outside if ", record)
 
         setRecord(record)
 
         for (let entry of record) {
             if (entry.take === 1) {
                 totalGot += entry.amount
-                console.log("Gave Entry = ", entry.amount)
+                // console.log("Gave Entry = ", entry.amount)
             } else {
                 totalGave += entry.amount
-                console.log("Take Entry = ", entry.amount)
+                // console.log("Take Entry = ", entry.amount)
             }
         }
         setGot(totalGot)
@@ -127,7 +128,7 @@ class MyModal extends React.Component {
   customItem = (item, index) => {
     
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('OneCustomerScreenLoan', {
+        <TouchableOpacity onPress={() => this.props.nav.navigate('OneCustomerScreenLoan', {
           phoneNumber: item.contactno,
           name: item.contactname,
           loanName: item.name
@@ -162,14 +163,14 @@ class MyModal extends React.Component {
  
 
   render() {
-    console.log('key-',this.props.btnClick)
+    // console.log('key-',this.props.btnClick)
     // const { props } = this;
     // var tableData={}
     // tableData['data']={'11':2}
     const self=this;
-    const {navigation, componentName, cardsData, searchBarData, tableData, lan = 'english', fabBtnData,data,key} = this.props
+    const {componentName, cardsData, searchBarData, tableData, lan = 'english', fabBtnData,data,key} = this.props
     const mContacts = data
-    console.log(mContacts);
+    // console.log("data ", this.props.mRecord);
   
     return (
 
@@ -273,9 +274,11 @@ class MyModal extends React.Component {
                         renderItem={({item}) => (
                             <TouchableOpacity onPress={() =>
                                 {
-                                    navigation.navigate('EntryDetails')
-                                    storeObject.setRecordId(item.recordid)
+                                    this.props.nav.navigate('EntryDetails')
+                                    this.props.dismiss()
+                                    storeObject.setRecordId(item.date)
                                     storeObject.setRecordLoanYes(0)
+
                             }
                         }>
                                 <View style={[styleglobal.row, styleI.noPad]}>
