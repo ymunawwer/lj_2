@@ -28,7 +28,7 @@ export default function EntryDetails(props) {
             // console.log('loan record id new = ',storeObject.getRecordId())
 
 
-            console.log('mrecords',mRecords)
+            // console.log('mrecords',mRecords)
             // console.log("store loan", storeObject.getRecordLoanYes()===1)
             // console.log("store", storeObject.getRecordId())
             try {
@@ -37,12 +37,12 @@ export default function EntryDetails(props) {
                     const records = await dbObject.getRecordByDate(storeObject.getRecordId())
                     // const records = await dbObject.getRecordById(storeObject.getRecordId())
                     setRecords(records)
-                    // console.log("records attachment", records)
+                    console.log("records attachment", records)
                      setIsLoan(0)
                 }else{
-                    console.log("record id", storeObject.getRecordId());
+                    // console.log("record id", storeObject.getRecordId());
                     const records = await dbObject.getLoanRecordById(storeObject.getRecordId())
-                    console.log("recordsss", records);
+                    // console.log("recordsss", records);
                     // console.log('loanrecord',records['_array'])
                     setRecords(records)
                     setIsLoan(1)
@@ -204,7 +204,7 @@ const sharePdf = (url) => {
       
       const print = async (html) => {
         try {
-          console.log(mRecords)
+          // console.log(mRecords)
           mRecords.forEach(element => {
             html = html+`
         <tr>
@@ -326,7 +326,7 @@ const sharePdf = (url) => {
             <View style={[styles.container]}>
                     <View style={[styles.container,{backgroundColor:'white',borderRadius:5}]}>
                     <View style={{marginBottom:10}}>
-                        <Text><MaterialIcons name="sms" size={18} color="black" /> SMS disable</Text>
+                        {/* <Text><MaterialIcons name="sms" size={18} color="black" /> SMS disable</Text> */}
                         </View>
 
                         <View style={{borderBottomWidth: .2, borderBottomColor: '#dedede'}}/>
@@ -343,7 +343,9 @@ const sharePdf = (url) => {
                             }
                                 </Text>
                             {mRecords?mRecords[0]?.remarks!=""?<Text style={[stylesI.greyTextSm]}>{mRecords[0]?.remarks}</Text>:console.log(''):console.log('')}
-                            {mRecords?mRecords[0]?.type?<Text style={[stylesI.greyTextSm]}>{mRecords[0]?.type}</Text>:console.log(''):console.log('')}
+                            {
+                            //mRecords?mRecords[0]?.type?<Text style={[stylesI.greyTextSm]}>{mRecords[0]?.type}</Text>:console.log(''):console.log('')
+                            }
                             {mRecords?mRecords[0]?.attachment!='null'?<View style={[{marginRight:2}]}><Image style={{width: 100, height: 100,borderRadius:8}} source={{ uri: mRecords[0]?.attachment}}/></View>:console.log(''):console.log('')}
                             {
                                 mIsLoan===1?

@@ -51,6 +51,8 @@ function YouGaveScreenLoan(props) {
     const [selectedOption, setSelectedOption] = useState("Interest Rate");
     const [selectedValueI, setSelectedValueI] = useState("Daily");
     const [mode, setMode] = useState("Mode");
+    const [saveText, setSaveText] = useState("SAVE");
+    const [isSaving, setIsSaving] = useState(false)
 
     const [principle, setPrinciple] = useState("");
     const [remark, setRemark] = useState("");
@@ -62,7 +64,7 @@ function YouGaveScreenLoan(props) {
 
     let rem={remark: ''};
     let duedate = '';
-    let today = new Date().getFullYear()+"-"+new Date().getMonth()+"-"+new Date().getDate();
+    let today = new Date().getFullYear()+"-"+(new Date().getMonth()+1)+"-"+new Date().getDate();
 
     const initialState = {
         calcExpVisible: false,
@@ -191,10 +193,11 @@ function YouGaveScreenLoan(props) {
                                 justifyContent: 'center',
                                  alignItems: 'center',
                              }}
+                             disabled={isSaving}
 
                              onPress={() => handleSave2()}
                          >
-                             <Text style={{color: 'white', fontWeight: 'bold'}}>SAVE</Text>
+                             <Text style={{color: 'white', fontWeight: 'bold'}}>{saveText}</Text>
                          </TouchableOpacity>
                     }
                     </View>
@@ -215,7 +218,7 @@ function YouGaveScreenLoan(props) {
                       marginVertical:5,
                       elevation:5
                   }]}>
-                      <Picker
+                      {/* <Picker
                         selectedValue={selectedValue}
                         style={[styles.blueText, {height: 50, width: '50%', backgroundColor: 'rgba(0,0,250,.1)',margin:2,borderRadius:5}]}
                         onValueChange={(itemValue, itemIndex) =>
@@ -229,7 +232,7 @@ function YouGaveScreenLoan(props) {
                           <Picker.Item label="Purchases" value="Purchases"/>
                           <Picker.Item label="Income" value="Income"/>
                           <Picker.Item label="Expenses" value="Expenses"/>
-                      </Picker>
+                      </Picker> */}
 
                       <Picker
                         selectedValue={selectedValueI}
@@ -524,6 +527,10 @@ function YouGaveScreenLoan(props) {
     }
 
     async function handleSave2() {
+
+
+        setIsSaving(false);
+        setSaveText("Saving....")
 
         const bookid = props.personals.currentBookId
          let amount = state.amountText

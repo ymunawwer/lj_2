@@ -73,21 +73,21 @@ function OneCustomerScreen(props) {
 
             try {
                 const records = await dbObject.getRecordsOfUser(route.params.phoneNumber, props.personals.currentBookId)
-                console.log("Records = ", records)
+                // console.log("Records = ", records)
                 storeObject.setRecords(records)
 
                 setRecords(records['_array'])
 
-                console.log("Records:", records['_array'])
+                // console.log("Records:", records['_array'])
                 let takeSum = 0;
                 let giveSum = 0;
                 const map = mRecords.map(a => {
                     if (a.take === 1 || a.take === 2) {
                         takeSum += a.amount;
-                        console.log("take Sum : ", takeSum)
+                        // console.log("take Sum : ", takeSum)
                     } else {
                         giveSum += a.amount;
-                        console.log("Give Sum  : ", giveSum)
+                        // console.log("Give Sum  : ", giveSum)
                     }
                 })
 
@@ -107,7 +107,7 @@ function OneCustomerScreen(props) {
 
                 return () => setRecords(null)
             } catch (e) {
-                console.log('OneCustomerScreen.js: Error: ' + e)
+                // console.log('OneCustomerScreen.js: Error: ' + e)
             }
 
         })();
@@ -265,7 +265,7 @@ const sharePdf = (url) => {
       
       const print = async (html) => {
         try {
-          console.log(mRecords)
+        //   console.log(mRecords)
           mRecords.forEach(element => {
             html = html+`<tr>
             <td data-column="Amount">  `+element?.amount+`  </td>

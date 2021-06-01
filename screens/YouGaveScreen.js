@@ -69,7 +69,7 @@ function YouGaveScreen(props) {
     let rem = {remark: ''};
     let type = "Sales";
     let duedate = '';
-    let today = new Date().getFullYear() + "-" + new Date().getMonth() + "-" + new Date().getDate();
+    let today = new Date().getFullYear() + "-" + (new Date().getMonth()+1) + "-" + new Date().getDate();
 
     const [state, dispatch] = useReducer(calcReducer, initialState)
     const [selectedImage, setSelectedImage] = useState(null);
@@ -78,12 +78,15 @@ function YouGaveScreen(props) {
     const [selectedValue, setSelectedValue] = useState("");
     const [typeOfTransGaveGot, setTypeOfTransGaveGot] = useState("Others")
     const [loanName, setLoanName] = useState("")
+    const [saveText, setSaveText] = useState("SAVE");
+    const [isSaving, setIsSaving] = useState(false)
     const [installmentNo, setInstallmentNo] = useState("")
     const [toastVisibility, setToastVisibility] = useState(false)
 
 
     useEffect(() => {
         (async()=>{
+            console.log("Today, ", today)
 
             await dbObject.getRecordId(customerPhone, props.personals.currentBookId)
             if(transactionType === transactionTypes.RECEIVABLE) {
@@ -324,6 +327,7 @@ function YouGaveScreen(props) {
                                 borderRadius: 6
                                 
                             }}
+                            disabled={isSaving}
 
                             onPress={() => handleSave()}
                         >
@@ -417,6 +421,8 @@ function YouGaveScreen(props) {
 
 
     async function handleSave() {
+        setIsSaving(false);
+        setSaveText("Saving....")
         const bookId = props.personals.currentBookId
         let amount = state.amountText
         let recordid = await dbObject.getRecordId(customerPhone, props.personals.currentBookId)
