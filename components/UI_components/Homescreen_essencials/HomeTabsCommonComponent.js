@@ -713,8 +713,8 @@ function HomeTabsCommonComponents(props) {
 
   async function handleSortingAndFilter() {
 
-    console.log(filterSelection)
-    console.log(sortingSelection)
+    // console.log(filterSelection)
+    // console.log(sortingSelection)
 
     if (filterSelection === 'A' && sortingSelection === 'Most Recent') {
       setContacts(tableData.data)

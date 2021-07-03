@@ -47,7 +47,7 @@ function addLoanInputs(props) {
   (async ()=>{
     const updatedContacts = await dbObject.getExistingContacts(props.personals.currentBookData.id);
     setContacts(updatedContacts)
-    console.log('contacts',contacts)
+    // console.log('contacts',contacts)
     return updatedContacts
 
   })();

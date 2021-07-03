@@ -120,9 +120,9 @@ function Header(props) {
                                             <View>
                                                 <Text
                                                     style={[styles.normalText, styles.blueText]}>{item.name}</Text>
-                                                <Text style={[styles.greyTextSm, {paddingHorizontal: 0}]}>
+                                                {/* <Text style={[styles.greyTextSm, {paddingHorizontal: 0}]}>
                                                     {props.booksData.existingCustomers.length +" "+ lang[lan]['customers']}
-                                                </Text>
+                                                </Text> */}
                                             </View>
 
                                             <View style={styles.container}>

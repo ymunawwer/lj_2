@@ -54,13 +54,18 @@ function YouGaveScreenLoan(props) {
     const [saveText, setSaveText] = useState("SAVE");
     const [isSaving, setIsSaving] = useState(false)
 
+    const [divider, setDivider] = useState(365)
+
     const [principle, setPrinciple] = useState("");
     const [remark, setRemark] = useState("");
-    const [numberofinstallment, setnoi] = useState(null)
-    const [installmentAmount, setinstallmentamount] = useState(null)
+    const [numberofinstallment, setnoi] = useState(1)
+    const [installmentAmount, setinstallmentamount] = useState(1)
     const [interestRate, setInterestRate] = useState(null)
     const [tabIndex, setTabIndex] = useState(0)
     const [interval, setIntervalPeriod] = useState(1)
+    const [installmentAmountVar, setInstallmentAmount] = useState(0)
+    const [installmentAmountFinal, setInstallmentAmountFinal] = useState(0)
+    const [insterestAmountFinal, setInterestAmountFinal] = useState(0)
 
     let rem={remark: ''};
     let duedate = '';
@@ -215,7 +220,7 @@ function YouGaveScreenLoan(props) {
 
                       borderRadius: 5,
                       marginHorizontal:10,
-                      marginVertical:5,
+                      marginVertical:2,
                       elevation:5
                   }]}>
                       {/* <Picker
@@ -240,8 +245,23 @@ function YouGaveScreenLoan(props) {
                         onValueChange={(itemValue, itemIndex) =>
                         {
                             installment = itemValue
+
+                            // var d = installment;
+                            if(installment==="Daily"){
+                                setDivider(365);
+                            }else if(installment==="Monthly"){
+                                setDivider(12);
+                            }else if(installment==="Quarterly"){
+                                setDivider(4);
+                            }else if(installment==="Half Yearly"){
+                                setDivider(2);
+                            }else{
+                                setDivider(1);
+                            }
+                            setInterestRate('')
+
                             
-                            setIntervalPeriod(getIntervalValue(itemValue))
+                            setDivider(getIntervalValue(itemValue))
                             setSelectedValueI(itemValue)
 
                         }
@@ -262,7 +282,7 @@ function YouGaveScreenLoan(props) {
                       // justifyContent: 'center',
                       borderRadius: 5,
                       marginHorizontal:10,
-                      marginVertical:5,
+                      marginVertical:2,
                       elevation:5
                   }]}>
                       <Picker
@@ -317,7 +337,7 @@ function YouGaveScreenLoan(props) {
                   </View>
 
                   <View style={[ {
-                      marginVertical:5,
+                      marginVertical:2,
                       flexDirection: "row"
                   }]}>
                        {/* <View style={[styles.row, {
@@ -362,32 +382,98 @@ function YouGaveScreenLoan(props) {
 
                   </View>
 
+                  <RoundedInput
+                        label="Enter Number of Installment"
+                        keyboardType='numeric'
+                        value={numberofinstallment}
+                        onChangeText={(text)=> {
+                            // let a = state.amountText/text
+                            setnoi(text)
+                            setInterestRate(0)
+                        }}
+                        maxLength={3}  //setting limit of input
+                      />
+
                   <View style={[ {
-                      marginVertical:5,
+                      marginVertical:2,
                       flexDirection: "row"
                   }]}>
                       {selectedOption==="Interest Rate"?
+                      
                       <RoundedInput
                       placeholder="Interest Rate"
                       label={"Interest Rate"}
                       keyboardType='numeric'
+                      value={interestRate}
                       maxLength={3}
                       onChangeText={text => {
-                          interest = text
-                          setInterestRate(text)
+                        interest = text
+                        setInterestRate(text)
+                          
+                        //   console.log("Debug", numberofinstallment,interest , Math.pow(1+interest,numberofinstallment))
+
+                        //   console.log("state.amountText", state.amountText)
+                        //   console.log("state.divider", divider)
+                          console.log("state.amountText downnnn", (parseFloat(state.amountText) + (interest*(1+interest)/((1+interest)-1)/numberofinstallment)/divider))
+                          var s = (parseFloat(state.amountText) + (interest*(1+interest)/((1+interest)-1)/divider))
+
+                        //   var s = (parseFloat(state.amountText) + (interest*(Math.pow(1+interest,numberofinstallment))/((Math.pow(1+interest,numberofinstallment))-1)/numberofinstallment)/divider)
+                        
+                          console.log("total sum = ", s.toFixed(2))
+
+                          s = s.toFixed(0)
+
+                          setInstallmentAmountFinal(s/numberofinstallment)
+                          console.log("Debug test", installmentAmountFinal)
+
                       }}
                       containerStyle={{flex: 1}}
                     />:
+                    
                     <RoundedInput
                         placeholder="Installment Amount"
                         label={"Installment Amount"}
+                        keyboardType='numeric'
                         // value = {state.amountText*(interestRate(1+interestRate))}
-                        value={parseFloat(parseFloat(installmentAmount*interval)+parseFloat((installmentAmount/interval) * interestRate/100)).toFixed(2)}
+                        // value={}//installmentAmountVar
                         onChangeText={text => {
+                            // console.log("Debug IA : ", )
+                            // console.log("Debug noi : ", numberofinstallment)
+                            // console.log("Debug AT : ", state.amountText)
+                            // setInterestAmountFinal()
+
+                            
+                            // (parseFloat(state.amountText) + (interest*(1+interest)/((1+interest)-1)/numberofinstallment)/divider)
+                            
+                            // var s = (parseFloat(state.amountText) + (interest*(1+interest)/((1+interest)-1)/divider))
+
+                            var r = (parseFloat(text)/(parseFloat(state.amountText)*divider)/numberofinstallment)
+
+                            // setInterestAmountFinal(((parseFloat(text)/parseFloat(state.amountText)-1)*100/divider).toFixed(2)) 
+                            
+                            
+                            setInterestAmountFinal(r)      
+
+                            // setInstallmentAmount(parseFloat(parseFloat(installmentAmount*interval)+parseFloat((installmentAmount/interval) * interestRate/100)).toFixed(2))
 
                         }}
                         containerStyle={{flex: 1}}
                       />
+                      }
+                      </View>
+                      <View style={[ {
+                      marginVertical:2,
+                      flexDirection: "row",
+                      padding:10
+                  }]}>
+
+                    {selectedOption==="Interest Rate"?
+                      
+                     
+                    <Text style={{fontWeight: 'bold'}}>Installment Amount : {installmentAmountFinal}</Text>
+                    :
+                   
+                      <Text style={{fontWeight: 'bold'}}>Interest Rate : {insterestAmountFinal}%</Text>
                       }
                       
 
@@ -396,15 +482,7 @@ function YouGaveScreenLoan(props) {
 
                   </View>
 
-                      <RoundedInput
-                        label="Enter Number of Installment"
-                        keyboardType='numeric'
-                        onChangeText={(text)=> {
-                            let a = state.amountText/text
-                            setinstallmentamount(a + "")
-                        }}
-                        maxLength={3}  //setting limit of input
-                      />
+                      
 
               </View>
 
@@ -516,11 +594,11 @@ function YouGaveScreenLoan(props) {
     function getIntervalValue(value){
       var i = 1
 
-      if(value === "Monthly"){i=1}
-        else if(value === "Quarterly"){i=3}
-          else if(value === "Half Yearly"){i=6}
-            else if(value === "Annually"){i=12}
-                else if(value === "Daily"){i=.3}
+      if(value === "Monthly"){i=12}
+        else if(value === "Quarterly"){i=4}
+          else if(value === "Half Yearly"){i=2}
+            else if(value === "Annually"){i=1}
+                else if(value === "Daily"){i=365}
 
 
       return i
@@ -638,7 +716,7 @@ const styleI = StyleSheet.create({
         backgroundColor: 'transparent',
         margin: 0,
         padding: 0,
-        marginVertical: 4,
+        marginVertical: 2,
         justifyContent: 'space-between'
     },
     centeredView: {

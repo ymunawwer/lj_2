@@ -142,7 +142,7 @@ const LoanOneCustomerTable = (props) => {
         customItem={(item, index) => customItem(item, index)}
         headerItems={headerItems}
         isTouchableItem={false}
-        style={{flex:1,width:'100%'}}
+        style={{width:'100%'}}
         itemKey={"id"}
         data={data}
         widthArr={widthArr}
