@@ -20,7 +20,9 @@ const ExistingContactsChooser = (props) => {
         
       }, [props?.onChangeText])
 
-    
+     
+
+      
 
     function filterData(t){
         
@@ -56,10 +58,36 @@ const ExistingContactsChooser = (props) => {
            
         // }
     }
+
+    useEffect(() => {
+        filterData('')
+          console.log("data", filteredData)
+
+        // fD = [];
+        //     // console.log("Searching", t)
+        //     setFilteredData([])
+        //     // console.log("-----\nFound list before for", fD)
+        //     data.forEach(element => {
+
+        //         if(element['name'].toLowerCase().includes('')){
+        //             // console.log("Found", element['name'])
+        //             fD.push(element)
+        //             // console.log("-----\nFound list", fD)
+        //             // setFilteredData([...filteredData, element])
+        //             // console.log("-----\nFound list", filteredData)
+        //         }
+                
+               
+        //     });
+        //     setFilteredData(fD)
+    }, [])
+
     
 
     // console.log('data',props.data)
     return (
+        
+
        
         
         
@@ -91,7 +119,7 @@ const ExistingContactsChooser = (props) => {
 
                 <FlatList
                     style={{flex: 1}}
-                    data={typeof(filteredData)!=='undefined'?filteredData:null}
+                    data={filteredData}
                     ItemSeparatorComponent={() => (
                         <View style={{height: 1, backgroundColor: "#E8E8E8", marginHorizontal: 30}}>
 
@@ -125,9 +153,10 @@ const ExistingContactsChooser = (props) => {
                     // keyExtractor={item => item.id.toString()}
 
                 />
-
+       
         </View>
     );
+    
     
 }
 

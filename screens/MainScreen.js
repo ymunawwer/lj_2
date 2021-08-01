@@ -114,13 +114,15 @@ function MainScreen(props) {
                 </Modal>
             </View>
 
-
-            <Image
+            <View style={{alignItems: 'center', padding: 10, margin:10}}>
+                <Image
 
                 source={require('../assets/images/logo.jpg')}
-                style={{width: "100%", flex: 1}}
 
-            />
+                />
+            </View>
+
+            
 
             <View style={{alignItems: 'center', padding: 5}}>
                 <Text style={[styles.boldText, styles.normalText, {textAlign: 'center', width: "85%"}]}>

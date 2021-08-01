@@ -66,6 +66,7 @@ function YouGaveScreenLoan(props) {
     const [installmentAmountVar, setInstallmentAmount] = useState(0)
     const [installmentAmountFinal, setInstallmentAmountFinal] = useState(0)
     const [insterestAmountFinal, setInterestAmountFinal] = useState(0)
+    const [totalAmount, setTotalAmount] = useState(0);
 
     let rem={remark: ''};
     let duedate = '';
@@ -244,6 +245,8 @@ function YouGaveScreenLoan(props) {
                         style={[styles.blueText, {height: 50, width: '50%', backgroundColor: 'rgba(0,0,250,.1)',margin:2,borderRadius:5}]}
                         onValueChange={(itemValue, itemIndex) =>
                         {
+                            // setSelectedValueI(itemIndex)
+
                             installment = itemValue
 
                             // var d = installment;
@@ -422,6 +425,7 @@ function YouGaveScreenLoan(props) {
                           console.log("total sum = ", s.toFixed(2))
 
                           s = s.toFixed(0)
+                          setTotalAmount(s.toFixed(2))
 
                           setInstallmentAmountFinal(s/numberofinstallment)
                           console.log("Debug test", installmentAmountFinal)
@@ -450,7 +454,6 @@ function YouGaveScreenLoan(props) {
                             var r = (parseFloat(text)/(parseFloat(state.amountText)*divider)/numberofinstallment)
 
                             // setInterestAmountFinal(((parseFloat(text)/parseFloat(state.amountText)-1)*100/divider).toFixed(2)) 
-                            
                             
                             setInterestAmountFinal(r)      
 
@@ -664,20 +667,18 @@ function YouGaveScreenLoan(props) {
                 // {
                 //     Alert.alert('Invalid Interest Rate')
                 // }else{
-                  // console.log(bookid, amount, date, duedated, give, take, attachment, remarks, partner_contact, contactid, typedb, modedb, installmentdb, totalMonths,interestdb, loanName, installmentAmountdb)
+                  console.log(bookid, amount, date, duedated, give, take, attachment, remarks, partner_contact,customerName, contactid, typedb, modedb, selectedValueI, totalMonths,interestdb, loanName, installmentAmountFinal, totalAmount)
                     setModalVisible(true);
                     if(give === 1 && take ===0){
-                         
-                         
-                        await dbObject.setLoanGivenRecord(bookid, amount, date, duedated, give, take, attachment, remarks, partner_contact,customerName, contactid, typedb, modedb, installmentdb, totalMonths,interestdb, loanName, installmentAmountdb)
+                        await dbObject.setLoanGivenRecord(bookid, amount, date, duedated, give, take, attachment, remarks, partner_contact,customerName, contactid, typedb, modedb, selectedValueI, totalMonths,interestdb, loanName, installmentAmountFinal,totalAmount)
 
                     }
                     if(give===0 && take === 1){
-                        await dbObject.setLoanTakenRecord(bookid, amount, date, duedated, give, take, attachment, remarks, partner_contact,customerName, contactid, typedb, modedb, installmentdb, totalMonths,interestdb, loanName, installmentAmountdb)
+                        await dbObject.setLoanTakenRecord(bookid, amount, date, duedated, give, take, attachment, remarks, partner_contact,customerName, contactid, typedb, modedb, selectedValueI, totalMonths,interestdb, loanName, installmentAmountFinal, totalAmount)
 
                     }
                    
-                    storeObject.setLoanRecords({bookid, amount, date, duedated, give, take, attachment, remarks, partner_contact, contactid, typedb, modedb, installmentdb, totalMonths,interestdb, loanName, installmentAmountdb})
+                    storeObject.setLoanRecords({bookid, amount, date, duedated, give, take, attachment, remarks, partner_contact,customerName, contactid, typedb, modedb, selectedValueI, totalMonths,interestdb, loanName, installmentAmountFinal})
 
                     setTimeout(function(){
                         navigation.goBack()

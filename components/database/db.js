@@ -4,7 +4,7 @@ import storeObject from "../../store/store";
 import { Alert } from 'react-native';
 
 
-const db = SQLite.openDatabase("ljdbtest69.db", null, SQLite.CREATE_IF_NECESSARY);
+const db = SQLite.openDatabase("ljdbtest70.db", null, SQLite.CREATE_IF_NECESSARY);
 
 
 class database {
@@ -171,7 +171,7 @@ class database {
             // );
             tx.executeSql(
                 
-                "create table if not exists loanrecords (recordid integer primary key AUTOINCREMENT,txid text, customername text, bookId integer, amountTaken integer DEFAULT 0,amountGiven integer DEFAULT 0, date text, duedate text,lastupdated text NOT NULL, give integer, take integer, attachment text, remarks text, contactno text, uploaded integer, interest integer, type text, mode text, installment integer, totalMonths integer, loanName text, installmentAmount text,isactive integer, remoteid text);",
+                "create table if not exists loanrecords (recordid integer primary key AUTOINCREMENT,txid text, customername text, bookId integer, amountTaken integer DEFAULT 0,amountGiven integer DEFAULT 0, date text, duedate text,lastupdated text NOT NULL, give integer, take integer, attachment text, remarks text, contactno text, uploaded integer, interest integer, type text, mode text, installment integer, totalMonths integer, loanName text, installmentAmount text, total integer,isactive integer, remoteid text);",
                 [],
                 (tx, results) => {
                     // //console.log('Loan table query success Results', results);
@@ -495,7 +495,7 @@ class database {
 
 
 
-    setLoanTakenRecord(bookid, amountTaken, date, duedate, give, take, attachment, remarks, partner_contact,customerName, phoneid, typedb, mode, installment, totalMonths, interest, loanName, installmentAmount) {
+    setLoanTakenRecord(bookid, amountTaken, date, duedate, give, take, attachment, remarks, partner_contact,customerName, phoneid, typedb, mode, installment, totalMonths, interest, loanName, installmentAmount, total) {
 
         //recordid, txid, book_id, amount, date, duedate, give, take, attachment, remarks, partner_contact, uploaded, interest, type,installment , totalMonths , loanName , installmentAmount , remoteid
 
@@ -505,7 +505,7 @@ class database {
       
        db.transaction(tx => {
            tx.executeSql(
-               "INSERT INTO loanrecords ( bookid , amountTaken , date , duedate ,lastupdated ,give , take , attachment , remarks , contactno,customername  , uploaded , interest , type , mode ,  installment , totalMonths, loanName, installmentAmount ) VALUES (" + bookid + "," + amountTaken + ",'" + date + "', '" + duedate +"', '" + lastUpdate + "', " + give + ", " + take + ", '" + attachment + "', '" + remarks + "', '" + partner_contact  + "', '" +customerName+ "' ,0, '" + interest + "', '"+typedb+"','"+mode+"','"+installment+"',"+totalMonths+",'"+loanName+"', "+installmentAmount+")",
+               "INSERT INTO loanrecords ( bookid , amountTaken , date , duedate ,lastupdated ,give , take , attachment , remarks , contactno,customername  , uploaded , interest , type , mode ,  installment , totalMonths, loanName, installmentAmount, total ) VALUES (" + bookid + "," + amountTaken + ",'" + date + "', '" + duedate +"', '" + lastUpdate + "', " + give + ", " + take + ", '" + attachment + "', '" + remarks + "', '" + partner_contact  + "', '" +customerName+ "' ,0, '" + interest + "', '"+typedb+"','"+mode+"','"+installment+"',"+totalMonths+",'"+loanName+"', "+installmentAmount+", "+total+")",
                [],
                (tx, results) => {
 
