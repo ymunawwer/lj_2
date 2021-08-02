@@ -4,7 +4,7 @@ import storeObject from "../../store/store";
 import { Alert } from 'react-native';
 
 
-const db = SQLite.openDatabase("ljdbtest70.db", null, SQLite.CREATE_IF_NECESSARY);
+const db = SQLite.openDatabase("ljdbtest73.db", null, SQLite.CREATE_IF_NECESSARY);
 
 
 class database {
@@ -171,7 +171,29 @@ class database {
             // );
             tx.executeSql(
                 
-                "create table if not exists loanrecords (recordid integer primary key AUTOINCREMENT,txid text, customername text, bookId integer, amountTaken integer DEFAULT 0,amountGiven integer DEFAULT 0, date text, duedate text,lastupdated text NOT NULL, give integer, take integer, attachment text, remarks text, contactno text, uploaded integer, interest integer, type text, mode text, installment integer, totalMonths integer, loanName text, installmentAmount text, total integer,isactive integer, remoteid text);",
+                "create table if not exists loanrecords (recordid integer primary key AUTOINCREMENT,txid text, customername text, bookId integer, amountTaken integer DEFAULT 0,amountGiven integer DEFAULT 0, date text, duedate text,lastupdated text NOT NULL, give integer, take integer, attachment text, remarks text, contactno text, uploaded integer, interest integer, type text, mode text, installment integer, totalMonths integer, loanName text, installmentAmount text, total integer,numberofinstallment integer, isactive integer, remoteid text);",
+                [],
+                (tx, results) => {
+                    // //console.log('Loan table query success Results', results);
+                }, (t, error) => {
+                    // //console.log('Constructor error : ', error)
+                }
+            );
+        });
+
+        await db.transaction(tx => {
+            //      tx.executeSql(
+            //     "DROP table loanrecords;",
+            //     [],
+            //     (tx, results) => {
+            //         // //console.log('Record table query success Results', results);
+            //     }, (t, error) => {
+            //         // //console.log('Constructor error : ', error)
+            //     }
+            // );
+            tx.executeSql(
+                
+                "create table if not exists installments (installmentid integer primary key AUTOINCREMENT, installmentNumber integer, bookId integer, loanName text, date text, duedate text, installmentAmount integer, isPaid integer);",
                 [],
                 (tx, results) => {
                     // //console.log('Loan table query success Results', results);
@@ -295,6 +317,65 @@ class database {
             );
         });
          })
+    }
+
+    
+
+    addInstallmentData(numberofinstallment,bookid,loanName,date,duedated,installmentAmountFinal){
+
+        var i = 0;
+        var iq2 = "";
+
+        var iq1 = "INSERT INTO installments (installmentNumber,bookId,loanName,date,duedate,installmentAmount,isPaid) VALUES ";
+        for(i=0;i<numberofinstallment;i++){
+            iq2 += "("+numberofinstallment + ", " + bookid + ", '" + loanName+ "','"+ date+ "','"+ duedated+ "',"+installmentAmountFinal+",0)";
+            if(i==numberofinstallment-1){
+                iq2+="";
+            }else{
+                iq2+=",";
+            }
+        }
+        var iqfinal = iq1+iq2;
+        console.log(iqfinal)
+        return new Promise((resolve, reject) =>{
+            console.log("in console", iqfinal)
+
+            db.transaction(tx => {
+                tx.executeSql(
+                    iqfinal,
+                    [],
+                    (tx, results) => {
+                        console.log("Added Installment details", results.rows)
+                        resolve("Added Installment details", results.rows)
+                    }, (t, error) => {
+                        console.log("Error", error)
+                    }
+                );
+            });
+
+         })
+
+        
+
+    }
+
+    getInstallmentData(loanName){
+
+        return new Promise((resolve, reject) =>{
+            db.transaction(tx => {
+                tx.executeSql(
+                    "SELECT * FROM installments where loanName='"+loanName+"'",
+                    [],
+                    (tx, results) => {
+                        resolve(results)
+                        // console.log('INstalmment data : Results', results);
+                    }, (t, error) => {
+                        reject(error)
+                        // //console.log('setrecord : error : ', error)
+                    }
+                );
+            });
+        })
     }
 
 
@@ -470,7 +551,7 @@ class database {
 
     }
 
-     setLoanGivenRecord(bookid, amountGiven, date, duedate, give, take, attachment, remarks, partner_contact,customerName, phoneid, typedb, mode, installment, totalMonths, interest, loanName, installmentAmount) {
+     setLoanGivenRecord(bookid, amountGiven, date, duedate, give, take, attachment, remarks, partner_contact,customerName, phoneid, typedb, mode, installment, totalMonths, interest, loanName, installmentAmount,total,noi) {
 
          //recordid, txid, book_id, amount, date, duedate, give, take, attachment, remarks, partner_contact, uploaded, interest, type,installment , totalMonths , loanName , installmentAmount , remoteid
 
@@ -480,7 +561,7 @@ class database {
       
         db.transaction(tx => {
             tx.executeSql(
-                "INSERT INTO loanrecords ( bookid,isactive , amountGiven , date , duedate,lastupdated , give , take , attachment , remarks , contactno,customername , uploaded , interest , type , mode ,  installment , totalMonths, loanName, installmentAmount ) VALUES (" + bookid + "," +1+ "," + amountGiven + ",'" + date + "', '" + duedate + "', '" +lastUpdate+ "', "+ give + ", " + take + ", '" + attachment + "', '" + remarks + "', '" + partner_contact+ "', '" + customerName + "' ,0, '" + interest + "', '"+typedb+"','"+mode+"','"+installment+"',"+totalMonths+",'"+loanName+"', "+installmentAmount+")",
+                "INSERT INTO loanrecords ( bookid,isactive , amountGiven , date , duedate,lastupdated , give , take , attachment , remarks , contactno,customername , uploaded , interest , type , mode ,  installment , totalMonths, loanName, installmentAmount,total, numberofinstallment ) VALUES (" + bookid + "," +1+ "," + amountGiven + ",'" + date + "', '" + duedate + "', '" +lastUpdate+ "', "+ give + ", " + take + ", '" + attachment + "', '" + remarks + "', '" + partner_contact+ "', '" + customerName + "' ,0, '" + interest + "', '"+typedb+"','"+mode+"','"+installment+"',"+totalMonths+",'"+loanName+"', "+installmentAmount+", "+total+", "+noi+")",
                 [],
                 (tx, results) => {
 
@@ -495,7 +576,7 @@ class database {
 
 
 
-    setLoanTakenRecord(bookid, amountTaken, date, duedate, give, take, attachment, remarks, partner_contact,customerName, phoneid, typedb, mode, installment, totalMonths, interest, loanName, installmentAmount, total) {
+    setLoanTakenRecord(bookid, amountTaken, date, duedate, give, take, attachment, remarks, partner_contact,customerName, phoneid, typedb, mode, installment, totalMonths, interest, loanName, installmentAmount, total,noi) {
 
         //recordid, txid, book_id, amount, date, duedate, give, take, attachment, remarks, partner_contact, uploaded, interest, type,installment , totalMonths , loanName , installmentAmount , remoteid
 
@@ -505,7 +586,7 @@ class database {
       
        db.transaction(tx => {
            tx.executeSql(
-               "INSERT INTO loanrecords ( bookid , amountTaken , date , duedate ,lastupdated ,give , take , attachment , remarks , contactno,customername  , uploaded , interest , type , mode ,  installment , totalMonths, loanName, installmentAmount, total ) VALUES (" + bookid + "," + amountTaken + ",'" + date + "', '" + duedate +"', '" + lastUpdate + "', " + give + ", " + take + ", '" + attachment + "', '" + remarks + "', '" + partner_contact  + "', '" +customerName+ "' ,0, '" + interest + "', '"+typedb+"','"+mode+"','"+installment+"',"+totalMonths+",'"+loanName+"', "+installmentAmount+", "+total+")",
+               "INSERT INTO loanrecords ( bookid , amountTaken , date , duedate ,lastupdated ,give , take , attachment , remarks , contactno,customername  , uploaded , interest , type , mode ,  installment , totalMonths, loanName, installmentAmount, total,numberofinstallment ) VALUES (" + bookid + "," + amountTaken + ",'" + date + "', '" + duedate +"', '" + lastUpdate + "', " + give + ", " + take + ", '" + attachment + "', '" + remarks + "', '" + partner_contact  + "', '" +customerName+ "' ,0, '" + interest + "', '"+typedb+"','"+mode+"','"+installment+"',"+totalMonths+",'"+loanName+"', "+installmentAmount+", "+total+", "+noi+")",
                [],
                (tx, results) => {
 

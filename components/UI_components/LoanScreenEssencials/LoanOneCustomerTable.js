@@ -8,6 +8,10 @@ const LoanOneCustomerTable = (props) => {
 
   const { navigation, lan = "english", data = []} = props
 
+
+  // await dbObject.getInstallmentData(loanName);
+
+
   const headerItems = [
   "Date",
     "Installment",
@@ -22,8 +26,13 @@ const LoanOneCustomerTable = (props) => {
   //For eg: width: widthArr[0] for first item
   const widthArr = [130,130, 130, 130, 130, 130, 130]
 
+  
   const customItem = (item, index) => {
+    var i = 0;
+    
+
     return (
+      
       <TouchableOpacity onPress={() => {
         console.log("Item ID new = " , item)
         navigation.navigate('EntryDetails')
@@ -31,7 +40,7 @@ const LoanOneCustomerTable = (props) => {
         storeObject.setRecordLoanYes(1)
         
       }}>
-        <View style={[mStyle.container,{alignItems:'center',width:'100%'}]}>
+        <View style={[mStyle.container,{alignItems:'center',width:'100%', flex: 1}]}>
 
           <Text
             style={[styles.greyTextSm, styleI.timeDate,{paddingHorizontal:5}]}
@@ -50,7 +59,7 @@ const LoanOneCustomerTable = (props) => {
           
 <View style={[styleI.cardGiveAmt,{backgroundColor:'#fff'}]}>
             <Text style={[styles.takeAmountText]}>
-            {item['installment']}
+            {item['installment'] +' #'+item['numberofinstallment']}
               
             </Text>
           </View>
@@ -114,7 +123,7 @@ const LoanOneCustomerTable = (props) => {
             {
               item.give === 1 ?
                 <Text
-                  style={[styles.greyTextSm, styles.giveAmountText]}>{'₹ ' + item['amountGiven']}</Text> :
+                  style={[styles.greyTextSm, styles.giveAmountText]}>{'₹ '+ item['amountGiven']}</Text> :
                 <Text
                   style={[styles.greyTextSm, styles.takeAmountText]}>{'₹ ' + item['amountTaken'] }</Text>
             }
@@ -132,8 +141,122 @@ const LoanOneCustomerTable = (props) => {
           </View>
         </View>
       </TouchableOpacity>
+      
     );
   }
+
+//   const customItem = (item, index) => {
+//     return (
+//       <TouchableOpacity onPress={() => {
+//         console.log("Item ID new = " , item)
+//         navigation.navigate('EntryDetails')
+//         storeObject.setRecordId(item.recordid)
+//         storeObject.setRecordLoanYes(1)
+        
+//       }}>
+//         <View style={[mStyle.container,{alignItems:'center',width:'100%', flex: 1}]}>
+
+//           <Text
+//             style={[styles.greyTextSm, styleI.timeDate,{paddingHorizontal:5}]}
+//           >
+//           {new Date(item.lastupdated).toUTCString().slice(5,25)}
+           
+//           </Text>
+//           {
+//             item.attachment?
+//               <View style={[{marginRight:0}]}>
+//                 {/* <Image style={{width: 22, height: 22,borderRadius:8}} source={{ uri: item.attachment}}/> */}
+//               </View>:console.log('')
+
+//           }
+
+          
+// <View style={[styleI.cardGiveAmt,{backgroundColor:'#fff'}]}>
+//             <Text style={[styles.takeAmountText]}>
+//             {item['installment']}
+              
+//             </Text>
+//           </View>
+
+//           <View style={styleI.cardGiveAmt}>
+//             <Text style={[styles.greyTextSm, styles.giveAmountText]}>
+//               {item.duedate}
+//             </Text>
+//           </View>
+//           {/* <View style={[styleI.cardTakeAmt, styleI.greenBack]}>
+//             <Text style={[styles.greyTextSm, styles.takeAmountText]}>
+//               {
+//                 item.give === 0 ?
+//                   '₹ ' + item['amountTaken'] 
+//                   :
+//                   console.log('')
+                
+//               }
+//             </Text>
+
+//           </View> */}
+
+// {/* <View style={[styleI.cardGiveAmt,{backgroundColor:'red'}]}>
+//             <Text style={[styles.greyTextSm, styles.giveAmountText]}>
+//             ₹ 100
+              
+//             </Text>
+//           </View> */}
+
+// <View style={[styleI.cardGiveAmt,{backgroundColor:'white'}]}>
+//             <Text style={[styles.greyTextSm, styles.giveAmountText,{color:'black'}]}>
+//             {item.installmentAmount}
+              
+//             </Text>
+//           </View>
+
+//           <View style={styleI.cardGiveAmt}>
+//             <Text style={[styles.greyTextSm, styles.giveAmountText]}>
+//               {
+//                 item.give === 1 ?
+//                   '₹ ' + item['amountGiven']
+//                   :
+//                   '₹' + item['amountTaken'] 
+                
+//               }
+//             </Text>
+//           </View>
+//           <View style={[styleI.cardTakeAmt, styleI.greenBack]}>
+//             <Text style={[styles.greyTextSm, styles.takeAmountText]}>
+//               {
+//                 item.give === 0 ?
+//                   '₹ ' + item['amountTaken'] 
+//                   :
+//                   console.log('')
+                
+//               }
+//             </Text>
+
+//           </View>
+//           <View style={styleI.cardTakeAmt}>
+//             {
+//               item.give === 1 ?
+//                 <Text
+//                   style={[styles.greyTextSm, styles.giveAmountText]}>{'₹ ' + item['amountGiven']}</Text> :
+//                 <Text
+//                   style={[styles.greyTextSm, styles.takeAmountText]}>{'₹ ' + item['amountTaken'] }</Text>
+//             }
+//             <Text
+//               style={[styles.greyTextSm, styles.boldText, {color: "#f9c032"}]}>{'+ ₹ ' + props?.getTotalAmount(item['give']===1?item['amountGiven']:(item['give']===0?item['amountTaken'] :0), item.interest, item.installment, item.totalMonths)}</Text>
+
+// {
+//               item.give === 1 ?
+//               <Text
+//               style={[styles.greyTextSm, styles.boldText, {color: "black"}]}>{'= ₹ ' + (Math.round(props?.getTotalAmount(item['give']===1?item['amountGiven']:(item['give']===0?item['amountGiven'] : 0), item.interest, item.installment, item.totalMonths) + item['amountGiven']))}</Text> :
+//               <Text
+//               style={[styles.greyTextSm, styles.boldText, {color: "black"}]}>{'= ₹ ' + (Math.round(props?.getTotalAmount(item['give']===0?item['amountTaken']:(item['give']===0?item['amountTaken'] : 0), item.interest, item.installment, item.totalMonths) + item['amountTaken']))}</Text>
+//             }
+            
+//           </View>
+//         </View>
+//       </TouchableOpacity>
+//     );
+//   }
 
   return (
     <View style={{flex: 1}}>
