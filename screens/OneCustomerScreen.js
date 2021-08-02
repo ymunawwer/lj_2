@@ -72,6 +72,8 @@ function OneCustomerScreen(props) {
         (async () => {
 
             try {
+                
+                await dbObject.getInstallmentData();
                 const records = await dbObject.getRecordsOfUser(route.params.phoneNumber, props.personals.currentBookId)
                 // console.log("Records = ", records)
                 storeObject.setRecords(records)
